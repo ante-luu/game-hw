@@ -13,6 +13,7 @@ const gameElementStyles = {
     font-weight: 500;
     margin-bottom: 20px;
     line-height: 1.4;
+    color:black;
   `,
   message: `
     margin: 20px 0;
