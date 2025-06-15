@@ -9,7 +9,7 @@ import logger from '../utils/logger.js';
  * в виде квадрата и его HEX-кода. Также показываются комплименты и цитаты
  * о цветах.
  */
-function startColorGeneratorGame() {
+export function startColorGeneratorGame() {
     logger.info('Starting Color Generator Game');
     let score = 0;
     
@@ -195,5 +195,3 @@ function startColorGeneratorGame() {
         throw error;
     }
 }
-
-export { startColorGeneratorGame };

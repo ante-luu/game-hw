@@ -9,7 +9,7 @@ import logger from '../utils/logger.js';
  * После каждого ответа показывается результат и мотивирующее сообщение.
  * В конце игры выводится общий результат и возможность начать заново.
  */
-function startQuizGame() {
+export function startQuizGame() {
     logger.info('Starting Quiz Game');
     let currentQuestion = 0;
     let score = 0;
@@ -619,5 +619,3 @@ function startQuizGame() {
         throw error;
     }
 }
-
-export { startQuizGame };
