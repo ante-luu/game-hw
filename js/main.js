@@ -43,7 +43,11 @@ async function startGameSafely(gameFunction, gameName) {
         await gameFunction();
     } catch (error) {
         logger.error(`Ошибка при запуске игры ${gameName}:`, error);
-        showErrorModal(`Произошла ошибка при запуске игры "${gameName}".<br><br>Ошибка: ${error.message}`);
+        console.error('Полная ошибка:', error);
+        showErrorModal(`Произошла ошибка при запуске игры "${gameName}".<br><br>
+            Тип ошибки: ${typeof error}<br>
+            Ошибка: ${error && error.message ? error.message : error}<br>
+            Стек: ${error && error.stack ? error.stack : 'нет данных'}`);
     }
 }
 
