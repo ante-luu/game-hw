@@ -74,14 +74,18 @@ export function startColorGeneratorGame() {
         title.style.cssText = modalStyles.modalTitle;
         title.textContent = 'Генератор случайных цветов';
 
-        let description = gameContent.querySelector('.color-description');
-        if (!description) {
-            description = document.createElement('div');
-            description.className = 'color-description';
-            description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
-            gameContent.insertBefore(description, title.nextSibling);
+        function showColor() {
+            let description = gameContent.querySelector('.color-description');
+            if (!description) {
+                description = document.createElement('div');
+                description.className = 'color-description';
+                description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+                gameContent.insertBefore(description, title.nextSibling);
+            }
+            description.textContent = 'Нажмите на кнопку, чтобы сгенерировать случайный цвет и узнать его название.';
         }
-        description.textContent = 'Нажмите на кнопку, чтобы сгенерировать случайный цвет и узнать его название.';
+
+        showColor();
 
         const colorDisplay = document.createElement('div');
         colorDisplay.style.cssText = gameElementStyles.colorDisplay;
@@ -176,7 +180,7 @@ export function startColorGeneratorGame() {
             document.body.removeChild(modal);
         });
 
-        gameContent.appendChild(description);
+        gameContent.appendChild(showColor());
         gameContent.appendChild(title);
         gameContent.appendChild(colorDisplay);
         gameContent.appendChild(colorCode);
