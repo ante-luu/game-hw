@@ -131,14 +131,17 @@ export function startRockPaperScissorsGame() {
             
             resultDisplay.textContent = `${emojis[choice]} vs ${emojis[computerChoice]} - ${result}`;
             
-            // Выбираем сообщение в зависимости от результата
+            const category = 'Камень, ножницы, бумага';
             let message;
             if (result === 'Ты победил!') {
-                message = gameMessages.compliments[Math.floor(Math.random() * gameMessages.compliments.length)];
+                const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
+                message = encouragements && encouragements.length
+                    ? encouragements[Math.floor(Math.random() * encouragements.length)]
+                    : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
             } else if (result === 'Ничья!') {
                 message = 'Ничья! Попробуй еще раз! 🤝';
             } else {
-                message = gameMessages.motivation[Math.floor(Math.random() * gameMessages.motivation.length)];
+                message = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
             }
             
             messageDisplay.textContent = message;
