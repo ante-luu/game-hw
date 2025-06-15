@@ -13,7 +13,7 @@ import logger from '../utils/logger.js';
  * 
  * @returns {Promise<void>}
  */
-async function startGuessNumberGame() {
+export async function startGuessNumberGame() {
     try {
         // Генерируем случайное число
         const secretNumber = Math.floor(Math.random() * 100) + 1;
@@ -181,5 +181,3 @@ async function startGuessNumberGame() {
     }
 }
 
-// Экспортируем функцию запуска игры
-export default startGuessNumberGame;
