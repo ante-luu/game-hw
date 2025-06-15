@@ -540,16 +540,11 @@ export function startQuizGame() {
                             ? window.gameMessages.encouragements[currentCategory][Math.floor(Math.random() * window.gameMessages.encouragements[currentCategory].length)]
                             : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
                         
-                        // Для советского кино и мультфильмов показываем факт
-                        if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
-                            && quizSets[currentCategory][currentQuestion].fact) {
-                            const fact = quizSets[currentCategory][currentQuestion].fact;
+                        if (currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') {
+                            // Только поощрение (без цитаты и без факта)
                             reward = `
                                 <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
                                     ${randomEncouragement}
-                                </div>
-                                <div style="margin-top: 15px; font-size: 18px; color: #202027;">
-                                    ${fact}
                                 </div>`;
                         } else {
                             // Для остальных категорий показываем поощрение и случайную цитату по категории
@@ -569,6 +564,7 @@ export function startQuizGame() {
                         message.innerHTML = `Правильно! 🎉${reward}`;
                         message.style.color = '#33d17a';
 
+                        // Факт только отдельным блоком для советских категорий
                         if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
                             && quizSets[currentCategory][currentQuestion].fact) {
                             const fact = quizSets[currentCategory][currentQuestion].fact;
@@ -578,20 +574,20 @@ export function startQuizGame() {
                         logger.info(`Wrong answer: ${text}`);
                         const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                         let messageContent = `
-                            <div style="color: #ff0000;">
+                            <div style="color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 10px;">
                                 Неправильно! 😢
                             </div>
                             <div style="margin-top: 15px; font-size: 18px; color: #202027;">
                                 ${randomMotivation}
                             </div>`;
 
-                        // Показываем факт при неправильном ответе для определенных категорий
+                        // Факт только отдельным блоком для советских категорий
                         if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
                             && quizSets[currentCategory][currentQuestion].fact) {
                             const fact = quizSets[currentCategory][currentQuestion].fact;
                             messageContent += `
                                 <div style="margin-top: 15px; font-size: 18px; color: #202027; background: #f5f5f5; border-radius: 8px; padding: 10px;">
-                                    <b>Интересный факт:</b> ${fact}
+                                    <b>Факт:</b> ${fact}
                                 </div>`;
                         }
 
