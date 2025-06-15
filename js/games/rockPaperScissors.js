@@ -180,24 +180,16 @@ export function startRockPaperScissorsGame() {
     choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
-        Object.assign(button.style, {
-            ...modalStyles.button,
-            padding: window.innerWidth <= 768 ? '10px 10px' : '15px 30px',
-            fontSize: window.innerWidth <= 768 ? '18px' : '24px',
-            borderRadius: '12px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-        });
-
+        button.style.cssText = modalStyles.button + 'padding: 15px 30px; font-size: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);';
+        if (window.innerWidth <= 768) {
+            button.style.cssText = modalStyles.button + 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);';
+        }
         button.addEventListener('mouseover', () => {
-            button.style.transform = 'translateY(-2px)';
-            button.style.boxShadow = '0 6px 8px rgba(0, 0, 0, 0.2)';
+            button.style.cssText = modalStyles.button + (modalStyles.buttonHover || '') + (window.innerWidth <= 768 ? 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);' : 'padding: 15px 30px; font-size: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);');
         });
-
         button.addEventListener('mouseout', () => {
-            button.style.transform = 'translateY(0)';
-            button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            button.style.cssText = modalStyles.button + (window.innerWidth <= 768 ? 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);' : 'padding: 15px 30px; font-size: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);');
         });
-
         button.addEventListener('click', () => handlePlayerChoice(choice));
         buttonsContainer.appendChild(button);
     });

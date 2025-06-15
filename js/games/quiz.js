@@ -475,12 +475,7 @@ export function startQuizGame() {
     function createOptionButton(text, index) {
         try {
             const button = document.createElement('button');
-            button.style.cssText = {
-                ...modalStyles.button,
-                width: '100%',
-                textAlign: 'left',
-                padding: '15px 20px'
-            };
+            button.style.cssText = modalStyles.button + 'width: 100%; text-align: left; padding: 15px 20px;';
             button.textContent = text;
 
             button.addEventListener('click', () => {
