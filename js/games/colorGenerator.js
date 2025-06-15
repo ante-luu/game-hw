@@ -134,13 +134,24 @@ export function startColorGeneratorGame() {
                 colorCode.textContent = newColor.name ? `${newColor.name} (${newColor.value})` : newColor.value;
                 score++;
 
+                const category = 'Генератор цветов';
+                const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
+                const randomEncouragement = encouragements && encouragements.length
+                    ? encouragements[Math.floor(Math.random() * encouragements.length)]
+                    : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                const randomQuote = categoryQuotes && categoryQuotes.length
+                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
+                let colorNameBlock = '';
+                if (newColor.name) {
+                    colorNameBlock = `<div style=\"margin-bottom: 10px; color: #202027; font-weight: bold;\">${newColor.name}</div>`;
+                }
                 if (score % 2 === 0) {
-                    const randomQuote = colorQuotes[Math.floor(Math.random() * colorQuotes.length)];
-                    message.innerHTML = randomQuote;
+                    message.innerHTML = `${colorNameBlock}<div>${randomQuote}</div>`;
                     logger.info('Displayed color quote');
                 } else {
-                    const randomCompliment = colorCompliments[Math.floor(Math.random() * colorCompliments.length)];
-                    message.textContent = randomCompliment;
+                    message.innerHTML = `${colorNameBlock}<div>${randomEncouragement}</div>`;
                     logger.info('Displayed color compliment');
                 }
                 message.style.color = '#202027';
