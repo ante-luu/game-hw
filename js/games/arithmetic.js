@@ -123,6 +123,7 @@ export function startArithmeticGame() {
         
         const userAnswer = parseFloat(input.value);
         totalQuestions++;
+        const category = 'Арифметика';
 
         try {
             if (isNaN(userAnswer)) {
@@ -138,24 +139,28 @@ export function startArithmeticGame() {
 
             if (userAnswer === currentAnswer) {
                 score++;
-                const randomCompliment = gameMessages.compliments[Math.floor(Math.random() * gameMessages.compliments.length)];
+                // Поощрение по категории или общее
+                const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
+                const randomEncouragement = encouragements && encouragements.length
+                    ? encouragements[Math.floor(Math.random() * encouragements.length)]
+                    : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                // Цитата по категории или общая
+                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                const randomQuote = categoryQuotes && categoryQuotes.length
+                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                 message.innerHTML = `
-                    <div style="margin-bottom: 15px; color: #33d17a;">
-                        Правильно! ${randomCompliment}
-                    </div>
-                    ${getRandomQuote()}
+                    <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Правильно! 🎉</div>
+                    <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
+                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
                 `;
                 message.style.background = '#e8f5e9';
                 logger.info('Correct answer', { userAnswer, correctAnswer: currentAnswer });
             } else {
-                const randomMotivation = gameMessages.motivation[Math.floor(Math.random() * gameMessages.motivation.length)];
+                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                 message.innerHTML = `
-                    <div style="margin-bottom: 15px; color: #202027;">
-                        Неправильно! Правильный ответ: ${currentAnswer}
-                    </div>
-                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">
-                        "${randomMotivation}"
-                    </div>
+                    <div style="margin-bottom: 15px; color: #ff4444; font-weight: bold;">Неправильно! Правильный ответ: ${currentAnswer}</div>
+                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomMotivation}</div>
                 `;
                 message.style.background = '#f5f5f5';
                 logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
