@@ -1,5 +1,5 @@
 // Общие цитаты и комплименты для всех игр
-const gameMessages = {
+window.gameMessages = {
     compliments: [
         'Отлично! Ты справляешься великолепно! 😊',
         'Восхитительно! Ты настоящий гений! 🌟',
@@ -286,5 +286,11 @@ const gameMessages = {
             emoji: '🎵'
         }
     ]
+};
+
+window.getRandomQuote = function() {
+    const quotes = window.gameMessages.quotes;
+    const random = quotes[Math.floor(Math.random() * quotes.length)];
+    return `<div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">"${random.text}"<br><span style="font-size: 18px; color: #202027;">— ${random.author} ${random.emoji}</span></div>`;
 };
 
