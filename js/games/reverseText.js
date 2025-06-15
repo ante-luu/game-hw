@@ -71,39 +71,39 @@ export function startReverseTextGame() {
     
     // Создаем модальное окно
     const modal = document.createElement('div');
-    Object.assign(modal.style, modalStyles.modal);
+    modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-    Object.assign(gameContent.style, modalStyles.content);
+    gameContent.style.cssText = modalStyles.content;
 
     // Создаем элементы интерфейса
     const title = document.createElement('h2');
-    Object.assign(title.style, modalStyles.title);
+    title.style.cssText = modalStyles.title;
     title.textContent = 'Переверни текст';
 
     const scoreDisplay = document.createElement('p');
-    Object.assign(scoreDisplay.style, modalStyles.score);
+    scoreDisplay.style.cssText = modalStyles.score;
     scoreDisplay.textContent = 'Счёт: 0/0';
 
     const questionDisplay = document.createElement('p');
-    Object.assign(questionDisplay.style, modalStyles.question);
+    questionDisplay.style.cssText = modalStyles.question;
     questionDisplay.textContent = '';
 
     const input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'Введите перевернутый текст';
-    Object.assign(input.style, modalStyles.input);
+    input.style.cssText = modalStyles.input;
 
     const message = document.createElement('p');
-    Object.assign(message.style, modalStyles.message);
+    message.style.cssText = modalStyles.message;
 
     const button = document.createElement('button');
     button.textContent = 'Проверить';
-    Object.assign(button.style, modalStyles.button);
+    button.style.cssText = modalStyles.button;
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
-    Object.assign(closeButton.style, modalStyles.button);
+    closeButton.style.cssText = modalStyles.button;
 
     /**
      * Генерирует новое слово для переворота

@@ -427,193 +427,167 @@ export function startQuizGame() {
 
     try {
     const modal = document.createElement('div');
-        Object.assign(modal.style, modalStyles.modal);
+    modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-        Object.assign(gameContent.style, modalStyles.modalContent);
+    gameContent.style.cssText = modalStyles.content;
 
     const title = document.createElement('h2');
-        Object.assign(title.style, modalStyles.modalTitle);
-        title.textContent = 'Викторина';
+    title.style.cssText = modalStyles.title;
+    title.textContent = 'Викторина';
 
-        const questionContainer = document.createElement('div');
-        Object.assign(questionContainer.style, {
-            margin: '20px 0',
-            textAlign: 'center'
-        });
+    const questionContainer = document.createElement('div');
+    questionContainer.style.cssText = 'margin: 20px 0; text-align: center;';
 
-        const questionText = document.createElement('p');
-        Object.assign(questionText.style, {
-            fontFamily: 'Montserrat',
-            fontSize: '24px',
-            fontWeight: '500',
-            marginBottom: '20px',
-            lineHeight: '1.4'
-        });
+    const questionText = document.createElement('p');
+    questionText.style.cssText = 'font-family: Montserrat; font-size: 24px; font-weight: 500; margin-bottom: 20px; line-height: 1.4;';
 
-        const optionsContainer = document.createElement('div');
-        Object.assign(optionsContainer.style, {
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            margin: '20px 0'
-        });
+    const optionsContainer = document.createElement('div');
+    optionsContainer.style.cssText = 'display: flex; flex-direction: column; gap: 10px; margin: 20px 0;';
 
-        const message = document.createElement('p');
-        Object.assign(message.style, {
-            margin: '20px 0',
-            fontFamily: 'Montserrat',
-            fontSize: '24px',
-            fontWeight: '500',
-            minHeight: '24px',
-            lineHeight: '1.4'
-        });
+    const message = document.createElement('p');
+    message.style.cssText = 'margin: 20px 0; font-family: Montserrat; font-size: 24px; font-weight: 500; min-height: 24px; line-height: 1.4;';
 
-        const scoreDisplay = document.createElement('p');
-        Object.assign(scoreDisplay.style, {
-            margin: '20px 0',
-            fontFamily: 'Montserrat',
-            fontSize: '20px',
-            fontWeight: '600'
-        });
+    const scoreDisplay = document.createElement('p');
+    scoreDisplay.style.cssText = 'margin: 20px 0; font-family: Montserrat; font-size: 20px; font-weight: 600;';
 
-        const nextButton = document.createElement('button');
-        Object.assign(nextButton.style, modalStyles.modalButton);
-        nextButton.textContent = 'Следующий вопрос';
-        nextButton.style.display = 'none';
+    const nextButton = document.createElement('button');
+    nextButton.style.cssText = modalStyles.button;
+    nextButton.textContent = 'Следующий вопрос';
+    nextButton.style.display = 'none';
 
-        const closeButton = document.createElement('button');
-        Object.assign(closeButton.style, modalStyles.modalButton);
-        closeButton.textContent = 'Закрыть';
+    const closeButton = document.createElement('button');
+    closeButton.style.cssText = modalStyles.button;
+    closeButton.textContent = 'Закрыть';
 
-        function createOptionButton(text, index) {
-            try {
-                const button = document.createElement('button');
-                Object.assign(button.style, {
-                    ...modalStyles.modalButton,
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '15px 20px'
-                });
-                button.textContent = text;
+    function createOptionButton(text, index) {
+        try {
+            const button = document.createElement('button');
+            button.style.cssText = {
+                ...modalStyles.button,
+                width: '100%',
+                textAlign: 'left',
+                padding: '15px 20px'
+            };
+            button.textContent = text;
 
-                button.addEventListener('click', () => {
-                    try {
-                        const isCorrect = index === quizSets[currentCategory][currentQuestion].correct;
-            if (isCorrect) {
-                score++;
-                            logger.info(`Correct answer: ${text}`);
-                            message.textContent = 'Правильно! 🎉';
-                            message.style.color = '#33d17a';
-                        } else {
-                            logger.info(`Wrong answer: ${text}`);
-                            message.textContent = 'Неправильно! 😢';
-                            message.style.color = '#ff0000';
-                        }
-
-                        const buttons = optionsContainer.getElementsByTagName('button');
-                        for (let btn of buttons) {
-                            btn.disabled = true;
-                            if (btn === button) {
-                                btn.style.background = isCorrect ? '#33d17a' : '#ff0000';
-                            }
-                        }
-
-                        nextButton.style.display = 'block';
-                    } catch (error) {
-                        logger.error('Error handling answer:', error);
-                        message.textContent = 'Произошла ошибка при проверке ответа';
+            button.addEventListener('click', () => {
+                try {
+                    const isCorrect = index === quizSets[currentCategory][currentQuestion].correct;
+                    if (isCorrect) {
+                        score++;
+                        logger.info(`Correct answer: ${text}`);
+                        message.textContent = 'Правильно! 🎉';
+                        message.style.color = '#33d17a';
+                    } else {
+                        logger.info(`Wrong answer: ${text}`);
+                        message.textContent = 'Неправильно! 😢';
                         message.style.color = '#ff0000';
                     }
-        });
 
-        return button;
-            } catch (error) {
-                logger.error('Error creating option button:', error);
-                throw error;
-            }
+                    const buttons = optionsContainer.getElementsByTagName('button');
+                    for (let btn of buttons) {
+                        btn.disabled = true;
+                        if (btn === button) {
+                            btn.style.background = isCorrect ? '#33d17a' : '#ff0000';
+                        }
+                    }
+
+                    nextButton.style.display = 'block';
+                } catch (error) {
+                    logger.error('Error handling answer:', error);
+                    message.textContent = 'Произошла ошибка при проверке ответа';
+                    message.style.color = '#ff0000';
+                }
+            });
+
+            return button;
+        } catch (error) {
+            logger.error('Error creating option button:', error);
+            throw error;
+        }
     }
 
     function showQuestion() {
-            try {
-                const question = quizSets[currentCategory][currentQuestion];
-                questionText.textContent = question.question;
-                optionsContainer.innerHTML = '';
-                message.textContent = '';
-                scoreDisplay.textContent = `Вопрос ${currentQuestion + 1} из ${quizSets[currentCategory].length}`;
+        try {
+            const question = quizSets[currentCategory][currentQuestion];
+            questionText.textContent = question.question;
+            optionsContainer.innerHTML = '';
+            message.textContent = '';
+            scoreDisplay.textContent = `Вопрос ${currentQuestion + 1} из ${quizSets[currentCategory].length}`;
 
-                question.options.forEach((option, index) => {
-                    const button = createOptionButton(option, index);
-                    optionsContainer.appendChild(button);
-                });
+            question.options.forEach((option, index) => {
+                const button = createOptionButton(option, index);
+                optionsContainer.appendChild(button);
+            });
 
-                nextButton.style.display = 'none';
-                logger.info(`Showing question ${currentQuestion + 1}`);
-            } catch (error) {
-                logger.error('Error showing question:', error);
-                message.textContent = 'Произошла ошибка при отображении вопроса';
-                message.style.color = '#ff0000';
-            }
+            nextButton.style.display = 'none';
+            logger.info(`Showing question ${currentQuestion + 1}`);
+        } catch (error) {
+            logger.error('Error showing question:', error);
+            message.textContent = 'Произошла ошибка при отображении вопроса';
+            message.style.color = '#ff0000';
         }
+    }
 
-        nextButton.addEventListener('mouseover', () => {
-            Object.assign(nextButton.style, modalStyles.modalButtonHover);
-        });
+    nextButton.addEventListener('mouseover', () => {
+        Object.assign(nextButton.style, modalStyles.buttonHover);
+    });
 
-        nextButton.addEventListener('mouseout', () => {
-            Object.assign(nextButton.style, modalStyles.modalButton);
-        });
+    nextButton.addEventListener('mouseout', () => {
+        Object.assign(nextButton.style, modalStyles.button);
+    });
 
     nextButton.addEventListener('click', () => {
-            try {
-        currentQuestion++;
-                if (currentQuestion < quizSets[currentCategory].length) {
-            showQuestion();
-        } else {
-                    questionContainer.innerHTML = '';
-            optionsContainer.innerHTML = '';
-                    message.textContent = `Игра окончена! Ваш результат: ${score} из ${quizSets[currentCategory].length}`;
-            message.style.color = '#202027';
-            nextButton.style.display = 'none';
-                    logger.info(`Game finished with score: ${score}/${quizSets[currentCategory].length}`);
-                }
-            } catch (error) {
-                logger.error('Error handling next question:', error);
-                message.textContent = 'Произошла ошибка при переходе к следующему вопросу';
-                message.style.color = '#ff0000';
+        try {
+            currentQuestion++;
+            if (currentQuestion < quizSets[currentCategory].length) {
+                showQuestion();
+            } else {
+                questionContainer.innerHTML = '';
+                optionsContainer.innerHTML = '';
+                message.textContent = `Игра окончена! Ваш результат: ${score} из ${quizSets[currentCategory].length}`;
+                message.style.color = '#202027';
+                nextButton.style.display = 'none';
+                logger.info(`Game finished with score: ${score}/${quizSets[currentCategory].length}`);
             }
-        });
+        } catch (error) {
+            logger.error('Error handling next question:', error);
+            message.textContent = 'Произошла ошибка при переходе к следующему вопросу';
+            message.style.color = '#ff0000';
+        }
+    });
 
-        closeButton.addEventListener('mouseover', () => {
-            Object.assign(closeButton.style, modalStyles.modalButtonHover);
-        });
+    closeButton.addEventListener('mouseover', () => {
+        Object.assign(closeButton.style, modalStyles.buttonHover);
+    });
 
-        closeButton.addEventListener('mouseout', () => {
-            Object.assign(closeButton.style, modalStyles.modalButton);
-        });
+    closeButton.addEventListener('mouseout', () => {
+        Object.assign(closeButton.style, modalStyles.button);
+    });
 
     closeButton.addEventListener('click', () => {
-            logger.info('Closing Quiz Game');
+        logger.info('Closing Quiz Game');
         document.body.removeChild(modal);
-        });
+    });
 
-        const categories = Object.keys(quizSets);
-        currentCategory = categories[Math.floor(Math.random() * categories.length)];
-        logger.info(`Selected category: ${currentCategory}`);
+    const categories = Object.keys(quizSets);
+    currentCategory = categories[Math.floor(Math.random() * categories.length)];
+    logger.info(`Selected category: ${currentCategory}`);
 
-        questionContainer.appendChild(questionText);
+    questionContainer.appendChild(questionText);
     gameContent.appendChild(title);
-        gameContent.appendChild(questionContainer);
+    gameContent.appendChild(questionContainer);
     gameContent.appendChild(optionsContainer);
     gameContent.appendChild(message);
-        gameContent.appendChild(scoreDisplay);
+    gameContent.appendChild(scoreDisplay);
     gameContent.appendChild(nextButton);
     gameContent.appendChild(closeButton);
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
 
     showQuestion();
-        logger.info('Quiz Game initialized successfully');
+    logger.info('Quiz Game initialized successfully');
     } catch (error) {
         logger.error('Error initializing Quiz Game:', error);
         throw error;
