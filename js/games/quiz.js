@@ -695,13 +695,7 @@ function handleAnswer(selectedIndex) {
         const randomCompliment = window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
         messageElement.textContent = `Правильно! ${randomCompliment}`;
         messageElement.style.color = '#4CAF50';
-        
-        // Показываем факт или цитату в зависимости от категории
-        if (currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') {
-            if (currentQuestionObj.fact) {
-                messageElement.innerHTML += `<br><br>${currentQuestionObj.fact}`;
-            }
-        } else {
+        if (!(currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы')) {
             messageElement.innerHTML += window.getRandomQuote();
         }
     } else {
