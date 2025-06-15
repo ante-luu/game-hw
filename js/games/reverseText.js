@@ -213,3 +213,5 @@ export function startReverseTextGame() {
     input.focus();
     logger.info('Reverse Text Game initialized successfully');
 }
+
+window.startReverseTextGame = startReverseTextGame;

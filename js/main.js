@@ -1,6 +1,12 @@
 // Импортируем необходимые модули
 import logger from './utils/logger.js';
 import modalStyles from './styles/modalStyles.js';
+import { startGuessNumberGame } from './games/guessNumber.js';
+import { startArithmeticGame } from './games/arithmetic.js';
+import { startReverseTextGame } from './games/reverseText.js';
+import { startQuizGame } from './games/quiz.js';
+import { startRockPaperScissorsGame } from './games/rockPaperScissors.js';
+import { startColorGeneratorGame } from './games/colorGenerator.js';
 
 // Функция для создания модального окна с ошибкой
 function showErrorModal(message) {
