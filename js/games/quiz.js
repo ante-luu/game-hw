@@ -577,13 +577,25 @@ export function startQuizGame() {
                     } else {
                         logger.info(`Wrong answer: ${text}`);
                         const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
-                        message.innerHTML = `
+                        let messageContent = `
                             <div style="color: #ff0000;">
                                 Неправильно! 😢
                             </div>
                             <div style="margin-top: 15px; font-size: 18px; color: #202027;">
                                 ${randomMotivation}
                             </div>`;
+
+                        // Показываем факт при неправильном ответе для определенных категорий
+                        if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
+                            && quizSets[currentCategory][currentQuestion].fact) {
+                            const fact = quizSets[currentCategory][currentQuestion].fact;
+                            messageContent += `
+                                <div style="margin-top: 15px; font-size: 18px; color: #202027; background: #f5f5f5; border-radius: 8px; padding: 10px;">
+                                    <b>Интересный факт:</b> ${fact}
+                                </div>`;
+                        }
+
+                        message.innerHTML = messageContent;
                     }
 
                     const buttons = optionsContainer.getElementsByTagName('button');
