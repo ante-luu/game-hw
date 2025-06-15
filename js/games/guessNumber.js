@@ -105,12 +105,19 @@ export async function startGuessNumberGame() {
                 }
 
                 if (guess === secretNumber) {
-                    const randomCompliment = gameMessages.compliments[Math.floor(Math.random() * gameMessages.compliments.length)];
+                    const category = 'Угадай число';
+                    const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
+                    const randomEncouragement = encouragements && encouragements.length
+                        ? encouragements[Math.floor(Math.random() * encouragements.length)]
+                        : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                    const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                    const randomQuote = categoryQuotes && categoryQuotes.length
+                        ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                        : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                     message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #33d17a;">
-                            Поздравляем! Вы угадали число ${secretNumber} за ${attempts} попыток! ${randomCompliment}
-                        </div>
-                        ${getRandomQuote()}
+                        <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Поздравляем! Вы угадали число ${secretNumber} за ${attempts} попыток!</div>
+                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
                     `;
                     message.style.background = '#e8f5e9';
                     button.disabled = true;
@@ -119,26 +126,18 @@ export async function startGuessNumberGame() {
                     button.style.cursor = 'default';
                     logger.info('Игра выиграна', { attempts, secretNumber });
                 } else if (guess < secretNumber) {
-                    const randomMotivation = gameMessages.motivation[Math.floor(Math.random() * gameMessages.motivation.length)];
+                    const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #202027;">
-                            Загаданное число больше!
-                        </div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">
-                            "${randomMotivation}"
-                        </div>
+                        <div style="margin-bottom: 15px; color: #202027;">Загаданное число больше!</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">${randomMotivation}</div>
                     `;
                     message.style.background = '#f5f5f5';
                     logger.info('Подсказка: число больше', { guess });
                 } else {
-                    const randomMotivation = gameMessages.motivation[Math.floor(Math.random() * gameMessages.motivation.length)];
+                    const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #202027;">
-                            Загаданное число меньше!
-                        </div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">
-                            "${randomMotivation}"
-                        </div>
+                        <div style="margin-bottom: 15px; color: #202027;">Загаданное число меньше!</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">${randomMotivation}</div>
                     `;
                     message.style.background = '#f5f5f5';
                     logger.info('Подсказка: число меньше', { guess });
