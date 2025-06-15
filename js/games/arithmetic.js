@@ -49,10 +49,22 @@ export function startArithmeticGame() {
     const button = document.createElement('button');
     button.textContent = 'Проверить';
     button.style.cssText = modalStyles.button;
+    button.addEventListener('mouseover', () => {
+        button.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+    });
+    button.addEventListener('mouseout', () => {
+        button.style.cssText = modalStyles.button;
+    });
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
     closeButton.style.cssText = modalStyles.button;
+    closeButton.addEventListener('mouseover', () => {
+        closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+    });
+    closeButton.addEventListener('mouseout', () => {
+        closeButton.style.cssText = modalStyles.button;
+    });
 
     /**
      * Генерирует новую арифметическую задачу

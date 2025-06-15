@@ -64,53 +64,44 @@ export function startColorGeneratorGame() {
     
     try {
         const modal = document.createElement('div');
-        Object.assign(modal.style, modalStyles.modal);
+        modal.style.cssText = modalStyles.modal;
 
         const gameContent = document.createElement('div');
-        Object.assign(gameContent.style, modalStyles.modalContent);
+        gameContent.style.cssText = modalStyles.modalContent;
 
         const title = document.createElement('h2');
-        Object.assign(title.style, modalStyles.modalTitle);
+        title.style.cssText = modalStyles.modalTitle;
         title.textContent = 'Генератор случайных цветов';
 
         const colorDisplay = document.createElement('div');
-        Object.assign(colorDisplay.style, {
-            width: '200px',
-            height: '200px',
-            margin: '30px auto',
-            borderRadius: '24px',
-            background: '#202027',
-            transition: 'background-color 0.3s ease',
-            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
-        });
+        colorDisplay.style.cssText = 'width: 200px; height: 200px; margin: 30px auto; border-radius: 24px; background: #202027; transition: background-color 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);';
 
         const colorCode = document.createElement('p');
-        Object.assign(colorCode.style, {
-            color: '#202027',
-            fontFamily: 'Montserrat',
-            fontSize: '24px',
-            fontWeight: '600',
-            margin: '20px 0'
-        });
+        colorCode.style.cssText = 'color: #202027; font-family: Montserrat; font-size: 24px; font-weight: 600; margin: 20px 0;';
         colorCode.textContent = '#202027';
 
         const message = document.createElement('p');
-        Object.assign(message.style, {
-            margin: '20px 0',
-            fontFamily: 'Montserrat',
-            fontSize: '24px',
-            fontWeight: '500',
-            minHeight: '24px',
-            lineHeight: '1.4'
-        });
+        message.style.cssText = 'margin: 20px 0; font-family: Montserrat; font-size: 24px; font-weight: 500; min-height: 24px; line-height: 1.4;';
 
         const generateButton = document.createElement('button');
-        Object.assign(generateButton.style, modalStyles.modalButton);
+        generateButton.style.cssText = modalStyles.modalButton;
         generateButton.textContent = 'Сгенерировать цвет';
+        generateButton.addEventListener('mouseover', () => {
+            generateButton.style.cssText = modalStyles.modalButton + (modalStyles.modalButtonHover || '');
+        });
+        generateButton.addEventListener('mouseout', () => {
+            generateButton.style.cssText = modalStyles.modalButton;
+        });
 
         const closeButton = document.createElement('button');
-        Object.assign(closeButton.style, modalStyles.modalButton);
+        closeButton.style.cssText = modalStyles.modalButton;
         closeButton.textContent = 'Закрыть';
+        closeButton.addEventListener('mouseover', () => {
+            closeButton.style.cssText = modalStyles.modalButton + (modalStyles.modalButtonHover || '');
+        });
+        closeButton.addEventListener('mouseout', () => {
+            closeButton.style.cssText = modalStyles.modalButton;
+        });
 
         function generateRandomColor() {
             try {
@@ -135,14 +126,6 @@ export function startColorGeneratorGame() {
             }
         }
 
-        generateButton.addEventListener('mouseover', () => {
-            Object.assign(generateButton.style, modalStyles.modalButtonHover);
-        });
-
-        generateButton.addEventListener('mouseout', () => {
-            Object.assign(generateButton.style, modalStyles.modalButton);
-        });
-
         generateButton.addEventListener('click', () => {
             try {
                 const newColor = generateRandomColor();
@@ -165,14 +148,6 @@ export function startColorGeneratorGame() {
                 message.textContent = 'Произошла ошибка при генерации цвета';
                 message.style.color = '#ff0000';
             }
-        });
-
-        closeButton.addEventListener('mouseover', () => {
-            Object.assign(closeButton.style, modalStyles.modalButtonHover);
-        });
-
-        closeButton.addEventListener('mouseout', () => {
-            Object.assign(closeButton.style, modalStyles.modalButton);
         });
 
         closeButton.addEventListener('click', () => {

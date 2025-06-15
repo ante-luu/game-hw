@@ -455,10 +455,22 @@ export function startQuizGame() {
     nextButton.style.cssText = modalStyles.button;
     nextButton.textContent = 'Следующий вопрос';
     nextButton.style.display = 'none';
+    nextButton.addEventListener('mouseover', () => {
+        nextButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+    });
+    nextButton.addEventListener('mouseout', () => {
+        nextButton.style.cssText = modalStyles.button;
+    });
 
     const closeButton = document.createElement('button');
     closeButton.style.cssText = modalStyles.button;
     closeButton.textContent = 'Закрыть';
+    closeButton.addEventListener('mouseover', () => {
+        closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+    });
+    closeButton.addEventListener('mouseout', () => {
+        closeButton.style.cssText = modalStyles.button;
+    });
 
     function createOptionButton(text, index) {
         try {
@@ -530,14 +542,6 @@ export function startQuizGame() {
         }
     }
 
-    nextButton.addEventListener('mouseover', () => {
-        Object.assign(nextButton.style, modalStyles.buttonHover);
-    });
-
-    nextButton.addEventListener('mouseout', () => {
-        Object.assign(nextButton.style, modalStyles.button);
-    });
-
     nextButton.addEventListener('click', () => {
         try {
             currentQuestion++;
@@ -556,14 +560,6 @@ export function startQuizGame() {
             message.textContent = 'Произошла ошибка при переходе к следующему вопросу';
             message.style.color = '#ff0000';
         }
-    });
-
-    closeButton.addEventListener('mouseover', () => {
-        Object.assign(closeButton.style, modalStyles.buttonHover);
-    });
-
-    closeButton.addEventListener('mouseout', () => {
-        Object.assign(closeButton.style, modalStyles.button);
     });
 
     closeButton.addEventListener('click', () => {

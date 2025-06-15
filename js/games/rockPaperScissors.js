@@ -30,17 +30,15 @@ export function startRockPaperScissorsGame() {
     
     // Создаем модальное окно
     const modal = document.createElement('div');
-    Object.assign(modal.style, modalStyles.modal);
+    modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-    Object.assign(gameContent.style, {
-        ...modalStyles.content,
-        maxWidth: '600px'
-    });
+    gameContent.style.cssText = modalStyles.content;
+    gameContent.style.maxWidth = '600px';
 
     // Создаем элементы интерфейса
     const title = document.createElement('h2');
-    Object.assign(title.style, modalStyles.title);
+    title.style.cssText = modalStyles.title;
     title.textContent = 'Камень, ножницы, бумага';
 
     const statsContainer = document.createElement('div');
@@ -98,19 +96,10 @@ export function startRockPaperScissorsGame() {
     statsContainer.appendChild(drawsBox);
 
     const resultDisplay = document.createElement('div');
-    Object.assign(resultDisplay.style, {
-        ...modalStyles.message,
-        fontSize: '24px',
-        minHeight: '36px'
-    });
+    resultDisplay.style.cssText = modalStyles.message + 'font-size: 24px; min-height: 36px;';
 
     const messageDisplay = document.createElement('div');
-    Object.assign(messageDisplay.style, {
-        ...modalStyles.message,
-        fontSize: '18px',
-        minHeight: '27px',
-        color: '#666'
-    });
+    messageDisplay.style.cssText = modalStyles.message + 'font-size: 18px; min-height: 27px; color: #666;';
 
     const buttonsContainer = document.createElement('div');
     buttonsContainer.style.cssText = `
@@ -215,9 +204,12 @@ export function startRockPaperScissorsGame() {
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
-    Object.assign(closeButton.style, {
-        ...modalStyles.button,
-        marginTop: '20px'
+    closeButton.style.cssText = modalStyles.button;
+    closeButton.addEventListener('mouseover', () => {
+        closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+    });
+    closeButton.addEventListener('mouseout', () => {
+        closeButton.style.cssText = modalStyles.button;
     });
 
     closeButton.addEventListener('click', () => {
