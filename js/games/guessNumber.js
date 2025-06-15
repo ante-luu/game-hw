@@ -38,8 +38,13 @@ export async function startGuessNumberGame() {
         title.textContent = 'Угадайка';
         title.style.cssText = modalStyles.title;
 
-        const description = document.createElement('div');
-        description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+        let description = gameContent.querySelector('.guess-description');
+        if (!description) {
+            description = document.createElement('div');
+            description.className = 'guess-description';
+            description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+            gameContent.insertBefore(description, title.nextSibling);
+        }
         description.textContent = 'Угадайте число от 1 до 100. Введите свой вариант и проверьте!';
 
         const attemptsDisplay = document.createElement('p');

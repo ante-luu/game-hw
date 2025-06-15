@@ -31,8 +31,13 @@ export function startArithmeticGame() {
     title.style.cssText = modalStyles.title;
     title.textContent = 'Простая арифметика';
 
-    const description = document.createElement('div');
-    description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+    let description = gameContent.querySelector('.arithmetic-description');
+    if (!description) {
+        description = document.createElement('div');
+        description.className = 'arithmetic-description';
+        description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+        gameContent.insertBefore(description, title.nextSibling);
+    }
     description.textContent = 'Решайте простые арифметические задачи. Введите ответ и проверьте себя.';
 
     const scoreDisplay = document.createElement('p');

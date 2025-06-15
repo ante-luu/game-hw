@@ -43,8 +43,13 @@ export function startReverseTextGame() {
     title.style.cssText = modalStyles.title;
     title.textContent = 'Переверни текст';
 
-    const description = document.createElement('div');
-    description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+    let description = gameContent.querySelector('.reverse-description');
+    if (!description) {
+        description = document.createElement('div');
+        description.className = 'reverse-description';
+        description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+        gameContent.insertBefore(description, title.nextSibling);
+    }
     description.textContent = 'Вы видите текст. Введите его в перевернутом виде. Попробуйте угадать, как он будет выглядеть!';
 
     const scoreDisplay = document.createElement('p');
@@ -181,8 +186,8 @@ export function startReverseTextGame() {
     });
 
     // Собираем интерфейс
-    gameContent.appendChild(description);
     gameContent.appendChild(title);
+    gameContent.appendChild(description);
     gameContent.appendChild(scoreDisplay);
     gameContent.appendChild(questionDisplay);
     gameContent.appendChild(input);
