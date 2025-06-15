@@ -31,45 +31,6 @@ export function startReverseTextGame() {
         'Алиса', 'Питер Пэн', 'Винни Пух', 'Карлсон', 'Буратино', 'Чиполлино'
     ];
 
-    const compliments = [
-        'Отлично! Ты справляешься великолепно! 😊',
-        'Восхитительно! Ты настоящий мастер слов! 🌟',
-        'Потрясающе! Ты делаешь это с легкостью! ⭐',
-        'Браво! Ты на верном пути! 🎯',
-        'Супер! Ты справляешься лучше всех! 🏆',
-        'Невероятно! Ты просто молодец! ❤️',
-        'Превосходно! Ты справляешься на отлично! 🎉',
-        'Замечательно! Ты делаешь это блестяще! ✨',
-        'Фантастически! Ты настоящий профи! 🚀',
-        'Умница! Ты справляешься просто великолепно! 💫'
-    ];
-
-    const motivationalPhrases = [
-        'Не сдавайся! Каждая попытка приближает к победе! 💪',
-        'Продолжай в том же духе! Ты обязательно справишься! 🌟',
-        'Ошибка - это не конец, а подсказка к правильному ответу! 🛣️',
-        'Верь в себя! Ты способен на большее! 💫',
-        'Каждая попытка - это шаг к успеху! 📈',
-        'Не бойся ошибаться, бойся не пробовать! 🎯',
-        'Ты ближе к победе, чем думаешь! ❤️',
-        'Каждая попытка делает тебя сильнее! 💪',
-        'Не останавливайся на достигнутом! 🚀',
-        'Ты справишься, просто продолжай! ⭐'
-    ];
-
-    const idioms = [
-        'Без труда не вытащишь и рыбку из пруда! 🐟',
-        'Терпение и труд всё перетрут! ⚒️',
-        'Ученье свет, а неученье тьма! 📚',
-        'Повторение - мать учения! 🔄',
-        'Глаза боятся, а руки делают! 👀',
-        'Тише едешь - дальше будешь! 🐢',
-        'Семь раз отмерь, один раз отрежь! ✂️',
-        'Не откладывай на завтра то, что можно сделать сегодня! ⏰',
-        'Век живи - век учись! 🎓',
-        'Тяжело в учении - легко в бою! 🛡️'
-    ];
-    
     // Создаем модальное окно
     const modal = document.createElement('div');
     modal.style.cssText = modalStyles.modal;
@@ -160,26 +121,29 @@ export function startReverseTextGame() {
                 return;
             }
 
+            const category = 'Переверни текст';
             if (userAnswer.toLowerCase() === currentAnswer.toLowerCase()) {
                 score++;
-                const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+                const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
+                const randomEncouragement = encouragements && encouragements.length
+                    ? encouragements[Math.floor(Math.random() * encouragements.length)]
+                    : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                const randomQuote = categoryQuotes && categoryQuotes.length
+                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                 message.innerHTML = `
-                    <div style="margin-bottom: 15px; color: #33d17a;">
-                        Правильно! ${randomCompliment}
-                    </div>
-                    ${idioms[Math.floor(Math.random() * idioms.length)]}
+                    <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Правильно! 🎉</div>
+                    <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
+                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
                 `;
                 message.style.background = '#e8f5e9';
                 logger.info('Correct answer', { userAnswer, correctAnswer: currentAnswer });
             } else {
-                const randomMotivation = motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
+                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                 message.innerHTML = `
-                    <div style="margin-bottom: 15px; color: #202027;">
-                        Неправильно! Правильный ответ: ${currentAnswer}
-                    </div>
-                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">
-                        "${randomMotivation}"
-                    </div>
+                    <div style="margin-bottom: 15px; color: #ff4444; font-weight: bold;">Неправильно! Правильный ответ: ${currentAnswer}</div>
+                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomMotivation}</div>
                 `;
                 message.style.background = '#f5f5f5';
                 logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
