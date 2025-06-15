@@ -536,9 +536,9 @@ export function startQuizGame() {
 
     function createOptionButton(text, index) {
         try {
-            const button = document.createElement('button');
+        const button = document.createElement('button');
             button.style.cssText = modalStyles.button + 'width: 100%; text-align: left; padding: 15px 20px;';
-            button.textContent = text;
+        button.textContent = text;
 
             button.addEventListener('click', () => {
                 try {
@@ -549,9 +549,9 @@ export function startQuizGame() {
                         let reward = '';
                         
                         // Получаем случайное поощрение из категории
-                        const randomEncouragement = encouragements[currentCategory] && encouragements[currentCategory].length > 0 
-                            ? encouragements[currentCategory][Math.floor(Math.random() * encouragements[currentCategory].length)]
-                            : compliments[Math.floor(Math.random() * compliments.length)];
+                        const randomEncouragement = window.gameMessages.encouragements && window.gameMessages.encouragements[currentCategory] && window.gameMessages.encouragements[currentCategory].length > 0
+                            ? window.gameMessages.encouragements[currentCategory][Math.floor(Math.random() * window.gameMessages.encouragements[currentCategory].length)]
+                            : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
                         
                         // Для советского кино и мультфильмов показываем факт
                         if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
@@ -565,8 +565,11 @@ export function startQuizGame() {
                                     ${fact}
                                 </div>`;
                         } else {
-                            // Для остальных категорий показываем поощрение и случайную цитату
-                            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                            // Для остальных категорий показываем поощрение и случайную цитату по категории
+                            const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[currentCategory];
+                            const randomQuote = categoryQuotes && categoryQuotes.length
+                                ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                                : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                             reward = `
                                 <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
                                     ${randomEncouragement}
@@ -578,9 +581,15 @@ export function startQuizGame() {
                         
                         message.innerHTML = `Правильно! 🎉${reward}`;
                         message.style.color = '#33d17a';
+
+                        if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
+                            && quizSets[currentCategory][currentQuestion].fact) {
+                            const fact = quizSets[currentCategory][currentQuestion].fact;
+                            message.innerHTML += `<div style="margin-top: 15px; font-size: 18px; color: #202027; background: #f5f5f5; border-radius: 8px; padding: 10px;"><b>Факт:</b> ${fact}</div>`;
+                        }
                     } else {
                         logger.info(`Wrong answer: ${text}`);
-                        const randomMotivation = motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
+                        const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                         message.innerHTML = `
                             <div style="color: #ff0000;">
                                 Неправильно! 😢
@@ -592,8 +601,8 @@ export function startQuizGame() {
 
                     const buttons = optionsContainer.getElementsByTagName('button');
                     for (let btn of buttons) {
-                        btn.disabled = true;
-                        if (btn === button) {
+                btn.disabled = true;
+                if (btn === button) {
                             btn.style.background = isCorrect ? '#33d17a' : '#ff0000';
                         }
                     }
@@ -681,4 +690,45 @@ export function startQuizGame() {
         logger.error('Error initializing Quiz Game:', error);
         throw error;
     }
+}
+
+function handleAnswer(selectedIndex) {
+    const isCorrect = selectedIndex === currentQuestionObj.correct;
+    
+    if (isCorrect) {
+        score++;
+        const randomCompliment = window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+        messageElement.textContent = `Правильно! ${randomCompliment}`;
+        messageElement.style.color = '#4CAF50';
+        
+        // Показываем факт или цитату в зависимости от категории
+        if (currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') {
+            if (currentQuestionObj.fact) {
+                messageElement.innerHTML += `<br><br>${currentQuestionObj.fact}`;
+            }
+        } else {
+            messageElement.innerHTML += window.getRandomQuote();
+        }
+    } else {
+        const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+        messageElement.textContent = `Неправильно! Правильный ответ: ${currentQuestionObj.options[currentQuestionObj.correct]}. ${randomMotivation}`;
+        messageElement.style.color = '#f44336';
+    }
+    
+    // Отключаем все кнопки
+    const buttons = document.querySelectorAll('.quiz-option');
+    buttons.forEach(button => button.disabled = true);
+    
+    // Подсвечиваем правильный ответ
+    buttons[currentQuestionObj.correct].style.backgroundColor = '#4CAF50';
+    buttons[currentQuestionObj.correct].style.color = 'white';
+    
+    // Если ответ был неправильный, подсвечиваем выбранный ответ
+    if (!isCorrect) {
+        buttons[selectedIndex].style.backgroundColor = '#f44336';
+        buttons[selectedIndex].style.color = 'white';
+    }
+    
+    // Показываем кнопку "Следующий вопрос"
+    nextButton.style.display = 'block';
 }
