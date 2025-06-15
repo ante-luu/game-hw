@@ -1,0 +1,28 @@
+.categories {
+    &__grid {
+        @include respond-to(tablet) {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        @include respond-to(desktop) {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+    }
+
+    h2 {
+        @include respond-to(mobile) {
+            font-size: 1.5em;
+        }
+    }
+}
+
+.category-item {
+    @include respond-to(mobile) {
+        padding: 10px;
+    }
+
+    &__title {
+        @include respond-to(mobile) {
+            font-size: 1em;
+        }
+    }
+} 

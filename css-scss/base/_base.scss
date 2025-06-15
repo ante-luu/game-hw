@@ -1,0 +1,48 @@
+// Base styles
+body {
+    font-family: $font-family-base;
+    background: $color-background;
+    color: $color-text;
+    word-break: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 100%;
+    
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit !important;
+} 
+
+@include respond-to(desktop){
+    .container {
+        max-width: 1440px;
+        padding-left: 120px;
+        padding-right: 111px;
+    }
+}
+
+@include respond-to(tablet){
+    .container {
+        max-width: 100%;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+@include respond-to(mobile){
+    .container {
+        max-width: 100%;
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+}
+

@@ -1,0 +1,121 @@
+// Flexbox
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+// Grid
+@mixin grid($columns: 1fr, $gap: 0) {
+    display: grid;
+    grid-template-columns: $columns;
+    gap: $gap;
+}
+
+// Media Queries
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == mobile {
+        @media screen and (max-width: 768px) { @content; }
+    }
+    @if $breakpoint == tablet {
+        @media screen and (min-width: 769px) and (max-width: 1024px) { @content; }
+    }
+    @if $breakpoint == desktop {
+        @media screen and (min-width: 1025px) { @content; }
+    }
+}
+
+// Button
+@mixin button-base {
+    display: inline-block;
+    padding: 12px 32px;
+    background: $color-primary;
+    color: $color-background;
+    border-radius: $border-radius-base;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid $color-primary;
+    cursor: pointer;
+
+    &:hover {
+        background: transparent;
+        color: $color-primary;
+    }
+}
+
+@mixin button($bg-color: $color-primary, $text-color: $color-background, $radius: $border-radius-base) {
+    @include button-base;
+    background: $bg-color;
+    color: $text-color;
+    border-radius: $radius;
+    border: 1px solid $bg-color;
+
+    &:hover {
+        background: transparent;
+        color: $bg-color;
+    }
+}
+
+// Modal
+@mixin modal-base {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color-background, 0.8);
+    z-index: $z-index-modal;
+    @include flex(column, center, center);
+}
+
+// Game card
+@mixin game-card {
+    background-color: $color-secondary;
+    border-radius: $border-radius-md;
+    padding: $spacing-md;
+    transition: transform $transition-normal;
+    
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+// Animations
+@mixin fade-in {
+    animation: fadeIn $transition-normal forwards;
+}
+
+@mixin slide-in {
+    animation: slideIn $transition-normal forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+// Container
+@mixin container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacing-base;
+}
+
+// Animation
+@keyframes float {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        transform: translate(-50%, calc(-50% + 18px));
+    }
+} 

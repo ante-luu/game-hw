@@ -1,0 +1,63 @@
+// Utils
+@import 'utils/mixins';
+@import 'utils/animations';
+
+// Base
+@import 'base/variables';
+@import 'base/base';
+
+// Components
+@import 'components/header';
+@import 'components/footer';
+@import 'components/categories';
+@import 'components/game-list';
+@import 'components/about';
+
+// Games
+//@import 'games/quiz';
+
+// Responsive styles
+@include respond-to(mobile) {
+    .quiz-fact-image {
+        display: none;
+    }
+}
+
+.rps-stats-container {
+    @include respond-to(mobile) {
+        width: 100%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @include respond-to(desktop) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@include respond-to(tablet) {
+    .game-list {
+        &__name {
+            font-size: 40px;
+            color: #222 !important;
+        }
+        &__description {
+            font-size: 22px;
+            color: #222 !important;
+        }
+        &__button {
+            font-size: 22px;
+            padding: 16px 32px;
+            min-width: 180px;
+            margin-top: 24px;
+            display: block;
+        }
+        &__content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 220px;
+        }
+    }
+} 

@@ -1,0 +1,62 @@
+// Colors
+$color-primary: rgb(32, 32, 39);
+$color-secondary: #2D2D35;
+$color-accent: rgb(188, 236, 48);
+$color-text: rgb(255, 255, 255);
+$color-background: rgb(32, 32, 39);
+$color-success: #4CAF50;
+$color-error: #F44336;
+$color-warning: #FFC107;
+$color-header-bg: rgb(225, 255, 143);
+$color-footer-bg: rgb(189, 237, 53);
+
+// Typography
+$font-family-base: "Montserrat", Arial, sans-serif;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 18px;
+$font-size-xlarge: 24px;
+$font-size-xxlarge: 32px;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+$spacing-base: 1rem;
+$spacing-large: 2rem;
+$spacing-xlarge: 3rem;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+
+// Z-index
+$z-index-modal: 1000;
+$z-index-header: 100;
+$z-index-footer: 90;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+$border-radius-base: 60px;
+$border-radius-small: 48px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Layout
+$container-max-width: 1200px;
+$header-height: 800px;
+$header-height-mobile: 700px; 

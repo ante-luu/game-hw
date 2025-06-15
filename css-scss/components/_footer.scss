@@ -1,0 +1,36 @@
+.footer {
+    background: rgb(189, 237, 53);
+    padding: 61px 0;
+    text-align: center;
+    border-top: 1px solid #23242a;
+    padding-left: 15px;
+
+    &__text {
+        color: rgb(0, 0, 0);
+        font-family: $font-family-base;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 29px;
+        letter-spacing: 0px;
+        text-align: center;
+    }
+} 
+@include respond-to(mobile){ 
+.footer{
+    background: rgb(189, 237, 53);
+    padding: 36px 0;
+    text-align: center;
+    border-top: 1px solid #23242a;
+    padding-left: 1px;
+    margin-top: 48px;
+}
+.footer__text {
+    color: rgb(0, 0, 0);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 29px;
+    letter-spacing: 0px;
+    text-align: center;
+}
+}
