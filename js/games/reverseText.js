@@ -1,5 +1,6 @@
 import modalStyles from '../styles/modalStyles.js';
 import logger from '../utils/logger.js';
+import gameElementStyles from '../styles/gameElementStyles.js';
 
 /**
  * Игра "Переверни текст"
@@ -82,11 +83,11 @@ export function startReverseTextGame() {
     title.textContent = 'Переверни текст';
 
     const scoreDisplay = document.createElement('p');
-    scoreDisplay.style.cssText = modalStyles.score;
+    scoreDisplay.style.cssText = gameElementStyles.score;
     scoreDisplay.textContent = 'Счёт: 0/0';
 
     const questionDisplay = document.createElement('p');
-    questionDisplay.style.cssText = modalStyles.question;
+    questionDisplay.style.cssText = gameElementStyles.question;
     questionDisplay.textContent = '';
 
     const input = document.createElement('input');
@@ -95,7 +96,7 @@ export function startReverseTextGame() {
     input.style.cssText = modalStyles.input;
 
     const message = document.createElement('p');
-    message.style.cssText = modalStyles.message;
+    message.style.cssText = gameElementStyles.message;
 
     const button = document.createElement('button');
     button.textContent = 'Проверить';

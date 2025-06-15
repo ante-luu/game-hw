@@ -1,5 +1,6 @@
 import modalStyles from '../styles/modalStyles.js';
 import logger from '../utils/logger.js';
+import gameElementStyles from '../styles/gameElementStyles.js';
 
 /**
  * Викторина
@@ -437,19 +438,19 @@ export function startQuizGame() {
     title.textContent = 'Викторина';
 
     const questionContainer = document.createElement('div');
-    questionContainer.style.cssText = 'margin: 20px 0; text-align: center;';
+    questionContainer.style.cssText = gameElementStyles.questionContainer;
 
     const questionText = document.createElement('p');
-    questionText.style.cssText = 'font-family: Montserrat; font-size: 24px; font-weight: 500; margin-bottom: 20px; line-height: 1.4;';
+    questionText.style.cssText = gameElementStyles.question;
 
     const optionsContainer = document.createElement('div');
-    optionsContainer.style.cssText = 'display: flex; flex-direction: column; gap: 10px; margin: 20px 0;';
+    optionsContainer.style.cssText = gameElementStyles.optionsContainer;
 
     const message = document.createElement('p');
-    message.style.cssText = 'margin: 20px 0; font-family: Montserrat; font-size: 24px; font-weight: 500; min-height: 24px; line-height: 1.4;';
+    message.style.cssText = gameElementStyles.message;
 
     const scoreDisplay = document.createElement('p');
-    scoreDisplay.style.cssText = 'margin: 20px 0; font-family: Montserrat; font-size: 20px; font-weight: 600;';
+    scoreDisplay.style.cssText = gameElementStyles.score;
 
     const nextButton = document.createElement('button');
     nextButton.style.cssText = modalStyles.button;

@@ -1,5 +1,6 @@
 import modalStyles from '../styles/modalStyles.js';
 import logger from '../utils/logger.js';
+import gameElementStyles from '../styles/gameElementStyles.js';
 
 /**
  * Игра "Камень, ножницы, бумага"
@@ -42,13 +43,7 @@ export function startRockPaperScissorsGame() {
     title.textContent = 'Камень, ножницы, бумага';
 
     const statsContainer = document.createElement('div');
-    statsContainer.style.cssText = `
-        display: flex;
-        justify-content: space-around;
-        margin: 20px 0;
-        flex-wrap: wrap;
-        gap: 20px;
-    `;
+    statsContainer.style.cssText = gameElementStyles.statsContainer;
 
     /**
      * Создает блок статистики
@@ -58,30 +53,13 @@ export function startRockPaperScissorsGame() {
      */
     const createStatBox = (label, value) => {
         const box = document.createElement('div');
-        box.style.cssText = `
-            text-align: center;
-            padding: 10px;
-            min-width: 120px;
-        `;
-        
+        box.style.cssText = gameElementStyles.statBox;
         const labelEl = document.createElement('div');
         labelEl.textContent = label;
-        labelEl.style.cssText = `
-            font-size: ${window.innerWidth <= 768 ? '14px' : '16px'};
-            color: #666;
-            margin-bottom: 5px;
-            font-family: Montserrat;
-        `;
-        
+        labelEl.style.cssText = gameElementStyles.statLabel;
         const valueEl = document.createElement('div');
         valueEl.textContent = value;
-        valueEl.style.cssText = `
-            font-size: ${window.innerWidth <= 768 ? '18px' : '24px'};
-            font-weight: bold;
-            color: #202027;
-            font-family: Montserrat;
-        `;
-        
+        valueEl.style.cssText = gameElementStyles.statValue;
         box.appendChild(labelEl);
         box.appendChild(valueEl);
         return box;
@@ -96,18 +74,13 @@ export function startRockPaperScissorsGame() {
     statsContainer.appendChild(drawsBox);
 
     const resultDisplay = document.createElement('div');
-    resultDisplay.style.cssText = modalStyles.message + 'font-size: 24px; min-height: 36px;';
+    resultDisplay.style.cssText = gameElementStyles.resultDisplay;
 
     const messageDisplay = document.createElement('div');
-    messageDisplay.style.cssText = modalStyles.message + 'font-size: 18px; min-height: 27px; color: #666;';
+    messageDisplay.style.cssText = gameElementStyles.messageDisplay;
 
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.style.cssText = `
-        display: flex;
-        justify-content: center;
-        gap: ${window.innerWidth <= 768 ? '10px' : '20px'};
-        flex-wrap: wrap;
-    `;
+    buttonsContainer.style.cssText = gameElementStyles.buttonsContainer;
 
     /**
      * Определяет победителя раунда

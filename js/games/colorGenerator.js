@@ -1,5 +1,6 @@
 import modalStyles from '../styles/modalStyles.js';
 import logger from '../utils/logger.js';
+import gameElementStyles from '../styles/gameElementStyles.js';
 
 /**
  * Генератор случайных цветов
@@ -74,33 +75,33 @@ export function startColorGeneratorGame() {
         title.textContent = 'Генератор случайных цветов';
 
         const colorDisplay = document.createElement('div');
-        colorDisplay.style.cssText = 'width: 200px; height: 200px; margin: 30px auto; border-radius: 24px; background: #202027; transition: background-color 0.3s ease; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);';
+        colorDisplay.style.cssText = gameElementStyles.colorDisplay;
 
         const colorCode = document.createElement('p');
-        colorCode.style.cssText = 'color: #202027; font-family: Montserrat; font-size: 24px; font-weight: 600; margin: 20px 0;';
+        colorCode.style.cssText = gameElementStyles.colorCode;
         colorCode.textContent = '#202027';
 
         const message = document.createElement('p');
-        message.style.cssText = 'margin: 20px 0; font-family: Montserrat; font-size: 24px; font-weight: 500; min-height: 24px; line-height: 1.4;';
+        message.style.cssText = gameElementStyles.message;
 
         const generateButton = document.createElement('button');
-        generateButton.style.cssText = modalStyles.modalButton;
+        generateButton.style.cssText = modalStyles.button;
         generateButton.textContent = 'Сгенерировать цвет';
         generateButton.addEventListener('mouseover', () => {
-            generateButton.style.cssText = modalStyles.modalButton + (modalStyles.modalButtonHover || '');
+            generateButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
         });
         generateButton.addEventListener('mouseout', () => {
-            generateButton.style.cssText = modalStyles.modalButton;
+            generateButton.style.cssText = modalStyles.button;
         });
 
         const closeButton = document.createElement('button');
-        closeButton.style.cssText = modalStyles.modalButton;
+        closeButton.style.cssText = modalStyles.button;
         closeButton.textContent = 'Закрыть';
         closeButton.addEventListener('mouseover', () => {
-            closeButton.style.cssText = modalStyles.modalButton + (modalStyles.modalButtonHover || '');
+            closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
         });
         closeButton.addEventListener('mouseout', () => {
-            closeButton.style.cssText = modalStyles.modalButton;
+            closeButton.style.cssText = modalStyles.button;
         });
 
         function generateRandomColor() {
