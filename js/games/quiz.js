@@ -686,7 +686,6 @@ export function startQuizGame() {
     logger.info(`Selected category: ${currentCategory}`);
 
     questionContainer.appendChild(questionText);
-    gameContent.appendChild(description);
     gameContent.appendChild(title);
     gameContent.appendChild(questionContainer);
     gameContent.appendChild(optionsContainer);
