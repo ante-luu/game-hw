@@ -21,7 +21,7 @@ function showErrorModal(message) {
     title.style.cssText = modalStyles.title;
 
     const errorMessage = document.createElement('p');
-    errorMessage.textContent = message;
+    errorMessage.innerHTML = message;
     errorMessage.style.cssText = modalStyles.message;
 
     const closeButton = document.createElement('button');
@@ -43,7 +43,7 @@ async function startGameSafely(gameFunction, gameName) {
         await gameFunction();
     } catch (error) {
         logger.error(`Ошибка при запуске игры ${gameName}:`, error);
-        showErrorModal(`Произошла ошибка при запуске игры "${gameName}". Пожалуйста, попробуйте позже.`);
+        showErrorModal(`Произошла ошибка при запуске игры "${gameName}".<br><br>Ошибка: ${error.message}`);
     }
 }
 
