@@ -74,7 +74,7 @@ export function startReverseTextGame() {
     modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-    gameContent.style.cssText = modalStyles.content;
+    gameContent.style.cssText = modalStyles.modalContent;
 
     // Создаем элементы интерфейса
     const title = document.createElement('h2');

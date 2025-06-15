@@ -33,7 +33,7 @@ export function startRockPaperScissorsGame() {
     modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-    gameContent.style.cssText = modalStyles.content;
+    gameContent.style.cssText = modalStyles.modalContent;
     gameContent.style.maxWidth = '600px';
 
     // Создаем элементы интерфейса

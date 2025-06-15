@@ -430,7 +430,7 @@ export function startQuizGame() {
     modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-    gameContent.style.cssText = modalStyles.content;
+    gameContent.style.cssText = modalStyles.modalContent;
 
     const title = document.createElement('h2');
     title.style.cssText = modalStyles.title;
