@@ -42,6 +42,10 @@ export function startRockPaperScissorsGame() {
     title.style.cssText = modalStyles.title;
     title.textContent = 'Камень, ножницы, бумага';
 
+    const description = document.createElement('div');
+    description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+    description.textContent = 'Выберите камень, ножницы или бумагу и попробуйте победить компьютер!';
+
     const statsContainer = document.createElement('div');
     statsContainer.style.cssText = gameElementStyles.statsContainer;
 
@@ -186,6 +190,7 @@ export function startRockPaperScissorsGame() {
     });
 
     // Собираем интерфейс
+    gameContent.appendChild(description);
     gameContent.appendChild(title);
     gameContent.appendChild(statsContainer);
     gameContent.appendChild(resultDisplay);

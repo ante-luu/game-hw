@@ -485,6 +485,14 @@ export function startQuizGame() {
     title.style.cssText = modalStyles.title;
     title.textContent = 'Викторина';
 
+    const description = document.createElement('div');
+    description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+    if (currentCategory === 'Советское кино') {
+        description.innerHTML = 'В этой категории нужно угадать советский фильм по рецензиям иностранных изданий и публичных лиц.';
+    } else {
+        description.textContent = 'Выберите правильный ответ на вопрос.';
+    }
+
     const questionContainer = document.createElement('div');
     questionContainer.style.cssText = gameElementStyles.questionContainer;
 
@@ -573,9 +581,13 @@ export function startQuizGame() {
                     } else {
                         logger.info(`Wrong answer: ${text}`);
                         const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                        const correctAnswer = quizSets[currentCategory][currentQuestion].options[quizSets[currentCategory][currentQuestion].correct];
                         let messageContent = `
                             <div style="color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 10px;">
                                 Неправильно! 😢
+                            </div>
+                            <div style="margin-bottom: 10px; font-size: 18px; color: #202027;">
+                                Правильный ответ: <b>${correctAnswer}</b>
                             </div>
                             <div style="margin-top: 15px; font-size: 18px; color: #202027;">
                                 ${randomMotivation}
@@ -669,6 +681,7 @@ export function startQuizGame() {
     logger.info(`Selected category: ${currentCategory}`);
 
     questionContainer.appendChild(questionText);
+    gameContent.appendChild(description);
     gameContent.appendChild(title);
     gameContent.appendChild(questionContainer);
     gameContent.appendChild(optionsContainer);

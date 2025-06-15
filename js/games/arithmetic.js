@@ -31,6 +31,10 @@ export function startArithmeticGame() {
     title.style.cssText = modalStyles.title;
     title.textContent = 'Простая арифметика';
 
+    const description = document.createElement('div');
+    description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+    description.textContent = 'Решайте простые арифметические задачи. Введите ответ и проверьте себя.';
+
     const scoreDisplay = document.createElement('p');
     scoreDisplay.style.cssText = gameElementStyles.score;
     scoreDisplay.textContent = 'Счёт: 0/0';
@@ -194,6 +198,7 @@ export function startArithmeticGame() {
     });
 
     // Собираем интерфейс
+    gameContent.appendChild(description);
     gameContent.appendChild(title);
     gameContent.appendChild(scoreDisplay);
     gameContent.appendChild(questionDisplay);

@@ -35,8 +35,12 @@ export async function startGuessNumberGame() {
 
         // Создаем элементы интерфейса
         const title = document.createElement('h2');
-        title.textContent = 'Угадай число от 1 до 100';
+        title.textContent = 'Угадайка';
         title.style.cssText = modalStyles.title;
+
+        const description = document.createElement('div');
+        description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+        description.textContent = 'Угадайте число от 1 до 100. Введите свой вариант и проверьте!';
 
         const attemptsDisplay = document.createElement('p');
         attemptsDisplay.style.cssText = modalStyles.message;
@@ -162,6 +166,7 @@ export async function startGuessNumberGame() {
         };
 
         // Собираем интерфейс
+        gameContent.appendChild(description);
         gameContent.appendChild(title);
         gameContent.appendChild(attemptsDisplay);
         gameContent.appendChild(input);
