@@ -1,4 +1,4 @@
-import { modalStyles } from '../styles/modalStyles.js';
+import modalStyles from '../styles/modalStyles.js';
 import logger from '../utils/logger.js';
 
 /**
