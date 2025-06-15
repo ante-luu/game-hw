@@ -38,14 +38,18 @@ export async function startGuessNumberGame() {
         title.textContent = 'Угадайка';
         title.style.cssText = modalStyles.title;
 
-        let description = gameContent.querySelector('.guess-description');
+        let description = gameContent.querySelector('.quiz-description');
         if (!description) {
             description = document.createElement('div');
-            description.className = 'guess-description';
+            description.className = 'quiz-description';
             description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
             gameContent.insertBefore(description, title.nextSibling);
         }
-        description.textContent = 'Угадайте число от 1 до 100. Введите свой вариант и проверьте!';
+        if (currentCategory === 'Советское кино') {
+            description.innerHTML = 'В этой категории нужно угадать советский фильм по рецензиям иностранных изданий и публичных лиц.';
+        } else {
+            description.textContent = 'Выберите правильный ответ на вопрос.';
+        }
 
         const attemptsDisplay = document.createElement('p');
         attemptsDisplay.style.cssText = modalStyles.message;
