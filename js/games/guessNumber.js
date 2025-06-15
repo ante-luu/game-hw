@@ -39,7 +39,6 @@ export async function startGuessNumberGame() {
         title.style.cssText = modalStyles.title;
 
         function startNewGame() {
-            // Описание всегда актуально
             let description = gameContent.querySelector('.guess-description');
             if (!description) {
                 description = document.createElement('div');

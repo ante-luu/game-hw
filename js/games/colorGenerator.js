@@ -180,7 +180,6 @@ export function startColorGeneratorGame() {
             document.body.removeChild(modal);
         });
 
-        gameContent.appendChild(showColor());
         gameContent.appendChild(title);
         gameContent.appendChild(colorDisplay);
         gameContent.appendChild(colorCode);
