@@ -485,14 +485,6 @@ export function startQuizGame() {
     title.style.cssText = modalStyles.title;
     title.textContent = 'Викторина';
 
-    const description = document.createElement('div');
-    description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
-    if (currentCategory === 'Советское кино') {
-        description.innerHTML = 'В этой категории нужно угадать советский фильм по рецензиям иностранных изданий и публичных лиц.';
-    } else {
-        description.textContent = 'Выберите правильный ответ на вопрос.';
-    }
-
     const questionContainer = document.createElement('div');
     questionContainer.style.cssText = gameElementStyles.questionContainer;
 
@@ -631,6 +623,19 @@ export function startQuizGame() {
 
     function showQuestion() {
         try {
+            // Описание всегда актуально
+            let description = gameContent.querySelector('.quiz-description');
+            if (!description) {
+                description = document.createElement('div');
+                description.className = 'quiz-description';
+                description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+                gameContent.insertBefore(description, title.nextSibling);
+            }
+            if (currentCategory === 'Советское кино') {
+                description.innerHTML = 'В этой категории нужно угадать советский фильм по рецензиям иностранных изданий и публичных лиц.';
+            } else {
+                description.textContent = 'Выберите правильный ответ на вопрос.';
+            }
             const question = quizSets[currentCategory][currentQuestion];
             questionText.textContent = question.question;
         optionsContainer.innerHTML = '';
