@@ -147,7 +147,7 @@ export async function startGuessNumberGame() {
                 logger.error('Ошибка при проверке числа', error);
                 message.innerHTML = `
                     <div style="color: #ff3b30;">
-                        Произошла ошибка. Пожалуйста, попробуйте еще раз.
+                        Произошла ошибка: ${error.message}
                     </div>
                 `;
                 message.style.background = '#ffebee';
