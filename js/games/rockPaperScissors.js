@@ -192,23 +192,23 @@ export function startRockPaperScissorsGame() {
     const buttonRow = document.createElement('div');
     buttonRow.style.display = 'flex';
     buttonRow.style.justifyContent = 'center';
-    buttonRow.style.gap = isMobile() ? '6px' : '16px';
+    buttonRow.style.gap = isMobile() ? '18px' : '24px';
     buttonRow.style.margin = '0 auto 12px auto';
     buttonRow.style.maxWidth = '100%';
 
     buttonsContainer.innerHTML = '';
     choices.forEach((choice) => {
         const button = document.createElement('button');
+        button.style.cssText = smallButtonStyle;
+        button.style.background = '#202027';
+        button.style.color = 'white';
         if (isMobile()) {
             button.textContent = emojis[choice];
-            button.style.fontSize = '2.1em'; // крупнее эмодзи на мобильных
+            button.style.fontSize = '2.1em';
         } else {
             button.textContent = `${emojis[choice]} ${choice}`;
             button.style.fontSize = '';
         }
-        button.style.cssText = smallButtonStyle;
-        button.style.background = '#202027';
-        button.style.color = 'white';
         button.addEventListener('mouseover', () => {
             button.style.background = '#33d17a';
             button.style.color = '#202027';
@@ -242,8 +242,8 @@ export function startRockPaperScissorsGame() {
     gameContent.appendChild(title);
     gameContent.appendChild(statsContainer);
     gameContent.appendChild(resultDisplay);
-    gameContent.appendChild(messageDisplay);
     gameContent.appendChild(buttonsContainer);
+    gameContent.appendChild(messageDisplay);
     gameContent.appendChild(closeButton);
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
