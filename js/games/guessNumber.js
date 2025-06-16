@@ -115,7 +115,6 @@ export async function startGuessNumberGame() {
                 }
 
                 if (guess === secretNumber) {
-                    const category = 'Угадай число';
                     const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
                     const randomEncouragement = encouragements && encouragements.length
                         ? encouragements[Math.floor(Math.random() * encouragements.length)]
