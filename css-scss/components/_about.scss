@@ -288,11 +288,11 @@
                 column-gap: 36px;
                 overflow: visible;
                 display: grid !important;
-    grid-template-columns: repeat(1fr) !important;
-    gap: 24px;
-    padding: 0 0px;
-    max-width: 1200px;
-    margin: 0 auto;
+                grid-template-columns: repeat(1fr) !important;
+                gap: 24px;
+                padding: 0 0px;
+                max-width: 1200px;
+                margin: 0 auto;
         }
 
         &__game-card {
