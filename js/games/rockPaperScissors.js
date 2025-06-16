@@ -117,6 +117,10 @@ export function startRockPaperScissorsGame() {
         return 'Компьютер победил!';
     }
 
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
     /**
      * Обрабатывает ход игрока
      * @param {string} choice - Выбор игрока
@@ -138,14 +142,16 @@ export function startRockPaperScissorsGame() {
                 computerScore++;
                 computerScoreBox.lastChild.textContent = computerScore;
             }
-            // Новый фиксированный вывод результата с эмодзи
+            // Адаптивный результат
+            const emojiFontSize = isMobile() ? '1.5em' : '2.2em';
+            const emojiGap = isMobile() ? '2px' : '10px';
+            const resultFontSize = isMobile() ? '0.9em' : '1.1em';
             resultDisplay.innerHTML = `
-              <div style="display: flex; align-items: center; justify-content: center; font-size: 2em; gap: 10px;">
-                <span style="width: 2.5em; text-align: right;">${emojis[choice]}</span>
-                <span style="font-size: 1em;">vs</span>
-                <span style="width: 2.5em; text-align: left;">${emojis[computerChoice]}</span>
+              <div style="display: flex; align-items: center; justify-content: center; font-size: ${emojiFontSize}; gap: ${emojiGap}; margin-bottom: 2px;">
+                <span>${emojis[choice]}</span>
+                <span>${emojis[computerChoice]}</span>
               </div>
-              <div style="text-align: center; font-size: 1.1em; margin-top: 8px;">${result}</div>
+              <div style="text-align: center; font-size: ${resultFontSize}; margin: 0;">${result}</div>
             `;
             const category = 'Камень, ножницы, бумага';
             let message;
@@ -171,14 +177,16 @@ export function startRockPaperScissorsGame() {
     const buttonWrapperTop = document.createElement('div');
     buttonWrapperTop.style.display = 'flex';
     buttonWrapperTop.style.justifyContent = 'space-between';
-    buttonWrapperTop.style.width = '210px'; // 2*90px + 1*gap (30px)
+    buttonWrapperTop.style.width = isMobile() ? '160px' : '210px';
     buttonWrapperTop.style.margin = '0 auto 10px auto';
 
     const buttonWrapperBottom = document.createElement('div');
     buttonWrapperBottom.style.display = 'flex';
     buttonWrapperBottom.style.justifyContent = 'center';
 
-    const smallButtonStyle = modalStyles.button + 'width: 90px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+    const smallButtonStyleDesktop = modalStyles.button + 'width: 90px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+    const smallButtonStyleMobile = modalStyles.button + 'width: 70px; padding: 4px 0; font-size: 12px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+    const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
 
     buttonsContainer.innerHTML = '';
     choices.forEach((choice, idx) => {

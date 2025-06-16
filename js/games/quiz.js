@@ -667,6 +667,9 @@ export function startQuizGame() {
                 message.textContent = `Игра окончена! Ваш результат: ${score} из ${quizSets[currentCategory].length}`;
             message.style.color = '#202027';
             nextButton.style.display = 'none';
+            nextButton.disabled = true;
+            nextButton.tabIndex = -1;
+            nextButton.style.visibility = 'hidden';
                 logger.info(`Game finished with score: ${score}/${quizSets[currentCategory].length}`);
             }
         } catch (error) {
