@@ -45,7 +45,7 @@ export async function startGuessNumberGame() {
             description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
             gameContent.insertBefore(description, title.nextSibling);
         }
-        if (currentCategory === 'Советское кино') {
+        if (category === 'Советское кино') {
             description.innerHTML = 'В этой категории нужно угадать советский фильм по рецензиям иностранных изданий и публичных лиц.';
         } else {
             description.textContent = 'Выберите правильный ответ на вопрос.';
