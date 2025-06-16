@@ -19,61 +19,66 @@ export function startArithmeticGame() {
     let score = 0;
     let totalQuestions = 0;
     
+    // Определяем, является ли устройство планшетом
+    const isTablet = window.innerWidth >= 769 && window.innerWidth <= 1024;
+    
     // Создаем модальное окно
     const modal = document.createElement('div');
     modal.style.cssText = modalStyles.modal;
 
     const gameContent = document.createElement('div');
-    gameContent.style.cssText = modalStyles.modalContent;
+    gameContent.style.cssText = isTablet ? modalStyles.tablet.modalContent : modalStyles.modalContent;
 
     // Создаем элементы интерфейса
     const title = document.createElement('h2');
-    title.style.cssText = modalStyles.title;
+    title.style.cssText = isTablet ? modalStyles.tablet.title : modalStyles.title;
     title.textContent = 'Простая арифметика';
 
     let description = gameContent.querySelector('.arithmetic-description');
     if (!description) {
         description = document.createElement('div');
         description.className = 'arithmetic-description';
-        description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
+        description.style.cssText = isTablet 
+            ? 'margin-bottom: 12px; color: #202027; font-size: 14px;'
+            : 'margin-bottom: 15px; color: #202027; font-size: 16px;';
         gameContent.insertBefore(description, title.nextSibling);
     }
     description.textContent = 'Решайте простые арифметические задачи. Введите ответ и проверьте себя.';
 
     const scoreDisplay = document.createElement('p');
-    scoreDisplay.style.cssText = gameElementStyles.score;
+    scoreDisplay.style.cssText = isTablet ? gameElementStyles.tablet.score : gameElementStyles.score;
     scoreDisplay.textContent = 'Счёт: 0/0';
 
     const questionDisplay = document.createElement('p');
-    questionDisplay.style.cssText = gameElementStyles.question;
+    questionDisplay.style.cssText = isTablet ? gameElementStyles.tablet.question : gameElementStyles.question;
     questionDisplay.textContent = '';
 
     const input = document.createElement('input');
     input.type = 'number';
     input.placeholder = 'Введите ответ';
-    input.style.cssText = modalStyles.input;
+    input.style.cssText = isTablet ? modalStyles.tablet.input : modalStyles.input;
 
     const message = document.createElement('p');
-    message.style.cssText = gameElementStyles.message;
+    message.style.cssText = isTablet ? gameElementStyles.tablet.message : gameElementStyles.message;
 
     const button = document.createElement('button');
     button.textContent = 'Проверить';
-    button.style.cssText = modalStyles.button;
+    button.style.cssText = isTablet ? modalStyles.tablet.button : modalStyles.button;
     button.addEventListener('mouseover', () => {
-        button.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+        button.style.cssText = (isTablet ? modalStyles.tablet.button : modalStyles.button) + modalStyles.buttonHover;
     });
     button.addEventListener('mouseout', () => {
-        button.style.cssText = modalStyles.button;
+        button.style.cssText = isTablet ? modalStyles.tablet.button : modalStyles.button;
     });
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
-    closeButton.style.cssText = modalStyles.button;
+    closeButton.style.cssText = isTablet ? modalStyles.tablet.button : modalStyles.button;
     closeButton.addEventListener('mouseover', () => {
-        closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+        closeButton.style.cssText = (isTablet ? modalStyles.tablet.button : modalStyles.button) + modalStyles.buttonHover;
     });
     closeButton.addEventListener('mouseout', () => {
-        closeButton.style.cssText = modalStyles.button;
+        closeButton.style.cssText = isTablet ? modalStyles.tablet.button : modalStyles.button;
     });
 
     /**
