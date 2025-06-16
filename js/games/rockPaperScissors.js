@@ -87,6 +87,7 @@ export function startRockPaperScissorsGame() {
 
     const resultDisplay = document.createElement('div');
     resultDisplay.style.cssText = gameElementStyles.resultDisplay;
+    resultDisplay.style.textAlign = 'center';
 
     const messageDisplay = document.createElement('div');
     messageDisplay.style.cssText = gameElementStyles.messageDisplay;
