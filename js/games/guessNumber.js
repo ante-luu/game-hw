@@ -15,6 +15,9 @@ import logger from '../utils/logger.js';
  */
 export async function startGuessNumberGame() {
     try {
+        // Определяем категорию игры
+        const category = 'Угадай число';
+        
         // Генерируем случайное число
         const secretNumber = Math.floor(Math.random() * 100) + 1;
         let attempts = 0;
@@ -95,7 +98,6 @@ export async function startGuessNumberGame() {
 
         // Функция проверки числа
         function checkNumber() {
-            const category = 'Угадай число';
             try {
                 const guess = parseInt(input.value);
                 attempts++;
@@ -115,18 +117,9 @@ export async function startGuessNumberGame() {
                 }
 
                 if (guess === secretNumber) {
-                    const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
-                    const randomEncouragement = encouragements && encouragements.length
-                        ? encouragements[Math.floor(Math.random() * encouragements.length)]
-                        : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
-                    const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
-                    const randomQuote = categoryQuotes && categoryQuotes.length
-                        ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
-                        : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                     message.innerHTML = `
                         <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Поздравляем! Вы угадали число ${secretNumber} за ${attempts} попыток!</div>
-                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
+                        <div style="margin-bottom: 10px; color: #202027;">Отлично! Ты справился!</div>
                     `;
                     message.style.background = '#e8f5e9';
                     button.disabled = true;
@@ -135,18 +128,16 @@ export async function startGuessNumberGame() {
                     button.style.cursor = 'default';
                     logger.info('Игра выиграна', { attempts, secretNumber });
                 } else if (guess < secretNumber) {
-                    const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
                         <div style="margin-bottom: 15px; color: #202027;">Загаданное число больше!</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">${randomMotivation}</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">Не сдавайся! Каждая ошибка - это шаг к успеху!</div>
                     `;
                     message.style.background = '#f5f5f5';
                     logger.info('Подсказка: число больше', { guess });
                 } else {
-                    const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
                         <div style="margin-bottom: 15px; color: #202027;">Загаданное число меньше!</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">${randomMotivation}</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">Не сдавайся! Каждая ошибка - это шаг к успеху!</div>
                     `;
                     message.style.background = '#f5f5f5';
                     logger.info('Подсказка: число меньше', { guess });
@@ -171,7 +162,6 @@ export async function startGuessNumberGame() {
         };
 
         // Собираем интерфейс
-       
         gameContent.appendChild(title);
         gameContent.appendChild(attemptsDisplay);
         gameContent.appendChild(input);
