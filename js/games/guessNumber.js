@@ -18,6 +18,7 @@ export async function startGuessNumberGame() {
         // Генерируем случайное число
         const secretNumber = Math.floor(Math.random() * 100) + 1;
         let attempts = 0;
+        const category = 'Угадай число';
         
         logger.info('Игра "Угадай число" запущена', { secretNumber });
         
@@ -45,11 +46,7 @@ export async function startGuessNumberGame() {
             description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
             gameContent.insertBefore(description, title.nextSibling);
         }
-        if (category === 'Советское кино') {
-            description.innerHTML = 'В этой категории нужно угадать советский фильм по рецензиям иностранных изданий и публичных лиц.';
-        } else {
-            description.textContent = 'Выберите правильный ответ на вопрос.';
-        }
+        description.textContent = 'Угадайте число от 1 до 100. После каждой попытки вы получите подсказку, больше или меньше загаданное число.';
 
         const attemptsDisplay = document.createElement('p');
         attemptsDisplay.style.cssText = modalStyles.message;
