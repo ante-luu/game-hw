@@ -1042,47 +1042,172 @@ a {
   }
 }
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  .game-list {
+    padding: 54px 0px 148px 8px;
+    background: rgb(32, 32, 39);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .game-list__title {
+    color: rgb(255, 255, 255);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 78px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-top: 42px;
+    margin-bottom: 72px;
+  }
   .game-list__container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-    max-width: 900px;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 35px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
   }
   .game-list__card {
-    height: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #ffffff;
     border-radius: 24px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  }
+  .game-list__card .game-list__content {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 48px;
+  }
+  .game-list__card .game-list__image {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .game-list__card:nth-child(even) .game-list__image {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .game-list__card:nth-child(even) .game-list__content {
+    grid-column: 2;
+    grid-row: 1;
   }
   .game-list__image {
-    height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    aspect-ratio: 1/0.835;
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    border-radius: 16px;
+  }
+  .game-list__image_type_guess-number {
+    background-image: url("../img/game1.png");
+  }
+  .game-list__image_type_arithmetic {
+    background-image: url("../img/game2.png");
+  }
+  .game-list__image_type_reverse-text {
+    background-image: url("../img/game3.png");
+  }
+  .game-list__image_type_rps {
+    background-image: url("../img/game4.png");
+  }
+  .game-list__image_type_quiz {
+    background-image: url("../img/game5.png");
+  }
+  .game-list__image_type_color-gen {
+    background-image: url("../img/game6.png");
   }
   .game-list__content {
-    padding: 24px;
-    flex-grow: 1;
+    width: 100%;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
   .game-list__name {
-    font-size: 28px;
-    margin-bottom: 16px;
+    color: rgb(32, 32, 39);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 59px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-right: 45px;
+  }
+  .game-list__name--short {
+    display: none;
   }
   .game-list__description {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 24px;
+    color: rgb(32, 32, 39);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-top: 24px;
+    margin-bottom: 35px;
+    margin-right: 80px;
+  }
+  .game-list__description--large {
+    margin-right: 9px;
+  }
+  .game-list .game-list__description--desktope {
+    color: rgb(32, 32, 39);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-top: 24px;
+    margin-bottom: 35px;
+    margin-right: 0px;
+  }
+  .game-list .game-list__description--mobile {
+    display: none;
   }
   .game-list__button {
-    font-size: 18px;
+    display: inline-block;
     padding: 12px 32px;
-    align-self: flex-start;
+    background: rgb(32, 32, 39);
+    color: rgb(32, 32, 39);
+    border-radius: 60px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid rgb(32, 32, 39);
+    cursor: pointer;
+    background: rgb(32, 32, 39);
+    color: rgb(32, 32, 39);
+    border-radius: 60px;
+    border: 1px solid rgb(32, 32, 39);
+    max-width: 247px;
+    max-height: 66px;
+    padding: 16px 28px;
+    border-radius: 60px;
+    background: rgb(32, 32, 39);
+    color: rgb(255, 255, 255);
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 141.69%;
+    letter-spacing: 0%;
+    text-align: center;
+  }
+  .game-list__button:hover {
+    background: transparent;
+    color: rgb(32, 32, 39);
+  }
+  .game-list__button:hover {
+    background: transparent;
+    color: rgb(32, 32, 39);
   }
 }
 .about {
