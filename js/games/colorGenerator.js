@@ -82,7 +82,7 @@ export function startColorGeneratorGame() {
                 description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
                 gameContent.insertBefore(description, title.nextSibling);
             }
-            description.textContent = 'Нажмите на кнопку, чтобы сгенерировать случайный цвет и узнать его название.';
+            description.textContent = 'Нажмите на кнопку, чтобы сгенерировать случайный цвет .';
         }
 
         showColor();
