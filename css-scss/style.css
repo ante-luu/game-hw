@@ -1406,7 +1406,6 @@ a {
   .game-list__content {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     min-height: 220px;
   }
   .modal {
