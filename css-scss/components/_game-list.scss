@@ -367,8 +367,10 @@
     .game-list {
         padding: 54px 0px 148px 8px;
     background: rgb(32, 32, 39);
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
 
     &__title {
         color: $color-text;
