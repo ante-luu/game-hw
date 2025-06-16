@@ -267,7 +267,8 @@
             overflow: visible;
             display: grid !important;
             grid-template-columns: repeat(1fr) !important;
-            gap: 24px;
+            row-gap: 30px;
+            column-gap: 37px;
             padding: 0 0px;
             max-width: 1200px;
             margin: 0 auto;
