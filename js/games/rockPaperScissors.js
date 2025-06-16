@@ -36,6 +36,13 @@ export function startRockPaperScissorsGame() {
     const gameContent = document.createElement('div');
     gameContent.style.cssText = modalStyles.modalContent;
     gameContent.style.maxWidth = '600px';
+    // Адаптивная ширина модального окна для мобильных
+    if (window.innerWidth <= 768) {
+        gameContent.style.width = '100vw';
+        gameContent.style.maxWidth = '100vw';
+        gameContent.style.padding = '16px 0 16px 0';
+        gameContent.style.borderRadius = '0';
+    }
 
     // Создаем элементы интерфейса
     const title = document.createElement('h2');
