@@ -1,11 +1,10 @@
-// Base
-@import 'base/variables';
-@import 'base/base';
-
 // Utils
 @import 'utils/mixins';
 @import 'utils/animations';
 
+// Base
+@import 'base/variables';
+@import 'base/base';
 
 // Components
 @import 'components/header';
