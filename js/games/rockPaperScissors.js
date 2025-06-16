@@ -169,7 +169,7 @@ export function startRockPaperScissorsGame() {
     choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
-        button.style.cssText = modalStyles.button + 'padding: 15px 30px; font-size: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);';
+        button.style.cssText = modalStyles.button + 'width: 100%; text-align: left; padding: 15px 20px; margin-bottom: 8px;';
         if (window.innerWidth <= 768) {
             button.style.cssText = modalStyles.button + 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);';
         }
