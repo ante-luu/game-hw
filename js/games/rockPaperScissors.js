@@ -168,13 +168,22 @@ export function startRockPaperScissorsGame() {
     }
 
     // Создаем кнопки выбора
-    const baseButtonStyleDesktop = modalStyles.button + 'width: 30%; text-align: left; margin-bottom: 8px; font-size: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
-    const baseButtonStyleMobile = modalStyles.button + 'width: 30%; text-align: left; margin-bottom: 8px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
-    choices.forEach(choice => {
+    const buttonWrapperTop = document.createElement('div');
+    buttonWrapperTop.style.display = 'flex';
+    buttonWrapperTop.style.justifyContent = 'space-between';
+    buttonWrapperTop.style.gap = '16px';
+    buttonWrapperTop.style.marginBottom = '12px';
+
+    const buttonWrapperBottom = document.createElement('div');
+    buttonWrapperBottom.style.display = 'flex';
+    buttonWrapperBottom.style.justifyContent = 'center';
+
+    const smallButtonStyle = modalStyles.button + 'width: 120px; padding: 10px 0; font-size: 18px; margin: 0; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+
+    choices.forEach((choice, idx) => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
-        const isMobile = window.innerWidth <= 768;
-        button.style.cssText = isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop;
+        button.style.cssText = smallButtonStyle;
         button.style.background = '#202027';
         button.style.color = 'white';
         button.addEventListener('mouseover', () => {
@@ -186,8 +195,15 @@ export function startRockPaperScissorsGame() {
             button.style.color = 'white';
         });
         button.addEventListener('click', () => handlePlayerChoice(choice));
-        buttonsContainer.appendChild(button);
+        if (idx < 2) {
+            buttonWrapperTop.appendChild(button);
+        } else {
+            buttonWrapperBottom.appendChild(button);
+        }
     });
+
+    buttonsContainer.appendChild(buttonWrapperTop);
+    buttonsContainer.appendChild(buttonWrapperBottom);
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
