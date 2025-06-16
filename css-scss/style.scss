@@ -1,10 +1,11 @@
+// Base
+@import 'base/variables';
+@import 'base/base';
+
 // Utils
 @import 'utils/mixins';
 @import 'utils/animations';
 
-// Base
-@import 'base/variables';
-@import 'base/base';
 
 // Components
 @import 'components/header';
@@ -33,6 +34,10 @@
     @include respond-to(desktop) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+    }
+    @include respond-to(tablet) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
