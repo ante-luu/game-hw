@@ -280,15 +280,19 @@
         }
 
         &__games {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(280px, 1fr));
-            row-gap: 32px;
-            column-gap: 36px;
-            overflow: visible;
-            justify-content: center;
+            
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                row-gap: 26px;
+                -moz-column-gap: 36px;
+                column-gap: 36px;
+                overflow: visible;
+                display: grid !important;
+    grid-template-columns: repeat(1fr) !important;
+    gap: 24px;
+    padding: 0 0px;
+    max-width: 1200px;
+    margin: 0 auto;
         }
 
         &__game-card {
