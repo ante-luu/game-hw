@@ -154,8 +154,8 @@ export function startRockPaperScissorsGame() {
             const emojiGap = isMobile() ? '2px' : '10px';
             const resultFontSize = isMobile() ? '0.9em' : '1.1em';
             const emojiResultStyle = isMobile()
-              ? 'display: flex; align-items: center; justify-content: center; font-size: 2em; gap: 16px; margin-bottom: 2px;'
-              : 'display: flex; align-items: center; justify-content: center; font-size: 4.2em; gap: 97px; margin-bottom: 2px;';
+              ? 'display: flex; align-items: center; justify-content: center; font-size: 2em; gap: 80px; margin-bottom: 2px;'
+              : 'display: flex; align-items: center; justify-content: center; font-size: 3.4rem; gap: 97px; margin-bottom: 2px;';
             resultDisplay.innerHTML = `
               <div style="${emojiResultStyle}">
                 <span>${emojis[choice]}</span>
@@ -188,14 +188,14 @@ export function startRockPaperScissorsGame() {
       'width: 80px; min-width: 0; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); flex-shrink: 1; transition: background 0.2s, color 0.2s;';
 
     const smallButtonStyleMobile = modalStyles.button +
-      'width: auto; min-width: 0; flex: 1 1 0; padding: 10px 0; font-size: 13px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+      'width: auto; min-width: 70px; flex: 1 1 0; padding: 10px 0; font-size: 13px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
 
     const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
 
     const buttonRow = document.createElement('div');
     buttonRow.style.display = 'flex';
     buttonRow.style.justifyContent = 'center';
-    buttonRow.style.gap = isMobile() ? '18px' : '80px';
+    buttonRow.style.gap = isMobile() ? '45px' : '80px';
     buttonRow.style.margin = '0 auto 12px auto';
     buttonRow.style.maxWidth = '100%';
 
