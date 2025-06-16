@@ -202,13 +202,11 @@
        
             
         display: grid;
-        grid-template-columns: repeat(2, 1fr)!important;
+        grid-template-columns: repeat(2, 1fr);
         row-gap: 26px;
         -moz-column-gap: 36px;
         column-gap: 36px;
         overflow: visible;
-        display: grid !important;
-        grid-template-columns: repeat(1fr) !important;
         row-gap: 30px;
         column-gap: 37px;
         padding: 0 0px;
