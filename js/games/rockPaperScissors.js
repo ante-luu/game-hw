@@ -168,18 +168,18 @@ export function startRockPaperScissorsGame() {
     }
 
     // Создаем кнопки выбора
+    const baseButtonStyleDesktop = modalStyles.button + 'width: 100%; text-align: left; padding: 15px 20px; margin-bottom: 8px; font-size: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
+    const baseButtonStyleMobile = modalStyles.button + 'width: 100%; text-align: left; padding: 10px 10px; margin-bottom: 8px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
     choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
-        button.style.cssText = modalStyles.button + 'width: 100%; text-align: left; padding: 15px 20px; margin-bottom: 8px;';
-        if (window.innerWidth <= 768) {
-            button.style.cssText = modalStyles.button + 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);';
-        }
+        const isMobile = window.innerWidth <= 768;
+        button.style.cssText = isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop;
         button.addEventListener('mouseover', () => {
-            button.style.cssText = modalStyles.button + (modalStyles.buttonHover || '') + (window.innerWidth <= 768 ? 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);' : 'padding: 15px 30px; font-size: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);');
+            button.style.cssText = (isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop) + 'background: #33d17a; color: #202027;';
         });
         button.addEventListener('mouseout', () => {
-            button.style.cssText = modalStyles.button + (window.innerWidth <= 768 ? 'padding: 10px 10px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);' : 'padding: 15px 30px; font-size: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);');
+            button.style.cssText = isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop;
         });
         button.addEventListener('click', () => handlePlayerChoice(choice));
         buttonsContainer.appendChild(button);
