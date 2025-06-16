@@ -141,13 +141,19 @@ export async function startGuessNumberGame() {
                     button.style.cursor = 'default';
                     logger.info('Игра выиграна', { attempts, secretNumber });
                 } else {
+                    let hint = '';
+                    if (guess < secretNumber) {
+                        hint = 'Загаданное число больше!';
+                    } else {
+                        hint = 'Загаданное число меньше!';
+                    }
                     const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
-                        <div style="color: #f44336; font-weight: bold;">Неправильно! Попробуйте еще раз.</div>
+                        <div style="color: #f44336; font-weight: bold;">${hint}</div>
                         <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
                     `;
                     message.style.background = '#ffebee';
-                    logger.info('Подсказка: число не угадано', { guess });
+                    logger.info('Подсказка: число не угадано', { guess, hint });
                 }
             } catch (error) {
                 logger.error('Ошибка при проверке числа', error);
