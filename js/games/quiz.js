@@ -535,19 +535,23 @@ export function startQuizGame() {
                         logger.info(`Correct answer: ${text}`);
                         let reward = '';
                         
-                        // Получаем случайное поощрение из категории
-                        const randomEncouragement = window.gameMessages.encouragements && window.gameMessages.encouragements[currentCategory] && window.gameMessages.encouragements[currentCategory].length > 0
-                            ? window.gameMessages.encouragements[currentCategory][Math.floor(Math.random() * window.gameMessages.encouragements[currentCategory].length)]
+                        // Получаем похвалу для категории или общую похвалу
+                        const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[currentCategory];
+                        const randomEncouragement = encouragements && encouragements.length
+                            ? encouragements[Math.floor(Math.random() * encouragements.length)]
                             : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
                         
                         if (currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') {
-                            // Только поощрение (без цитаты и без факта)
+                            // Похвала + факт (без цитаты)
                             reward = `
                                 <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
                                     ${randomEncouragement}
+                                </div>
+                                <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                                    ${quizSets[currentCategory][currentQuestion].fact || ''}
                                 </div>`;
                         } else {
-                            // Для остальных категорий показываем поощрение и случайную цитату по категории
+                            // Для остальных категорий показываем похвалу и цитату
                             const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[currentCategory];
                             const randomQuote = categoryQuotes && categoryQuotes.length
                                 ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
@@ -563,18 +567,11 @@ export function startQuizGame() {
                         
                         message.innerHTML = `Правильно! 🎉${reward}`;
                         message.style.color = '#33d17a';
-
-                        // Факт только отдельным блоком для советских категорий
-                        if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
-                            && quizSets[currentCategory][currentQuestion].fact) {
-                            const fact = quizSets[currentCategory][currentQuestion].fact;
-                            message.innerHTML += `<div style="margin-top: 15px; font-size: 18px; color: #202027; background: #f5f5f5; border-radius: 8px; padding: 10px;"><b>Факт:</b> ${fact}</div>`;
-                        }
                     } else {
                         logger.info(`Wrong answer: ${text}`);
                         const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                         const correctAnswer = quizSets[currentCategory][currentQuestion].options[quizSets[currentCategory][currentQuestion].correct];
-                        let messageContent = `
+                        let wrongAnswerMessage = `
                             <div style="color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 10px;">
                                 Неправильно! 😢
                             </div>
@@ -585,17 +582,16 @@ export function startQuizGame() {
                                 ${randomMotivation}
                             </div>`;
 
-                        // Факт только отдельным блоком для советских категорий
-                        if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') 
-                            && quizSets[currentCategory][currentQuestion].fact) {
-                            const fact = quizSets[currentCategory][currentQuestion].fact;
-                            messageContent += `
-                                <div style="margin-top: 15px; font-size: 18px; color: #202027; background: #f5f5f5; border-radius: 8px; padding: 10px;">
-                                    <b>Факт:</b> ${fact}
+                        // Добавляем факт для советских фильмов и мультфильмов
+                        if ((currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы') && quizSets[currentCategory][currentQuestion].fact) {
+                            wrongAnswerMessage += `
+                                <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                                    ${quizSets[currentCategory][currentQuestion].fact}
                                 </div>`;
                         }
 
-                        message.innerHTML = messageContent;
+                        message.innerHTML = wrongAnswerMessage;
+                        message.style.color = '#f44336';
                     }
 
                     const buttons = optionsContainer.getElementsByTagName('button');

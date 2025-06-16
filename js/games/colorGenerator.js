@@ -147,7 +147,7 @@ export function startColorGeneratorGame() {
                 colorCode.textContent = newColor.name ? `${newColor.name} (${newColor.value})` : newColor.value;
                 score++;
 
-                const category = 'Генератор цветов';
+                const category = 'Генератор случайных цветов';
                 const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
                 const randomEncouragement = encouragements && encouragements.length
                     ? encouragements[Math.floor(Math.random() * encouragements.length)]
@@ -158,20 +158,25 @@ export function startColorGeneratorGame() {
                     : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                 let colorNameBlock = '';
                 if (newColor.name) {
-                    colorNameBlock = `<div style=\"margin-bottom: 10px; color: #202027; font-weight: bold;\">${newColor.name}</div>`;
+                    colorNameBlock = `<div style="margin-bottom: 10px; color: #202027; font-weight: bold;">${newColor.name}</div>`;
                 }
                 if (score % 2 === 0) {
-                    message.innerHTML = `${colorNameBlock}<div>${randomQuote}</div>`;
-                    logger.info('Displayed color quote');
+                    message.innerHTML = `
+                        ${colorNameBlock}
+                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
+                    `;
                 } else {
-                    message.innerHTML = `${colorNameBlock}<div>${randomEncouragement}</div>`;
-                    logger.info('Displayed color compliment');
+                    message.innerHTML = `
+                        ${colorNameBlock}
+                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
+                    `;
                 }
                 message.style.color = '#202027';
             } catch (error) {
-                logger.error('Error handling color generation:', error);
-                message.textContent = 'Произошла ошибка при генерации цвета';
-                message.style.color = '#ff0000';
+                logger.error('Error generating color', error);
+                message.textContent = 'Произошла ошибка. Попробуйте еще раз!';
+                message.style.color = '#f44336';
             }
         });
 

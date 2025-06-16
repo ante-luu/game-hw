@@ -117,13 +117,13 @@ export async function startGuessNumberGame() {
                 }
 
                 if (guess === secretNumber) {
-                    // Получаем случайное поощрение из категории
+                    // Получаем похвалу для категории или общую похвалу
                     const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
                     const randomEncouragement = encouragements && encouragements.length
                         ? encouragements[Math.floor(Math.random() * encouragements.length)]
                         : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
                     
-                    // Получаем случайную цитату из категории
+                    // Получаем цитату для категории или общую цитату
                     const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
                     const randomQuote = categoryQuotes && categoryQuotes.length
                         ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
@@ -140,22 +140,14 @@ export async function startGuessNumberGame() {
                     button.style.background = '#33d17a';
                     button.style.cursor = 'default';
                     logger.info('Игра выиграна', { attempts, secretNumber });
-                } else if (guess < secretNumber) {
-                    const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
-                    message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #202027;">Загаданное число больше!</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">${randomMotivation}</div>
-                    `;
-                    message.style.background = '#f5f5f5';
-                    logger.info('Подсказка: число больше', { guess });
                 } else {
                     const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #202027;">Загаданное число меньше!</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px;">${randomMotivation}</div>
+                        <div style="color: #f44336; font-weight: bold;">Неправильно! Попробуйте еще раз.</div>
+                        <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
                     `;
-                    message.style.background = '#f5f5f5';
-                    logger.info('Подсказка: число меньше', { guess });
+                    message.style.background = '#ffebee';
+                    logger.info('Подсказка: число не угадано', { guess });
                 }
             } catch (error) {
                 logger.error('Ошибка при проверке числа', error);

@@ -166,16 +166,33 @@ export function startRockPaperScissorsGame() {
             const category = 'Камень, ножницы, бумага';
             let message;
             if (result === 'Ты победил!') {
+                // Получаем похвалу для категории или общую похвалу
                 const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
-                message = encouragements && encouragements.length
+                const randomEncouragement = encouragements && encouragements.length
                     ? encouragements[Math.floor(Math.random() * encouragements.length)]
                     : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                
+                // Получаем цитату для категории или общую цитату
+                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                const randomQuote = categoryQuotes && categoryQuotes.length
+                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
+
+                message = `
+                    <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">${result} 🎉</div>
+                    <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
+                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
+                `;
             } else if (result === 'Ничья!') {
                 message = 'Ничья! Попробуй еще раз! 🤝';
             } else {
-                message = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                message = `
+                    <div style="color: #f44336; font-weight: bold;">${result}</div>
+                    <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
+                `;
             }
-            messageDisplay.textContent = message;
+            messageDisplay.innerHTML = message;
             logger.info('Round result', { result, message });
         } catch (error) {
             logger.error('Error handling player choice', error);

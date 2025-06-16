@@ -135,14 +135,18 @@ export function startReverseTextGame() {
                 const category = 'Переверни текст';
                 if (userAnswer.toLowerCase() === currentAnswer.toLowerCase()) {
                     score++;
+                    // Получаем похвалу для категории или общую похвалу
                     const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
                     const randomEncouragement = encouragements && encouragements.length
                         ? encouragements[Math.floor(Math.random() * encouragements.length)]
                         : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                    
+                    // Получаем цитату для категории или общую цитату
                     const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
                     const randomQuote = categoryQuotes && categoryQuotes.length
                         ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
                         : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
+
                     message.innerHTML = `
                         <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Правильно! 🎉</div>
                         <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
@@ -153,10 +157,10 @@ export function startReverseTextGame() {
                 } else {
                     const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #ff4444; font-weight: bold;">Неправильно! Правильный ответ: ${currentAnswer}</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomMotivation}</div>
+                        <div style="color: #f44336; font-weight: bold;">Неправильно! Правильный ответ: ${currentAnswer}</div>
+                        <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
                     `;
-                    message.style.background = '#f5f5f5';
+                    message.style.background = '#ffebee';
                     logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
                 }
 
