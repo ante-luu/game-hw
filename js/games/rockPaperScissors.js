@@ -168,8 +168,8 @@ export function startRockPaperScissorsGame() {
     }
 
     // Создаем кнопки выбора
-    const baseButtonStyleDesktop = modalStyles.button + 'width: 100%; text-align: left; margin-bottom: 8px; font-size: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
-    const baseButtonStyleMobile = modalStyles.button + 'width: 100%; text-align: left; margin-bottom: 8px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
+    const baseButtonStyleDesktop = modalStyles.button + 'width: 30%; text-align: left; margin-bottom: 8px; font-size: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
+    const baseButtonStyleMobile = modalStyles.button + 'width: 30%; text-align: left; margin-bottom: 8px; font-size: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s;';
     choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
