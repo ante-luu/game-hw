@@ -1077,7 +1077,7 @@ a {
   .game-list__card .game-list__content {
     grid-column: 1;
     grid-row: 1;
-    padding: 48px;
+    padding: 20px;
   }
   .game-list__card .game-list__image {
     grid-column: 2;
@@ -1132,7 +1132,7 @@ a {
   .game-list__name {
     color: rgb(32, 32, 39);
     font-family: "Montserrat", Arial, sans-serif;
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 700;
     line-height: 59px;
     letter-spacing: 0px;
@@ -1145,7 +1145,7 @@ a {
   .game-list__description {
     color: rgb(32, 32, 39);
     font-family: "Montserrat", Arial, sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 32px;
     letter-spacing: 0px;
@@ -1156,21 +1156,6 @@ a {
   }
   .game-list__description--large {
     margin-right: 9px;
-  }
-  .game-list .game-list__description--desktope {
-    color: rgb(32, 32, 39);
-    font-family: "Montserrat", Arial, sans-serif;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 32px;
-    letter-spacing: 0px;
-    text-align: left;
-    margin-top: 24px;
-    margin-bottom: 35px;
-    margin-right: 0px;
-  }
-  .game-list .game-list__description--mobile {
-    display: none;
   }
   .game-list__button {
     display: inline-block;
@@ -1195,7 +1180,7 @@ a {
     background: rgb(32, 32, 39);
     color: rgb(255, 255, 255);
     font-family: Montserrat;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 141.69%;
     letter-spacing: 0%;
