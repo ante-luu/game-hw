@@ -189,7 +189,7 @@ export function startReverseTextGame() {
 
         // Собираем интерфейс
         gameContent.appendChild(title);
-        gameContent.appendChild(description);
+        
         gameContent.appendChild(scoreDisplay);
         gameContent.appendChild(questionDisplay);
         gameContent.appendChild(input);

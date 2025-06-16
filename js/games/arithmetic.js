@@ -203,7 +203,7 @@ export function startArithmeticGame() {
     });
 
     // Собираем интерфейс
-    gameContent.appendChild(description);
+    
     gameContent.appendChild(title);
     gameContent.appendChild(scoreDisplay);
     gameContent.appendChild(questionDisplay);

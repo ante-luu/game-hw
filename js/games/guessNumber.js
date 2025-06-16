@@ -175,7 +175,7 @@ export async function startGuessNumberGame() {
         };
 
         // Собираем интерфейс
-        gameContent.appendChild(description);
+       
         gameContent.appendChild(title);
         gameContent.appendChild(attemptsDisplay);
         gameContent.appendChild(input);
