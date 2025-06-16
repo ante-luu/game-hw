@@ -185,7 +185,7 @@ export function startRockPaperScissorsGame() {
       'width: 80px; min-width: 0; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); flex-shrink: 1; transition: background 0.2s, color 0.2s;';
 
     const smallButtonStyleMobile = modalStyles.button +
-      'width: 28vw; min-width: 0; max-width: 32vw; padding: 3px 0; font-size: 11px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); flex-shrink: 1; transition: background 0.2s, color 0.2s;';
+      'width: auto; min-width: 0; flex: 1 1 0; padding: 10px 0; font-size: 13px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
 
     const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
 
