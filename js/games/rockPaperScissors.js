@@ -175,11 +175,15 @@ export function startRockPaperScissorsGame() {
         button.textContent = `${emojis[choice]} ${choice}`;
         const isMobile = window.innerWidth <= 768;
         button.style.cssText = isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop;
+        button.style.background = '#202027';
+        button.style.color = 'white';
         button.addEventListener('mouseover', () => {
-            button.style.cssText = (isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop) + 'background: #33d17a; color: #202027;';
+            button.style.background = '#33d17a';
+            button.style.color = '#202027';
         });
         button.addEventListener('mouseout', () => {
-            button.style.cssText = isMobile ? baseButtonStyleMobile : baseButtonStyleDesktop;
+            button.style.background = '#202027';
+            button.style.color = 'white';
         });
         button.addEventListener('click', () => handlePlayerChoice(choice));
         buttonsContainer.appendChild(button);
