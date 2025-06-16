@@ -171,15 +171,16 @@ export function startRockPaperScissorsGame() {
     const buttonWrapperTop = document.createElement('div');
     buttonWrapperTop.style.display = 'flex';
     buttonWrapperTop.style.justifyContent = 'space-between';
-    buttonWrapperTop.style.gap = '16px';
-    buttonWrapperTop.style.marginBottom = '12px';
+    buttonWrapperTop.style.width = '210px'; // 2*90px + 1*gap (30px)
+    buttonWrapperTop.style.margin = '0 auto 10px auto';
 
     const buttonWrapperBottom = document.createElement('div');
     buttonWrapperBottom.style.display = 'flex';
     buttonWrapperBottom.style.justifyContent = 'center';
 
-    const smallButtonStyle = modalStyles.button + 'width: 120px; padding: 10px 0; font-size: 18px; margin: 0; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+    const smallButtonStyle = modalStyles.button + 'width: 90px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
 
+    buttonsContainer.innerHTML = '';
     choices.forEach((choice, idx) => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
@@ -195,10 +196,12 @@ export function startRockPaperScissorsGame() {
             button.style.color = 'white';
         });
         button.addEventListener('click', () => handlePlayerChoice(choice));
-        if (idx < 2) {
-            buttonWrapperTop.appendChild(button);
+        if (idx === 0) {
+            buttonWrapperTop.appendChild(button); // Камень — слева
+        } else if (idx === 1) {
+            buttonWrapperTop.appendChild(button); // Ножницы — справа
         } else {
-            buttonWrapperBottom.appendChild(button);
+            buttonWrapperBottom.appendChild(button); // Бумага — снизу по центру
         }
     });
 
