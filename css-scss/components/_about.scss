@@ -255,7 +255,7 @@
     }
 }
 
-@include respond-to(desktop) {
+@include respond-to(desktop){
     .about {
         &__title {
             color: rgb(255, 255, 255);
