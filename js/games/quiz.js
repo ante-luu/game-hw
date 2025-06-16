@@ -524,7 +524,7 @@ export function startQuizGame() {
     function createOptionButton(text, index) {
         try {
         const button = document.createElement('button');
-            button.style.cssText = modalStyles.button + 'width: 100%; text-align: left; padding: 15px 20px;';
+            button.style.cssText = modalStyles.button + 'width: auto; min-width: 80px; text-align: center; padding: 7px 12px; font-size: 14px; margin: 0 2px 0 2px; border-radius: 16px;';
         button.textContent = text;
 
             button.addEventListener('click', () => {
@@ -606,7 +606,12 @@ export function startQuizGame() {
                         }
                     }
 
-                    nextButton.style.display = 'block';
+                    // Показываем кнопку "Следующий вопрос" только если это не последний вопрос
+                    if (currentQuestion < quizSets[currentCategory].length - 1) {
+                        nextButton.style.display = 'block';
+                    } else {
+                        nextButton.style.display = 'none';
+                    }
                 } catch (error) {
                     logger.error('Error handling answer:', error);
                     message.textContent = 'Произошла ошибка при проверке ответа';
@@ -647,7 +652,12 @@ export function startQuizGame() {
                 optionsContainer.appendChild(button);
         });
 
-        nextButton.style.display = 'none';
+        // Показываем кнопку "Следующий вопрос" только если это не последний вопрос
+        if (currentQuestion < quizSets[currentCategory].length - 1) {
+            nextButton.style.display = 'block';
+        } else {
+            nextButton.style.display = 'none';
+        }
             logger.info(`Showing question ${currentQuestion + 1}`);
         } catch (error) {
             logger.error('Error showing question:', error);
@@ -666,7 +676,7 @@ export function startQuizGame() {
             optionsContainer.innerHTML = '';
                 message.textContent = `Игра окончена! Ваш результат: ${score} из ${quizSets[currentCategory].length}`;
             message.style.color = '#202027';
-            nextButton.style.display = 'none';
+            nextButton.style.display = 'none'; // Скрываем кнопку после завершения
             nextButton.disabled = true;
             nextButton.tabIndex = -1;
             nextButton.style.visibility = 'hidden';
