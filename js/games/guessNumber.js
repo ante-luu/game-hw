@@ -18,7 +18,6 @@ export async function startGuessNumberGame() {
         // Генерируем случайное число
         const secretNumber = Math.floor(Math.random() * 100) + 1;
         let attempts = 0;
-        const category = 'Угадай число';
         
         logger.info('Игра "Угадай число" запущена', { secretNumber });
         
@@ -96,6 +95,7 @@ export async function startGuessNumberGame() {
 
         // Функция проверки числа
         function checkNumber() {
+            const category = 'Угадай число';
             try {
                 const guess = parseInt(input.value);
                 attempts++;
