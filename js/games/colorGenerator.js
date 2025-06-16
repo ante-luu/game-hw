@@ -160,11 +160,12 @@ export function startColorGeneratorGame() {
                 if (newColor.name) {
                     colorNameBlock = `<div style="margin-bottom: 10px; color: #202027; font-weight: bold;">${newColor.name}</div>`;
                 }
+                const quoteText = randomQuote && typeof randomQuote === 'object' ? `${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}${randomQuote.author ? '<br><span style="font-size:0.9em;color:#888;">— ' + randomQuote.author + '</span>' : ''}` : randomQuote;
                 if (score % 2 === 0) {
                     message.innerHTML = `
                         ${colorNameBlock}
                         <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
+                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${quoteText}</div>
                     `;
                 } else {
                     message.innerHTML = `

@@ -178,10 +178,11 @@ export function startRockPaperScissorsGame() {
                     ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
                     : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
 
+                const quoteText = randomQuote && typeof randomQuote === 'object' ? `${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}${randomQuote.author ? '<br><span style=\"font-size:0.9em;color:#888;\">— ' + randomQuote.author + '</span>' : ''}` : randomQuote;
                 message = `
                     <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">${result} 🎉</div>
                     <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${randomQuote}</div>
+                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${quoteText}</div>
                 `;
             } else if (result === 'Ничья!') {
                 message = 'Ничья! Попробуй еще раз! 🤝';
