@@ -123,14 +123,11 @@ export function startRockPaperScissorsGame() {
      */
     function handlePlayerChoice(choice) {
         logger.info('Player made a choice', { choice });
-        
         try {
             const computerChoice = choices[Math.floor(Math.random() * 3)];
             logger.info('Computer made a choice', { computerChoice });
-            
             const result = determineWinner(choice, computerChoice);
             totalGames++;
-            
             if (result === 'Ничья!') {
                 draws++;
                 drawsBox.lastChild.textContent = draws;
@@ -141,9 +138,15 @@ export function startRockPaperScissorsGame() {
                 computerScore++;
                 computerScoreBox.lastChild.textContent = computerScore;
             }
-            
-            resultDisplay.textContent = `${emojis[choice]} vs ${emojis[computerChoice]} - ${result}`;
-            
+            // Новый фиксированный вывод результата с эмодзи
+            resultDisplay.innerHTML = `
+              <div style="display: flex; align-items: center; justify-content: center; font-size: 2em; gap: 10px;">
+                <span style="width: 2.5em; text-align: right;">${emojis[choice]}</span>
+                <span style="font-size: 1em;">vs</span>
+                <span style="width: 2.5em; text-align: left;">${emojis[computerChoice]}</span>
+              </div>
+              <div style="text-align: center; font-size: 1.1em; margin-top: 8px;">${result}</div>
+            `;
             const category = 'Камень, ножницы, бумага';
             let message;
             if (result === 'Ты победил!') {
@@ -156,7 +159,6 @@ export function startRockPaperScissorsGame() {
             } else {
                 message = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
             }
-            
             messageDisplay.textContent = message;
             logger.info('Round result', { result, message });
         } catch (error) {
