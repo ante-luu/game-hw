@@ -574,13 +574,15 @@ a {
   }
   .header__star {
     position: absolute;
-    top: 30%;
-    left: 95%;
+    top: 27%;
+    left: 98%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-size: 60%;
+    background: url("data:image/svg+xml;charset=UTF-8,%3csvg width='1074.500000' height='1130.957397' viewBox='0 0 1074.5 1130.96' fill='none' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdesc%3e Created with Pixso. %3c/desc%3e%3cdefs/%3e%3cpath id='Vector 4780' d='M241.29 323.45L317.5 411.83L0.5 486.45' stroke='%23202027' stroke-opacity='1.000000' stroke-width='1.000000' stroke-linecap='round'/%3e%3cpath id='Vector' d='M708.18 381.86C717.61 384.48 980.01 495.42 980.01 495.42L701.61 525.3L877.49 751.11L629.53 596.86L604.27 858.31L534.38 582.98L301.43 713.95L461.9 521.72L177.13 508.74L444.8 428.48L245.9 199.41L525.53 330.96L589.53 77.14L618.26 331.5L872.98 156.05L708.18 381.86Z' fill='%23BCEC30' fill-opacity='1.000000' fill-rule='nonzero'/%3e%3cpath id='Vector' d='M980.01 495.42L701.61 525.3L877.49 751.11L629.53 596.86L604.27 858.31L534.38 582.98L301.43 713.95L461.9 521.72L177.13 508.74L444.8 428.48L245.9 199.41L525.53 330.96L589.53 77.14L618.26 331.5L872.98 156.05L708.18 381.86C717.61 384.48 980.01 495.42 980.01 495.42Z' stroke='%23202027' stroke-opacity='1.000000' stroke-width='1.000000'/%3e%3cpath id='Vector 4781' d='M231.58 587.45L355.5 587.45L213.5 766.45' stroke='%23202027' stroke-opacity='1.000000' stroke-width='1.000000' stroke-linecap='round'/%3e%3cpath id='Vector 4782' d='M371.5 791.5L485.26 712.45L591.38 1130.46' stroke='%23202027' stroke-opacity='1.000000' stroke-width='1.000000' stroke-linecap='round'/%3e%3cpath id='Vector 4788' d='M449.65 801.45L393.5 860.22L473.5 927.45L449.65 801.45Z' fill='%23BCEC30' fill-opacity='1.000000' fill-rule='nonzero'/%3e%3cpath id='Vector 4788' d='M449.65 801.45L473.5 927.45L393.5 860.22L449.65 801.45Z' stroke='%23202027' stroke-opacity='1.000000' stroke-width='1.000000'/%3e%3cpath id='Vector 4791' d='M491.5 996.45L525.5 1120.46' stroke='%23202027' stroke-opacity='1.000000' stroke-width='1.000000' stroke-linecap='round'/%3e%3c/svg%3e") no-repeat center/contain;
+    animation: float 2.5s ease-in-out infinite alternate;
     z-index: 0;
+    background-size: 80%;
   }
   .marquee {
     overflow: hidden;
