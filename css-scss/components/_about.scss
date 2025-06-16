@@ -39,6 +39,10 @@
     }
 
     &__game-card {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
         text-decoration: none !important;
         transition: transform 0.3s cubic-bezier(0.4, 2, 0.6, 1), box-shadow 0.2s;
         will-change: transform;
@@ -110,6 +114,9 @@
 
     &__cover {
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: center;
