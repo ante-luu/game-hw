@@ -153,8 +153,11 @@ export function startRockPaperScissorsGame() {
             const emojiFontSize = isMobile() ? '1.5em' : '2.2em';
             const emojiGap = isMobile() ? '2px' : '10px';
             const resultFontSize = isMobile() ? '0.9em' : '1.1em';
+            const emojiResultStyle = isMobile()
+              ? 'display: flex; align-items: center; justify-content: center; font-size: 2em; gap: 16px; margin-bottom: 2px;'
+              : 'display: flex; align-items: center; justify-content: center; font-size: 4.2em; gap: 97px; margin-bottom: 2px;';
             resultDisplay.innerHTML = `
-              <div style="display: flex; align-items: center; justify-content: center; font-size: ${emojiFontSize}; gap: ${emojiGap}; margin-bottom: 2px;">
+              <div style="${emojiResultStyle}">
                 <span>${emojis[choice]}</span>
                 <span>${emojis[computerChoice]}</span>
               </div>
@@ -192,7 +195,7 @@ export function startRockPaperScissorsGame() {
     const buttonRow = document.createElement('div');
     buttonRow.style.display = 'flex';
     buttonRow.style.justifyContent = 'center';
-    buttonRow.style.gap = isMobile() ? '18px' : '24px';
+    buttonRow.style.gap = isMobile() ? '18px' : '80px';
     buttonRow.style.margin = '0 auto 12px auto';
     buttonRow.style.maxWidth = '100%';
 

@@ -51,7 +51,6 @@ const modalStyles = {
         font-weight: 600;
         margin: 10px 0 30px 0;
         transition: all 0.3s;
-        min-width: 200px;
     `,
     
     // Стили для полей ввода
