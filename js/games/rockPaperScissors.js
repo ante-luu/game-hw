@@ -200,16 +200,23 @@ export function startRockPaperScissorsGame() {
     buttonRow.style.maxWidth = '100%';
 
     buttonsContainer.innerHTML = '';
+    // Добавляю CSS для скрытия текста на мобильных, если ещё не добавлен
+    if (isMobile() && !document.getElementById('hide-btn-text-style')) {
+        const style = document.createElement('style');
+        style.id = 'hide-btn-text-style';
+        style.textContent = '.btn-text { display: none !important; }';
+        document.head.appendChild(style);
+    }
     choices.forEach((choice) => {
         const button = document.createElement('button');
         button.style.cssText = smallButtonStyle;
         button.style.background = '#202027';
         button.style.color = 'white';
         if (isMobile()) {
-            button.textContent = emojis[choice];
+            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span>`;
             button.style.fontSize = '2.1em';
         } else {
-            button.textContent = `${emojis[choice]} ${choice}`;
+            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span> <span class="btn-text">${choice}</span>`;
             button.style.fontSize = '';
         }
         button.addEventListener('mouseover', () => {
