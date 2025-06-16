@@ -199,7 +199,13 @@ export function startRockPaperScissorsGame() {
     buttonsContainer.innerHTML = '';
     choices.forEach((choice) => {
         const button = document.createElement('button');
-        button.textContent = `${emojis[choice]} ${choice}`;
+        if (isMobile()) {
+            button.textContent = emojis[choice];
+            button.style.fontSize = '2.1em'; // крупнее эмодзи на мобильных
+        } else {
+            button.textContent = `${emojis[choice]} ${choice}`;
+            button.style.fontSize = '';
+        }
         button.style.cssText = smallButtonStyle;
         button.style.background = '#202027';
         button.style.color = 'white';
