@@ -174,22 +174,18 @@ export function startRockPaperScissorsGame() {
     }
 
     // Создаем кнопки выбора
-    const buttonWrapperTop = document.createElement('div');
-    buttonWrapperTop.style.display = 'flex';
-    buttonWrapperTop.style.justifyContent = 'space-between';
-    buttonWrapperTop.style.width = isMobile() ? '160px' : '210px';
-    buttonWrapperTop.style.margin = '0 auto 10px auto';
-
-    const buttonWrapperBottom = document.createElement('div');
-    buttonWrapperBottom.style.display = 'flex';
-    buttonWrapperBottom.style.justifyContent = 'center';
+    const buttonRow = document.createElement('div');
+    buttonRow.style.display = 'flex';
+    buttonRow.style.justifyContent = 'center';
+    buttonRow.style.gap = isMobile() ? '10px' : '18px';
+    buttonRow.style.margin = '0 auto 12px auto';
 
     const smallButtonStyleDesktop = modalStyles.button + 'width: 70px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
     const smallButtonStyleMobile = modalStyles.button + 'width: 50px; padding: 4px 0; font-size: 12px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
     const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
 
     buttonsContainer.innerHTML = '';
-    choices.forEach((choice, idx) => {
+    choices.forEach((choice) => {
         const button = document.createElement('button');
         button.textContent = `${emojis[choice]} ${choice}`;
         button.style.cssText = smallButtonStyle;
@@ -204,17 +200,10 @@ export function startRockPaperScissorsGame() {
             button.style.color = 'white';
         });
         button.addEventListener('click', () => handlePlayerChoice(choice));
-        if (idx === 0) {
-            buttonWrapperTop.appendChild(button); // Камень — слева
-        } else if (idx === 1) {
-            buttonWrapperTop.appendChild(button); // Ножницы — справа
-        } else {
-            buttonWrapperBottom.appendChild(button); // Бумага — снизу по центру
-        }
+        buttonRow.appendChild(button);
     });
 
-    buttonsContainer.appendChild(buttonWrapperTop);
-    buttonsContainer.appendChild(buttonWrapperBottom);
+    buttonsContainer.appendChild(buttonRow);
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
