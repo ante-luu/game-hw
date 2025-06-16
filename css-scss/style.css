@@ -1199,26 +1199,23 @@ a {
     padding: 0 24px;
   }
   .about__games {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    padding: 0 24px;
-    max-width: 800px;
-    margin: 0 auto;
+    margin-top: 48px;
   }
   .about__game-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: block !important;
+    width: 100%;
+    height: 280px;
   }
   .game-card__info {
-    padding: 24px;
+    padding: 16px;
   }
   .game-card__title {
-    font-size: 24px;
+    font-size: 18px;
   }
   .game-card__number {
-    line-height: 20px;
+    font-size: 14px;
     margin-bottom: 8px;
   }
 }
