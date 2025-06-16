@@ -96,6 +96,23 @@ const gameElementStyles = {
     gap: 20px;
     flex-wrap: wrap;
   `,
+  // Стили для планшетной версии
+  tablet: {
+    score: `
+      font-size: 18px;
+      margin-bottom: 16px;
+    `,
+    question: `
+      font-size: 20px;
+      margin: 16px 0;
+    `,
+    message: `
+      margin: 16px 0;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
+    `
+  }
 };
 
 export default gameElementStyles; 

@@ -307,65 +307,57 @@
 
 @include respond-to(tablet) {
     .header {
-        padding: 32px 0;
-        min-height: 80vh;
-
+        height: 700px;
+        
         &__container {
-            padding: 0 24px;
-            overflow: hidden;
-            padding-bottom: 70px;
-            max-width: 769px;
-            margin-left: 120px;
+            max-width: 100%;
+            margin-top: 120px;
+            padding-left: 24px;
+            padding-right: 24px;
         }
 
         &__content {
+            text-align: left;
             max-width: 600px;
-            position: relative;
-            z-index: 2;
+            margin-top: 0;
         }
 
         &__title {
             font-size: 48px;
-            line-height: 59px;
-            margin-bottom: 24px;
+            line-height: 58px;
         }
 
         &__desc {
             font-size: 20px;
             line-height: 28px;
-            margin-bottom: 32px;
+            margin-top: 20px;
+            margin-bottom: 40px;
         }
 
         &__button {
             font-size: 20px;
-            padding: 12px 32px;
-            border-radius: 48px;
+            padding: 16px 48px;
         }
 
-        &__back {
-            width: 100%;
-            background-position: 30% 50%;
-            background-size: 88%;
-            height: 100%;
-            padding-top: 196px;
-            background-position: 430% 43%;
-            background-repeat: no-repeat;
-            position: relative;
+        &__star {
+            background-size: 60%;
+            top: 30%;
+            left: 95%;
         }
     }
 
     .marquee {
-        padding: 27px 0;
-        grid-row: -2 / -1;
-        grid-column: 1/13;
+        height: 70px;
 
-        &__item {
-            font-size: 20px;
-        }
+        &__inner {
+            span {
+                font-size: 24px;
+                margin: 0 14px;
+            }
 
-        &__icon {
-            width: 24px;
-            height: 24px;
+            svg {
+                margin: 0 14px;
+            }
         }
     }
 } 

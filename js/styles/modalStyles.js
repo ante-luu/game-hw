@@ -7,35 +7,32 @@ const modalStyles = {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(32, 32, 39, 0.9);
+        background: rgba(0, 0, 0, 0.5);
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 1000;
-        backdrop-filter: blur(5px);
     `,
     
     // Стили для контента модального окна
     modalContent: `
         background: white;
-        padding: 40px;
+        padding: 32px;
         border-radius: 24px;
-        text-align: center;
-        max-width: 500px;
+        max-width: 600px;
         width: 90%;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        animation: modalAppear 0.3s ease-out;
         max-height: 90vh;
         overflow-y: auto;
+        position: relative;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     `,
     
     // Стили для заголовка
     title: `
-        color: #202027;
-        font-family: Montserrat;
         font-size: 32px;
+        color: #202027;
+        margin-bottom: 24px;
         font-weight: 700;
-        margin-bottom: 30px;
     `,
     
     // Стили для кнопок
@@ -44,24 +41,22 @@ const modalStyles = {
         color: white;
         border: none;
         padding: 16px 32px;
-        border-radius: 60px;
-        cursor: pointer;
-        font-family: Montserrat;
+        border-radius: 12px;
         font-size: 18px;
-        font-weight: 600;
-        margin: 10px 0 30px 0;
+        cursor: pointer;
         transition: all 0.3s;
+        margin: 8px 0;
+        width: 100%;
     `,
     
     // Стили для полей ввода
     input: `
-        padding: 16px 24px;
-        margin: 20px 0;
-        width: 80%;
-        border: 2px solid #202027;
-        border-radius: 60px;
+        width: 100%;
+        padding: 16px;
+        margin: 16px 0;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
         font-size: 18px;
-        font-family: Montserrat;
         outline: none;
         transition: border-color 0.3s;
     `,
@@ -88,6 +83,35 @@ const modalStyles = {
                 transform: translateY(0);
             }
         }
+    `,
+    
+    // Стили для планшетной версии
+    tablet: {
+        modalContent: `
+            padding: 24px;
+            max-width: 500px;
+            border-radius: 20px;
+        `,
+        title: `
+            font-size: 28px;
+            margin-bottom: 20px;
+        `,
+        input: `
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 10px;
+        `,
+        button: `
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 10px;
+        `
+    },
+    
+    // Стили для кнопки при наведении
+    buttonHover: `
+        background: #333;
+        transform: translateY(-2px);
     `
 };
 

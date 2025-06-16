@@ -364,37 +364,53 @@
 
 @include respond-to(tablet) {
     .game-list {
+        &__container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
         &__card {
-            min-height: 220px;
+            height: 400px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         &__image {
-            height: 100%;
-            min-height: 180px;
-            max-height: 100%;
-            border-radius: 16px 0 0 16px;
-            grid-column: 2;
-            grid-row: 1;
-            aspect-ratio: unset;
-        }
-
-        &__card:nth-child(even) .game-list__image {
-            grid-column: 1;
-            border-radius: 0 16px 16px 0;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
         }
 
         &__content {
-            grid-column: 1;
-            grid-row: 1;
-            padding: 32px;
+            padding: 24px;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            min-height: 180px;
+            justify-content: space-between;
         }
 
-        &__card:nth-child(even) .game-list__content {
-            grid-column: 2;
+        &__name {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        &__description {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        &__button {
+            font-size: 18px;
+            padding: 12px 32px;
+            align-self: flex-start;
         }
     }
 } 
