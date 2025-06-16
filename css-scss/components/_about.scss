@@ -198,62 +198,137 @@
 }
 
 @include respond-to(tablet) {
-    .main {
-        padding-left: 115px;
-        padding-right: 110px;
-    }
-
-    .about {
+    .about__games{
+       
+            
         display: grid;
-        width: 100%;
-        padding: 32px 0;
+        grid-template-columns: repeat(2, 1fr)!important;
+        row-gap: 26px;
+        -moz-column-gap: 36px;
+        column-gap: 36px;
+        overflow: visible;
+        display: grid !important;
+        grid-template-columns: repeat(1fr) !important;
+        row-gap: 30px;
+        column-gap: 37px;
+        padding: 0 0px;
+        max-width: 1200px;
+        margin: 0 auto;
 
-        &__title {
-            font-size: 48px;
-            line-height: 59px;
-            margin-top: 95px;
-            margin-bottom: 32px;
-            padding: 0 24px;
-        }
-
-        &__desc {
-            font-size: 20px;
-            line-height: 28px;
-            margin-bottom: 48px;
-            padding: 0 24px;
-        }
-
-        &__games {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr) ;
-            gap: 24px;
-            padding: 0 24px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        &__game-card {
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-        }
+}
+.about {
+    &__title {
+        color: rgb(255, 255, 255);
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: 64px;
+        font-weight: 700;
+        line-height: 78px;
+        letter-spacing: 0px;
+        margin-top: 95px;
+        margin-bottom: 24px;
     }
 
-    .game-card {
-        &__info {
-            padding: 24px;
-        }
+    &__desc {
+        color: rgb(255, 255, 255);
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+        letter-spacing: 0px;
+        margin-bottom: 71px;
+        text-align: left;
+    }
 
-        &__title {
-            font-size: 24px;
-        }
+    
 
-        &__number {
-            line-height: 20px;
-            margin-bottom: 8px;
-        }
+    &__game-card {
+        text-decoration: none !important;
+        transition: transform 0.3s cubic-bezier(0.4, 2, 0.6, 1), box-shadow 0.2s;
+        will-change: transform;
+        position: relative;
+        z-index: 1;
     }
 }
+
+.game-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.25s cubic-bezier(0.4, 2, 0.6, 1), box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+
+    &__cover {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1 / 0.84;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        &_type_guess-number {
+            background-image: url(../img/game1.png);
+        }
+
+        &_type_arithmetic {
+            background-image: url(../img/game2.png);
+        }
+
+        &_type_reverse-text {
+            background-image: url(../img/game3.png);
+        }
+
+        &_type_rps {
+            background-image: url(../img/game4.png);
+        }
+
+        &_type_quiz {
+            background-image: url(../img/game5.png);
+        }
+
+        &_type_color-gen {
+            background-image: url(../img/game6.png);
+        }
+    }
+
+    &__info {
+        padding: 42px 40px 34px 32px;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__number {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 110%;
+        letter-spacing: 0px;
+        text-align: left;
+        margin-bottom: 26px;
+        margin-left: 16px;
+        color: rgb(32, 32, 39);
+    }
+
+    &__title {
+        color: rgb(32, 32, 39);
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 39px;
+        letter-spacing: 0px;
+        text-align: left;
+        text-decoration: none;
+    }
+}
+} 
 
 @include respond-to(desktop){
     .about__games{
