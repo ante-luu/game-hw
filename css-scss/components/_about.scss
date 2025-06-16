@@ -32,7 +32,6 @@
 
     &__games {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
         row-gap: 32px;
         column-gap: 36px;
         overflow: visible;
@@ -206,7 +205,6 @@
 
 @include respond-to(tablet) {
     .about__games {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
         padding: 0 24px;
@@ -328,24 +326,16 @@
     }
 }
 
-@include respond-to(desktop){
-    .about__games{
-       
-            
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            row-gap: 26px;
-            -moz-column-gap: 36px;
-            column-gap: 36px;
-            overflow: visible;
-           
-            row-gap: 30px;
-            column-gap: 37px;
-            padding: 0 0px;
-            max-width: 1200px;
-            margin: 0 auto;
-    
+@include respond-to(desktop) {
+    .about__games {
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 30px;
+        column-gap: 37px;
+        padding: 0 0px;
+        max-width: 1200px;
+        margin: 0 auto;
     }
+
     .about {
         &__title {
             color: rgb(255, 255, 255);
@@ -368,8 +358,6 @@
             margin-bottom: 71px;
             text-align: left;
         }
-
-        
 
         &__game-card {
             text-decoration: none !important;

@@ -1116,7 +1116,6 @@ a {
 }
 .about__games {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   row-gap: 32px;
   -moz-column-gap: 36px;
        column-gap: 36px;
@@ -1266,7 +1265,6 @@ a {
 }
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .about__games {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     padding: 0 24px;
@@ -1373,12 +1371,7 @@ a {
 }
 @media screen and (min-width: 1025px) {
   .about__games {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 26px;
-    -moz-column-gap: 36px;
-    column-gap: 36px;
-    overflow: visible;
     row-gap: 30px;
     -moz-column-gap: 37px;
          column-gap: 37px;
