@@ -40,6 +40,13 @@
     }
 }
 
+@include respond-to(tablet) {
+    .about__games {
+        border: 5px solid red !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
 
 
 

@@ -1506,4 +1506,11 @@ a {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .about__games {
+    border: 5px solid red !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }/*# sourceMappingURL=style.css.map */
