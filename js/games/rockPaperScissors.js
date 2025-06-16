@@ -184,8 +184,8 @@ export function startRockPaperScissorsGame() {
     buttonWrapperBottom.style.display = 'flex';
     buttonWrapperBottom.style.justifyContent = 'center';
 
-    const smallButtonStyleDesktop = modalStyles.button + 'width: 90px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
-    const smallButtonStyleMobile = modalStyles.button + 'width: 70px; padding: 4px 0; font-size: 12px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+    const smallButtonStyleDesktop = modalStyles.button + 'width: 70px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+    const smallButtonStyleMobile = modalStyles.button + 'width: 50px; padding: 4px 0; font-size: 12px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
     const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
 
     buttonsContainer.innerHTML = '';
