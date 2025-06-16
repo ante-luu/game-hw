@@ -1228,6 +1228,20 @@ a {
   }
 }
 @media screen and (min-width: 1025px) {
+  .about__games {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 26px;
+    -moz-column-gap: 36px;
+    column-gap: 36px;
+    overflow: visible;
+    display: grid !important;
+    grid-template-columns: repeat(1fr) !important;
+    gap: 24px;
+    padding: 0 0px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
   .about__title {
     color: rgb(255, 255, 255);
     font-family: "Montserrat", Arial, sans-serif;
@@ -1247,20 +1261,6 @@ a {
     letter-spacing: 0px;
     margin-bottom: 71px;
     text-align: left;
-  }
-  .about__games {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 26px;
-    -moz-column-gap: 36px;
-    column-gap: 36px;
-    overflow: visible;
-    display: grid !important;
-    grid-template-columns: repeat(1fr) !important;
-    gap: 24px;
-    padding: 0 0px;
-    max-width: 1200px;
-    margin: 0 auto;
   }
   .about__game-card {
     text-decoration: none !important;

@@ -256,6 +256,23 @@
 }
 
 @include respond-to(desktop){
+    .about__games{
+       
+            
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 26px;
+            -moz-column-gap: 36px;
+            column-gap: 36px;
+            overflow: visible;
+            display: grid !important;
+            grid-template-columns: repeat(1fr) !important;
+            gap: 24px;
+            padding: 0 0px;
+            max-width: 1200px;
+            margin: 0 auto;
+    
+    }
     .about {
         &__title {
             color: rgb(255, 255, 255);
@@ -279,21 +296,7 @@
             text-align: left;
         }
 
-        &__games {
-            
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                row-gap: 26px;
-                -moz-column-gap: 36px;
-                column-gap: 36px;
-                overflow: visible;
-                display: grid !important;
-                grid-template-columns: repeat(1fr) !important;
-                gap: 24px;
-                padding: 0 0px;
-                max-width: 1200px;
-                margin: 0 auto;
-        }
+        
 
         &__game-card {
             text-decoration: none !important;
