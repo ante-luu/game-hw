@@ -16,6 +16,31 @@
 // Games
 //@import 'games/quiz';
 
+// Smooth scrolling для якорных ссылок
+html {
+    scroll-behavior: smooth;
+}
+
+// Отступы для якорных ссылок с учетом фиксированной шапки
+#about {
+    scroll-margin-top: 80px; // Для десктопа и планшета
+}
+
+#games {
+    scroll-margin-top: 80px; // Для десктопа и планшета
+}
+
+// Медиазапросы для мобильных устройств
+@include respond-to(mobile) {
+    #about {
+        scroll-margin-top: 60px; // Меньший отступ для мобильных
+    }
+    
+    #games {
+        scroll-margin-top: 60px; // Меньший отступ для мобильных
+    }
+}
+
 // Responsive styles
 @include respond-to(mobile) {
     .quiz-fact-image {

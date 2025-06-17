@@ -1581,6 +1581,26 @@ a {
     text-decoration: none;
   }
 }
+html {
+  scroll-behavior: smooth;
+}
+
+#about {
+  scroll-margin-top: 80px;
+}
+
+#games {
+  scroll-margin-top: 80px;
+}
+
+@media screen and (max-width: 768px) {
+  #about {
+    scroll-margin-top: 60px;
+  }
+  #games {
+    scroll-margin-top: 60px;
+  }
+}
 @media screen and (max-width: 768px) {
   .quiz-fact-image {
     display: none;
