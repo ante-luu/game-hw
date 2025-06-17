@@ -8,6 +8,43 @@ import { startQuizGame } from './games/quiz.js';
 import { startRockPaperScissorsGame } from './games/rockPaperScissors.js';
 import { startColorGeneratorGame } from './games/colorGenerator.js';
 
+// Функция для адаптивной навигации кнопки "Поехали!"
+function setupAdaptiveNavigation() {
+    const headerButton = document.getElementById('headerButton');
+    if (!headerButton) {
+        logger.warning('Кнопка "Поехали!" не найдена');
+        return;
+    }
+
+    // Функция для определения целевой секции в зависимости от размера экрана
+    function getTargetSection() {
+        const screenWidth = window.innerWidth;
+        // Мобильные устройства (до 768px) - переход к карточкам игр
+        if (screenWidth < 768) {
+            return '#games';
+        }
+        // Планшеты и десктопы (768px и больше) - переход к секции "Об играх"
+        return '#about';
+    }
+
+    // Функция для обновления ссылки
+    function updateButtonTarget() {
+        const targetSection = getTargetSection();
+        headerButton.href = targetSection;
+        logger.info(`Обновлена цель кнопки "Поехали!" на: ${targetSection} (ширина экрана: ${window.innerWidth}px)`);
+    }
+
+    // Обновляем цель при загрузке страницы
+    updateButtonTarget();
+
+    // Обновляем цель при изменении размера окна
+    window.addEventListener('resize', () => {
+        updateButtonTarget();
+    });
+
+    logger.info('Адаптивная навигация для кнопки "Поехали!" настроена');
+}
+
 // Функция для создания модального окна с ошибкой
 function showErrorModal(message) {
     const modal = document.createElement('div');
@@ -54,6 +91,9 @@ async function startGameSafely(gameFunction, gameName) {
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     logger.info('Страница загружена, инициализация обработчиков событий');
+    
+    // Настраиваем адаптивную навигацию
+    setupAdaptiveNavigation();
     
     const gameButtons = document.querySelectorAll('.game-list__button');
     
