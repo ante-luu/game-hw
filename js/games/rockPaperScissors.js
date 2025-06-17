@@ -317,5 +317,19 @@ export function startRockPaperScissorsGame() {
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
 
+    // --- Функция запуска игры после стартового экрана ---
+    function startGame() {
+        startScreen.remove();
+        // Вставить сюда весь основной игровой интерфейс:
+        gameContent.appendChild(title);
+        gameContent.appendChild(statsContainer);
+        gameContent.appendChild(resultDisplay);
+        gameContent.appendChild(buttonsContainer);
+        gameContent.appendChild(messageDisplay);
+        gameContent.appendChild(closeButton);
+        showRound();
+    }
+    // --- Обработчик кнопки старта ---
+    document.getElementById('startRPSBtn').onclick = startGame;
     logger.info('Rock Paper Scissors Game initialized successfully');
 }
