@@ -700,18 +700,50 @@ export function startQuizGame() {
     currentCategory = categories[Math.floor(Math.random() * categories.length)];
     logger.info(`Selected category: ${currentCategory}`);
 
-    questionContainer.appendChild(questionText);
-    gameContent.appendChild(title);
-    gameContent.appendChild(questionContainer);
-    gameContent.appendChild(optionsContainer);
-    gameContent.appendChild(message);
-    gameContent.appendChild(scoreDisplay);
-    gameContent.appendChild(nextButton);
-    gameContent.appendChild(closeButton);
+    // --- Стартовый экран ---
+    const startScreen = document.createElement('div');
+    startScreen.style.cssText = 'padding: 32px 0; text-align: center;';
+    if (currentCategory === 'Советское кино') {
+        startScreen.innerHTML = `
+          <h2 style="font-size: 2em; margin-bottom: 16px;">Советские фильмы</h2>
+          <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+            В этой викторине тебе нужно угадать советский фильм по рецензиям и цитатам иностранных публичных лиц.<br>
+            Проверь, насколько хорошо ты знаешь классику советского кинематографа глазами зарубежных зрителей!
+          </p>
+          <button id="startQuizBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+        `;
+    } else {
+        startScreen.innerHTML = `
+          <h2 style="font-size: 2em; margin-bottom: 16px;">Викторина</h2>
+          <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+            Ответь на вопросы из выбранной категории. За каждый правильный ответ получай баллы и мотивацию!<br>
+            Проверь свои знания и узнай что-то новое!
+          </p>
+          <button id="startQuizBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+        `;
+    }
+    gameContent.appendChild(startScreen);
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
-
-    showQuestion();
+    // --- Основной игровой интерфейс (скрыт до старта) ---
+    // ... (создание title, questionContainer, optionsContainer, message, scoreDisplay, nextButton, closeButton и т.д.)
+    // --- Функция запуска игры после стартового экрана ---
+    function startGame() {
+        gameContent.innerHTML = '';
+        // ... (добавление элементов основного интерфейса)
+        gameContent.appendChild(title);
+        gameContent.appendChild(questionContainer);
+        gameContent.appendChild(optionsContainer);
+        gameContent.appendChild(message);
+        gameContent.appendChild(scoreDisplay);
+        gameContent.appendChild(nextButton);
+        gameContent.appendChild(closeButton);
+        showQuestion();
+    }
+    // --- Обработчик кнопки старта ---
+    const startBtn = gameContent.querySelector('#startQuizBtn');
+    if (startBtn) startBtn.onclick = startGame;
+    logger.info(`Selected category: ${currentCategory}`);
     logger.info('Quiz Game initialized successfully');
     } catch (error) {
         logger.error('Error initializing Quiz Game:', error);
