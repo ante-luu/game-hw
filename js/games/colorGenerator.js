@@ -196,6 +196,11 @@ export function startColorGeneratorGame() {
                 message.style.color = '#f44336';
             }
         });
+
+        closeButton.addEventListener('click', () => {
+            logger.info('Closing Color Generator Game');
+            document.body.removeChild(modal);
+        });
     } catch (error) {
         logger.error('Error starting game:', error);
         throw error;
