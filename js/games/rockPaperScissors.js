@@ -218,29 +218,32 @@ export function startRockPaperScissorsGame() {
     // Используем существующие массивы choices и emojis
     choices.forEach((choice, index) => {
         const button = document.createElement('button');
-        button.textContent = `${emojis[index]} ${choice}`;
-        button.style.padding = '15px 30px';
-        button.style.fontSize = '20px';
+        button.innerHTML = `<span class="emoji-only">${emojis[index]}</span>`;
+        button.style.padding = '20px';
+        button.style.fontSize = '2.5em';
         button.style.border = '2px solid #33d17a';
-        button.style.borderRadius = '10px';
+        button.style.borderRadius = '50%';
         button.style.backgroundColor = '#ffffff';
         button.style.color = '#202027';
         button.style.cursor = 'pointer';
         button.style.transition = 'all 0.3s ease';
-        button.style.minWidth = '180px';
+        button.style.width = '80px';
+        button.style.height = '80px';
         button.style.display = 'flex';
         button.style.alignItems = 'center';
         button.style.justifyContent = 'center';
-        button.style.gap = '10px';
+        button.title = choice; // Добавляем подсказку при наведении
 
         // Добавляем эффект при наведении
         button.onmouseover = () => {
             button.style.backgroundColor = '#33d17a';
             button.style.color = '#ffffff';
+            button.style.transform = 'scale(1.1)';
         };
         button.onmouseout = () => {
             button.style.backgroundColor = '#ffffff';
             button.style.color = '#202027';
+            button.style.transform = 'scale(1)';
         };
 
         // Добавляем медиа-запрос для планшетов
@@ -248,14 +251,16 @@ export function startRockPaperScissorsGame() {
         const updateButtonStyle = (e) => {
             if (e.matches) {
                 // Стили для планшетов
-                button.style.padding = '12px 24px';
-                button.style.fontSize = '18px';
-                button.style.minWidth = '150px';
+                button.style.padding = '15px';
+                button.style.fontSize = '2em';
+                button.style.width = '60px';
+                button.style.height = '60px';
             } else {
                 // Стили для десктопа
-                button.style.padding = '15px 30px';
-                button.style.fontSize = '20px';
-                button.style.minWidth = '180px';
+                button.style.padding = '20px';
+                button.style.fontSize = '2.5em';
+                button.style.width = '80px';
+                button.style.height = '80px';
             }
         };
 
