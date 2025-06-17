@@ -34,17 +34,22 @@ export function startArithmeticGame() {
     title.style.cssText = isTablet ? modalStyles.tablet.title : modalStyles.title;
     title.textContent = 'Простая арифметика';
 
-    let description = gameContent.querySelector('.arithmetic-description');
-    if (!description) {
-        description = document.createElement('div');
-        description.className = 'arithmetic-description';
-        description.style.cssText = isTablet 
-            ? 'margin-bottom: 12px; color: #202027; font-size: 14px;'
-            : 'margin-bottom: 15px; color: #202027; font-size: 16px;';
-        gameContent.insertBefore(description, title.nextSibling);
-    }
-    description.textContent = 'Решайте простые арифметические задачи. Введите ответ и проверьте себя.';
+    // --- СТАРТОВЫЙ ЭКРАН ---
+    const startScreen = document.createElement('div');
+    startScreen.style.cssText = 'padding: 32px 0; text-align: center;';
+    startScreen.innerHTML = `
+      <h2 style="font-size: 2em; margin-bottom: 16px;">Простая арифметика</h2>
+      <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+        Решайте арифметические задачи на сложение, вычитание, умножение и деление.<br>
+        За каждый правильный ответ вы получаете 1 очко. Удачи!
+      </p>
+      <button id="startArithmeticBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+    `;
+    gameContent.appendChild(startScreen);
+    modal.appendChild(gameContent);
+    document.body.appendChild(modal);
 
+    // --- Основной игровой интерфейс (скрыт до старта) ---
     const scoreDisplay = document.createElement('p');
     scoreDisplay.style.cssText = isTablet ? gameElementStyles.tablet.score : gameElementStyles.score;
     scoreDisplay.textContent = 'Счёт: 0/0';
@@ -173,7 +178,8 @@ export function startArithmeticGame() {
                     : randomQuote;
                 message.innerHTML = `
                     <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
-                        ${randomEncouragement}
+                        ${randomEncouragement.text ? randomEncouragement.text : randomEncouragement}
+                        ${randomEncouragement.emoji ? ' ' + randomEncouragement.emoji : ''}
                     </div>
                     <div style="margin-top: 15px; font-size: 16px; color: #666;">
                         ${quoteText}
@@ -190,7 +196,8 @@ export function startArithmeticGame() {
                         Правильный ответ: <b>${currentAnswer}</b>
                     </div>
                     <div style="margin-top: 15px; font-size: 18px; color: #202027;">
-                        ${randomMotivation}
+                        ${randomMotivation.text ? randomMotivation.text : randomMotivation}
+                        ${randomMotivation.emoji ? ' ' + randomMotivation.emoji : ''}
                     </div>`;
                 message.style.background = '#ffebee';
                 logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
@@ -223,18 +230,20 @@ export function startArithmeticGame() {
         document.body.removeChild(modal);
     });
 
-    // Собираем интерфейс
-    
-    gameContent.appendChild(title);
-    gameContent.appendChild(scoreDisplay);
-    gameContent.appendChild(questionDisplay);
-    gameContent.appendChild(input);
-    gameContent.appendChild(message);
-    gameContent.appendChild(button);
-    gameContent.appendChild(closeButton);
-    modal.appendChild(gameContent);
-    document.body.appendChild(modal);
+    // --- Функция запуска игры после стартового экрана ---
+    function startGame() {
+        startScreen.remove();
+        gameContent.appendChild(scoreDisplay);
+        gameContent.appendChild(questionDisplay);
+        gameContent.appendChild(input);
+        gameContent.appendChild(message);
+        gameContent.appendChild(button);
+        gameContent.appendChild(closeButton);
+        currentAnswer = generateQuestion();
+        input.focus();
+    }
 
-    input.focus();
+    // --- Обработчик кнопки старта ---
+    document.getElementById('startArithmeticBtn').onclick = startGame;
     logger.info('Arithmetic Game initialized successfully');
 }
