@@ -165,20 +165,33 @@ export function startArithmeticGame() {
                     ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
                     : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
 
-                const quoteText = randomQuote && typeof randomQuote === 'object' ? `${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}${randomQuote.author ? '<br><span style=\"font-size:0.9em;color:#888;\">— ' + randomQuote.author + '</span>' : ''}` : randomQuote;
+                const quoteText = randomQuote && typeof randomQuote === 'object' 
+                    ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
+                        ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
+                       </div>`
+                    : randomQuote;
                 message.innerHTML = `
-                    <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Правильно! 🎉</div>
-                    <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                    <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${quoteText}</div>
-                `;
+                    <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
+                        ${randomEncouragement}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${quoteText}
+                    </div>`;
                 message.style.background = '#e8f5e9';
                 logger.info('Correct answer', { userAnswer, correctAnswer: currentAnswer });
             } else {
                 const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                 message.innerHTML = `
-                    <div style="color: #f44336; font-weight: bold;">Неправильно! Правильный ответ: ${currentAnswer}</div>
-                    <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
-                `;
+                    <div style="color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 10px;">
+                        Неправильно! 😢
+                    </div>
+                    <div style="margin-bottom: 10px; font-size: 18px; color: #202027;">
+                        Правильный ответ: <b>${currentAnswer}</b>
+                    </div>
+                    <div style="margin-top: 15px; font-size: 18px; color: #202027;">
+                        ${randomMotivation}
+                    </div>`;
                 message.style.background = '#ffebee';
                 logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
             }

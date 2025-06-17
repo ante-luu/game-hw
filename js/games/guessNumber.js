@@ -129,12 +129,22 @@ export async function startGuessNumberGame() {
                         ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
                         : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
 
-                    const quoteText = randomQuote && typeof randomQuote === 'object' ? `${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}${randomQuote.author ? '<br><span style=\"font-size:0.9em;color:#888;\">— ' + randomQuote.author + '</span>' : ''}` : randomQuote;
+                    const quoteText = randomQuote && typeof randomQuote === 'object' 
+                        ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
+                            ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
+                            ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
+                           </div>`
+                        : randomQuote;
                     message.innerHTML = `
-                        <div style="margin-bottom: 15px; color: #33d17a; font-weight: bold;">Поздравляем! Вы угадали число ${secretNumber} за ${attempts} попыток!</div>
-                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${quoteText}</div>
-                    `;
+                        <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
+                            Поздравляем! Вы угадали число ${secretNumber} за ${attempts} попыток!
+                        </div>
+                        <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                            ${randomEncouragement}
+                        </div>
+                        <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                            ${quoteText}
+                        </div>`;
                     message.style.background = '#e8f5e9';
                     button.disabled = true;
                     input.disabled = true;
