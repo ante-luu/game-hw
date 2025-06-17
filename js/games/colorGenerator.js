@@ -169,10 +169,6 @@ export function startColorGeneratorGame() {
                 const randomQuote = categoryQuotes && categoryQuotes.length
                     ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
                     : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
-                let colorNameBlock = '';
-                if (newColor.name) {
-                    colorNameBlock = `<div style="margin-bottom: 10px; color: #202027; font-weight: bold;">${newColor.name}</div>`;
-                }
                 const quoteText = randomQuote && typeof randomQuote === 'object' 
                     ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
                         ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
@@ -181,7 +177,6 @@ export function startColorGeneratorGame() {
                     : randomQuote;
                 if (score % 2 === 0) {
                     message.innerHTML = `
-                        ${colorNameBlock}
                         <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
                             ${randomEncouragement}
                         </div>
@@ -190,7 +185,6 @@ export function startColorGeneratorGame() {
                         </div>`;
                 } else {
                     message.innerHTML = `
-                        ${colorNameBlock}
                         <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
                             ${randomEncouragement}
                         </div>`;
@@ -202,15 +196,8 @@ export function startColorGeneratorGame() {
                 message.style.color = '#f44336';
             }
         });
-
-        closeButton.addEventListener('click', () => {
-            logger.info('Closing Color Generator Game');
-            document.body.removeChild(modal);
-        });
-
-        logger.info('Color Generator Game initialized successfully');
     } catch (error) {
-        logger.error('Error initializing Color Generator Game:', error);
+        logger.error('Error starting game:', error);
         throw error;
     }
 }
