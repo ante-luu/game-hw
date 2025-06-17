@@ -70,52 +70,65 @@ export function startColorGeneratorGame() {
         const gameContent = document.createElement('div');
         gameContent.style.cssText = modalStyles.modalContent;
 
+        const startScreen = document.createElement('div');
+        startScreen.style.cssText = 'padding: 32px 0; text-align: center;';
+        startScreen.innerHTML = `
+          <h2 style="font-size: 2em; margin-bottom: 16px;">Генератор случайных цветов</h2>
+          <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+            Нажимай на кнопку и получай случайные цвета!<br>
+            Каждый цвет — это вдохновение, а заодно и комплимент или цитата о цвете.<br>
+            Экспериментируй и находи свои любимые оттенки!
+          </p>
+          <button id="startColorGenBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+        `;
+        gameContent.appendChild(startScreen);
+        modal.appendChild(gameContent);
+        document.body.appendChild(modal);
+
         const title = document.createElement('h2');
-        title.style.cssText = modalStyles.modalTitle;
+        title.style.cssText = modalStyles.title;
         title.textContent = 'Генератор случайных цветов';
 
-        function showColor() {
-            let description = gameContent.querySelector('.color-description');
-            if (!description) {
-                description = document.createElement('div');
-                description.className = 'color-description';
-                description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
-                gameContent.insertBefore(description, title.nextSibling);
-            }
-            description.textContent = 'Нажмите на кнопку, чтобы сгенерировать случайный цвет .';
-        }
-
-        showColor();
-
         const colorDisplay = document.createElement('div');
-        colorDisplay.style.cssText = gameElementStyles.colorDisplay;
+        colorDisplay.style.cssText = 'width: 120px; height: 120px; margin: 0 auto 16px auto; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);';
 
-        const colorCode = document.createElement('p');
-        colorCode.style.cssText = gameElementStyles.colorCode;
-        colorCode.textContent = '#202027';
+        const colorCode = document.createElement('div');
+        colorCode.style.cssText = 'font-size: 1.2em; color: #202027; margin-bottom: 16px; text-align: center;';
 
         const message = document.createElement('p');
-        message.style.cssText = gameElementStyles.message;
+        message.style.cssText = modalStyles.message;
 
         const generateButton = document.createElement('button');
-        generateButton.style.cssText = modalStyles.button;
         generateButton.textContent = 'Сгенерировать цвет';
+        generateButton.style.cssText = modalStyles.button;
         generateButton.addEventListener('mouseover', () => {
-            generateButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+            generateButton.style.cssText = modalStyles.button + modalStyles.buttonHover;
         });
         generateButton.addEventListener('mouseout', () => {
             generateButton.style.cssText = modalStyles.button;
         });
 
         const closeButton = document.createElement('button');
-        closeButton.style.cssText = modalStyles.button;
         closeButton.textContent = 'Закрыть';
+        closeButton.style.cssText = modalStyles.button;
         closeButton.addEventListener('mouseover', () => {
-            closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+            closeButton.style.cssText = modalStyles.button + modalStyles.buttonHover;
         });
         closeButton.addEventListener('mouseout', () => {
             closeButton.style.cssText = modalStyles.button;
         });
+
+        function startGame() {
+            startScreen.remove();
+            gameContent.appendChild(title);
+            gameContent.appendChild(colorDisplay);
+            gameContent.appendChild(colorCode);
+            gameContent.appendChild(message);
+            gameContent.appendChild(generateButton);
+            gameContent.appendChild(closeButton);
+        }
+
+        document.getElementById('startColorGenBtn').onclick = startGame;
 
         function generateRandomColor() {
             try {
@@ -194,15 +207,6 @@ export function startColorGeneratorGame() {
             logger.info('Closing Color Generator Game');
             document.body.removeChild(modal);
         });
-
-        gameContent.appendChild(title);
-        gameContent.appendChild(colorDisplay);
-        gameContent.appendChild(colorCode);
-        gameContent.appendChild(message);
-        gameContent.appendChild(generateButton);
-        gameContent.appendChild(closeButton);
-        modal.appendChild(gameContent);
-        document.body.appendChild(modal);
 
         logger.info('Color Generator Game initialized successfully');
     } catch (error) {
