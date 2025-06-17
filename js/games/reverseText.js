@@ -52,176 +52,141 @@ export function startReverseTextGame() {
     gameContent.appendChild(startScreen);
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
-    // --- Основной игровой интерфейс (скрыт до старта) ---
-    const scoreDisplay = document.createElement('p');
-    scoreDisplay.style.cssText = gameElementStyles.score;
-    scoreDisplay.textContent = 'Счёт: 0/0';
 
-    const questionDisplay = document.createElement('p');
-    questionDisplay.style.cssText = gameElementStyles.question;
-    questionDisplay.textContent = '';
-
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'Введите перевернутый текст';
-    input.style.cssText = modalStyles.input;
-
-    const message = document.createElement('p');
-    message.style.cssText = gameElementStyles.message;
-
-    const button = document.createElement('button');
-    button.textContent = 'Проверить';
-    button.style.cssText = modalStyles.button;
-    button.addEventListener('mouseover', () => {
-        button.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
-    });
-    button.addEventListener('mouseout', () => {
-        button.style.cssText = modalStyles.button;
-    });
-
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Закрыть';
-    closeButton.style.cssText = modalStyles.button;
-    closeButton.addEventListener('mouseover', () => {
-        closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
-    });
-    closeButton.addEventListener('mouseout', () => {
-        closeButton.style.cssText = modalStyles.button;
-    });
-
-    /**
-     * Генерирует новое слово для переворота
-     * @returns {string} Перевернутое слово
-     */
-    function generateQuestion() {
-        logger.info('Generating new text to reverse');
-        
-        try {
-            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-            questionDisplay.textContent = randomPhrase;
-            const reversed = randomPhrase.split('').reverse().join('');
-            logger.info(`Generated phrase: "${randomPhrase}", reversed: "${reversed}"`);
-            return reversed;
-        } catch (error) {
-            logger.error('Error generating question', error);
-            throw error;
-        }
-    }
-
-    let currentAnswer = generateQuestion();
-
-    /**
-     * Проверяет ответ пользователя
-     */
-    function checkAnswer() {
-        logger.info('Checking user answer');
-        
-        const userAnswer = input.value.trim();
-        totalQuestions++;
-
-        try {
-            if (!userAnswer) {
-                message.innerHTML = `
-                    <div style="color: #202027;">
-                        Пожалуйста, введите текст
-                    </div>
-                `;
-                message.style.background = '#f5f5f5';
-                logger.warning('User entered empty input');
-                return;
-            }
-
-            const category = 'Переверни текст';
-            if (userAnswer.toLowerCase() === currentAnswer.toLowerCase()) {
-                score++;
-                // Получаем похвалу для категории или общую похвалу
-                const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
-                const randomEncouragement = encouragements && encouragements.length
-                    ? encouragements[Math.floor(Math.random() * encouragements.length)]
-                    : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
-                
-                // Получаем цитату для категории или общую цитату
-                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
-                const randomQuote = categoryQuotes && categoryQuotes.length
-                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
-                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
-
-                const quoteText = randomQuote && typeof randomQuote === 'object' 
-                    ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
-                        ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
-                        ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
-                       </div>`
-                    : randomQuote;
-                message.innerHTML = `
-                    <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
-                        ${randomEncouragement.text ? randomEncouragement.text : randomEncouragement}
-                        ${randomEncouragement.emoji ? ' ' + randomEncouragement.emoji : ''}
-                    </div>
-                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
-                        ${quoteText}
-                    </div>`;
-                message.style.background = '#e8f5e9';
-                logger.info('Correct answer', { userAnswer, correctAnswer: currentAnswer });
-            } else {
-                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
-                message.innerHTML = `
-                    <div style="color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 10px;">
-                        Неправильно! 😢
-                    </div>
-                    <div style="margin-bottom: 10px; font-size: 18px; color: #202027;">
-                        Правильный ответ: <b>${currentAnswer}</b>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 18px; color: #202027;">
-                        ${randomMotivation.text ? randomMotivation.text : randomMotivation}
-                        ${randomMotivation.emoji ? ' ' + randomMotivation.emoji : ''}
-                    </div>`;
-                message.style.background = '#ffebee';
-                logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
-            }
-
-            scoreDisplay.textContent = `Счёт: ${score}/${totalQuestions}`;
-            input.value = '';
-            currentAnswer = generateQuestion();
-        } catch (error) {
-            logger.error('Error checking answer', error);
-            message.innerHTML = `
-                <div style="color: #ff4444;">
-                    Произошла ошибка. Попробуйте еще раз.
-                </div>
-            `;
-            message.style.background = '#ffebee';
-        }
-    }
-
-    // Добавляем обработчики событий
-    button.addEventListener('click', checkAnswer);
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            checkAnswer();
-        }
-    });
-
-    closeButton.addEventListener('click', () => {
-        logger.info('Closing Reverse Text Game');
-        document.body.removeChild(modal);
-    });
-
-    // Собираем интерфейс
-    gameContent.appendChild(scoreDisplay);
-    gameContent.appendChild(questionDisplay);
-    gameContent.appendChild(input);
-    gameContent.appendChild(message);
-    gameContent.appendChild(button);
-    gameContent.appendChild(closeButton);
-    modal.appendChild(gameContent);
-    document.body.appendChild(modal);
-
-    input.focus();
-    logger.info('Reverse Text Game initialized successfully');
-
-    // --- Функция запуска игры после стартового экрана ---
+    // --- Основной игровой интерфейс (создаётся только после старта) ---
     function startGame() {
         gameContent.innerHTML = '';
+        const scoreDisplay = document.createElement('p');
+        scoreDisplay.style.cssText = gameElementStyles.score;
+        scoreDisplay.textContent = 'Счёт: 0/0';
+        const questionDisplay = document.createElement('p');
+        questionDisplay.style.cssText = gameElementStyles.question;
+        questionDisplay.textContent = '';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Введите перевернутый текст';
+        input.style.cssText = modalStyles.input;
+        const message = document.createElement('p');
+        message.style.cssText = gameElementStyles.message;
+        const button = document.createElement('button');
+        button.textContent = 'Проверить';
+        button.style.cssText = modalStyles.button;
+        button.addEventListener('mouseover', () => {
+            button.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+        });
+        button.addEventListener('mouseout', () => {
+            button.style.cssText = modalStyles.button;
+        });
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Закрыть';
+        closeButton.style.cssText = modalStyles.button;
+        closeButton.addEventListener('mouseover', () => {
+            closeButton.style.cssText = modalStyles.button + (modalStyles.buttonHover || '');
+        });
+        closeButton.addEventListener('mouseout', () => {
+            closeButton.style.cssText = modalStyles.button;
+        });
+        closeButton.addEventListener('click', () => {
+            logger.info('Closing Reverse Text Game');
+            document.body.removeChild(modal);
+        });
+        // --- Логика игры ---
+        function generateQuestion() {
+            logger.info('Generating new text to reverse');
+            try {
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                questionDisplay.textContent = randomPhrase;
+                const reversed = randomPhrase.split('').reverse().join('');
+                logger.info(`Generated phrase: "${randomPhrase}", reversed: "${reversed}"`);
+                return reversed;
+            } catch (error) {
+                logger.error('Error generating question', error);
+                throw error;
+            }
+        }
+        let currentAnswer;
+        function checkAnswer() {
+            logger.info('Checking user answer');
+            const userAnswer = input.value.trim();
+            totalQuestions++;
+            const category = 'Переверни текст';
+            try {
+                if (!userAnswer) {
+                    message.innerHTML = `
+                        <div style="color: #202027;">
+                            Пожалуйста, введите текст
+                        </div>
+                    `;
+                    message.style.background = '#f5f5f5';
+                    logger.warning('User entered empty input');
+                    return;
+                }
+                if (userAnswer.toLowerCase() === currentAnswer.toLowerCase()) {
+                    score++;
+                    const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
+                    const randomEncouragement = encouragements && encouragements.length
+                        ? encouragements[Math.floor(Math.random() * encouragements.length)]
+                        : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                    const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                    const randomQuote = categoryQuotes && categoryQuotes.length
+                        ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                        : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
+                    const quoteText = randomQuote && typeof randomQuote === 'object' 
+                        ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
+                            ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
+                            ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
+                           </div>`
+                        : randomQuote;
+                    message.innerHTML = `
+                        <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
+                            ${randomEncouragement.text ? randomEncouragement.text : randomEncouragement}
+                            ${randomEncouragement.emoji ? ' ' + randomEncouragement.emoji : ''}
+                        </div>
+                        <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                            ${quoteText}
+                        </div>`;
+                    message.style.background = '#e8f5e9';
+                    logger.info('Correct answer', { userAnswer, correctAnswer: currentAnswer });
+                } else {
+                    const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                    message.innerHTML = `
+                        <div style="color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 10px;">
+                            Неправильно! 😢
+                        </div>
+                        <div style="margin-bottom: 10px; font-size: 18px; color: #202027;">
+                            Правильный ответ: <b>${currentAnswer}</b>
+                        </div>
+                        <div style="margin-top: 15px; font-size: 18px; color: #202027;">
+                            ${randomMotivation.text ? randomMotivation.text : randomMotivation}
+                            ${randomMotivation.emoji ? ' ' + randomMotivation.emoji : ''}
+                        </div>`;
+                    message.style.background = '#ffebee';
+                    logger.info('Incorrect answer', { userAnswer, correctAnswer: currentAnswer });
+                }
+                scoreDisplay.textContent = `Счёт: ${score}/${totalQuestions}`;
+                input.value = '';
+                currentAnswer = generateQuestion();
+            } catch (error) {
+                logger.error('Error checking answer', error);
+                message.innerHTML = `
+                    <div style="color: #ff4444;">
+                        Произошла ошибка. Попробуйте еще раз.
+                    </div>
+                `;
+                message.style.background = '#ffebee';
+            }
+        }
+        button.addEventListener('click', checkAnswer);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        closeButton.addEventListener('click', () => {
+            logger.info('Closing Reverse Text Game');
+            document.body.removeChild(modal);
+        });
+        // --- Добавляем элементы игрового интерфейса ---
         gameContent.appendChild(scoreDisplay);
         gameContent.appendChild(questionDisplay);
         gameContent.appendChild(input);
@@ -231,10 +196,10 @@ export function startReverseTextGame() {
         currentAnswer = generateQuestion();
         input.focus();
     }
-
     // --- Обработчик кнопки старта ---
     const startBtn = gameContent.querySelector('#startReverseTextBtn');
     if (startBtn) startBtn.onclick = startGame;
+    logger.info('Reverse Text Game initialized successfully');
 }
 
 window.startReverseTextGame = startReverseTextGame;
