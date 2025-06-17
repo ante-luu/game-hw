@@ -122,7 +122,6 @@ export function startColorGeneratorGame() {
             startScreen.remove();
             gameContent.appendChild(title);
             gameContent.appendChild(colorDisplay);
-            gameContent.appendChild(colorCode);
             gameContent.appendChild(message);
             gameContent.appendChild(generateButton);
             gameContent.appendChild(closeButton);
