@@ -100,11 +100,7 @@ export function startRockPaperScissorsGame() {
     messageDisplay.style.cssText = gameElementStyles.messageDisplay;
 
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.style.display = 'flex';
-    buttonsContainer.style.justifyContent = 'center';
-    buttonsContainer.style.gap = '20px';
-    buttonsContainer.style.marginTop = '20px';
-    buttonsContainer.style.flexWrap = 'wrap';
+    buttonsContainer.style.cssText = gameElementStyles.buttonsContainer;
 
     /**
      * Определяет победителя раунда
@@ -170,44 +166,16 @@ export function startRockPaperScissorsGame() {
             const category = 'Камень, ножницы, бумага';
             let message;
             if (result === 'Ты победил!') {
-                // Получаем похвалу для категории или общую похвалу
                 const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
-                const randomEncouragement = encouragements && encouragements.length
+                message = encouragements && encouragements.length
                     ? encouragements[Math.floor(Math.random() * encouragements.length)]
                     : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
-                
-                // Получаем цитату для категории или общую цитату
-                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
-                const randomQuote = categoryQuotes && categoryQuotes.length
-                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
-                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
-
-                const quoteText = randomQuote && typeof randomQuote === 'object' 
-                    ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
-                        ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
-                        ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
-                       </div>`
-                    : randomQuote;
-                message = `
-                    <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
-                        ${result} 🎉
-                    </div>
-                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
-                        ${randomEncouragement}
-                    </div>
-                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
-                        ${quoteText}
-                    </div>`;
             } else if (result === 'Ничья!') {
                 message = 'Ничья! Попробуй еще раз! 🤝';
             } else {
-                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
-                message = `
-                    <div style="color: #f44336; font-weight: bold;">${result}</div>
-                    <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
-                `;
+                message = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
             }
-            messageDisplay.innerHTML = message;
+            messageDisplay.textContent = message;
             logger.info('Round result', { result, message });
         } catch (error) {
             logger.error('Error handling player choice', error);
@@ -215,57 +183,54 @@ export function startRockPaperScissorsGame() {
         }
     }
 
-    // Используем существующие массивы choices и emojis
-    choices.forEach((choice, index) => {
+    // Создаем кнопки выбора
+    const smallButtonStyleDesktop = modalStyles.button +
+      'width: 80px; min-width: 70px; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); flex-shrink: 1; transition: background 0.2s, color 0.2s;';
+
+    const smallButtonStyleMobile = modalStyles.button +
+      'width: auto; min-width: 70px; flex: 1 1 0; padding: 10px 0; font-size: 13px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
+
+    const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
+
+    const buttonRow = document.createElement('div');
+    buttonRow.style.display = 'flex';
+    buttonRow.style.justifyContent = 'center';
+    buttonRow.style.gap = isMobile() ? '45px' : '80px';
+    buttonRow.style.margin = '0 auto 12px auto';
+    buttonRow.style.maxWidth = '100%';
+
+    buttonsContainer.innerHTML = '';
+    // Добавляю CSS для скрытия текста на мобильных, если ещё не добавлен
+    if (isMobile() && !document.getElementById('hide-btn-text-style')) {
+        const style = document.createElement('style');
+        style.id = 'hide-btn-text-style';
+        style.textContent = '.btn-text { display: none !important; }';
+        document.head.appendChild(style);
+    }
+    choices.forEach((choice) => {
         const button = document.createElement('button');
-        button.textContent = `${emojis[index]} ${choice}`;
-        button.style.padding = '15px 30px';
-        button.style.fontSize = '20px';
-        button.style.border = '2px solid #33d17a';
-        button.style.borderRadius = '10px';
-        button.style.backgroundColor = '#ffffff';
-        button.style.color = '#202027';
-        button.style.cursor = 'pointer';
-        button.style.transition = 'all 0.3s ease';
-        button.style.minWidth = '200px';
-        button.style.display = 'flex';
-        button.style.alignItems = 'center';
-        button.style.justifyContent = 'center';
-        button.style.gap = '10px';
-
-        // Добавляем эффект при наведении
-        button.onmouseover = () => {
-            button.style.backgroundColor = '#33d17a';
-            button.style.color = '#ffffff';
-        };
-        button.onmouseout = () => {
-            button.style.backgroundColor = '#ffffff';
+        button.style.cssText = smallButtonStyle;
+        button.style.background = '#202027';
+        button.style.color = 'white';
+        if (isMobile()) {
+            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span>`;
+            button.style.fontSize = '2.1em';
+        } else {
+            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span> <span class="btn-text">${choice}</span>`;
+            button.style.fontSize = '';
+        }
+        button.addEventListener('mouseover', () => {
+            button.style.background = '#33d17a';
             button.style.color = '#202027';
-        };
-
-        // Добавляем медиа-запрос для планшетов
-        const mediaQuery = window.matchMedia('(max-width: 768px)');
-        const updateButtonStyle = (e) => {
-            if (e.matches) {
-                // Стили для планшетов
-                button.style.padding = '12px 24px';
-                button.style.fontSize = '18px';
-                button.style.minWidth = '150px';
-            } else {
-                // Стили для десктопа
-                button.style.padding = '15px 30px';
-                button.style.fontSize = '20px';
-                button.style.minWidth = '200px';
-            }
-        };
-
-        // Применяем стили сразу и добавляем слушатель
-        updateButtonStyle(mediaQuery);
-        mediaQuery.addListener(updateButtonStyle);
-
+        });
+        button.addEventListener('mouseout', () => {
+            button.style.background = '#202027';
+            button.style.color = 'white';
+        });
         button.addEventListener('click', () => handlePlayerChoice(choice));
-        buttonsContainer.appendChild(button);
+        buttonRow.appendChild(button);
     });
+    buttonsContainer.appendChild(buttonRow);
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
