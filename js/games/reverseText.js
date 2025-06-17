@@ -53,10 +53,6 @@ export function startReverseTextGame() {
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
     // --- Основной игровой интерфейс (скрыт до старта) ---
-    const title = document.createElement('h2');
-    title.style.cssText = modalStyles.title;
-    title.textContent = 'Переверни текст';
-
     const scoreDisplay = document.createElement('p');
     scoreDisplay.style.cssText = gameElementStyles.score;
     scoreDisplay.textContent = 'Счёт: 0/0';
@@ -211,8 +207,6 @@ export function startReverseTextGame() {
     });
 
     // Собираем интерфейс
-    gameContent.appendChild(title);
-    
     gameContent.appendChild(scoreDisplay);
     gameContent.appendChild(questionDisplay);
     gameContent.appendChild(input);
@@ -228,7 +222,6 @@ export function startReverseTextGame() {
     // --- Функция запуска игры после стартового экрана ---
     function startGame() {
         gameContent.innerHTML = '';
-        gameContent.appendChild(title);
         gameContent.appendChild(scoreDisplay);
         gameContent.appendChild(questionDisplay);
         gameContent.appendChild(input);
