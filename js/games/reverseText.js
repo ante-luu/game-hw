@@ -240,7 +240,8 @@ export function startReverseTextGame() {
     }
 
     // --- Обработчик кнопки старта ---
-    document.getElementById('startReverseTextBtn').onclick = startGame;
+    const startBtn = gameContent.querySelector('#startReverseTextBtn');
+    if (startBtn) startBtn.onclick = startGame;
 }
 
 window.startReverseTextGame = startReverseTextGame;
