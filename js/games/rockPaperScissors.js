@@ -306,18 +306,21 @@ export function startRockPaperScissorsGame() {
         document.body.removeChild(modal);
     });
 
-    // Собираем интерфейс
-    showRound();
-    gameContent.appendChild(title);
-    gameContent.appendChild(statsContainer);
-    gameContent.appendChild(resultDisplay);
-    gameContent.appendChild(buttonsContainer);
-    gameContent.appendChild(messageDisplay);
-    gameContent.appendChild(closeButton);
+    // --- Стартовый экран ---
+    const startScreen = document.createElement('div');
+    startScreen.style.cssText = 'padding: 32px 0; text-align: center;';
+    startScreen.innerHTML = `
+      <h2 style="font-size: 2em; margin-bottom: 16px;">Камень, ножницы, бумага</h2>
+      <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+        Выбери камень, ножницы или бумагу и попробуй победить компьютер!<br>
+        Камень побеждает ножницы, ножницы побеждают бумагу, бумага побеждает камень.<br>
+        За каждую победу ты получаешь очко. Удачи!
+      </p>
+      <button id="startRPSBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+    `;
     gameContent.appendChild(startScreen);
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
-
     // --- Функция запуска игры после стартового экрана ---
     function startGame() {
         gameContent.innerHTML = '';
