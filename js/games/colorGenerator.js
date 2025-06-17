@@ -160,18 +160,27 @@ export function startColorGeneratorGame() {
                 if (newColor.name) {
                     colorNameBlock = `<div style="margin-bottom: 10px; color: #202027; font-weight: bold;">${newColor.name}</div>`;
                 }
-                const quoteText = randomQuote && typeof randomQuote === 'object' ? `${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}${randomQuote.author ? '<br><span style="font-size:0.9em;color:#888;">— ' + randomQuote.author + '</span>' : ''}` : randomQuote;
+                const quoteText = randomQuote && typeof randomQuote === 'object' 
+                    ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
+                        ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
+                       </div>`
+                    : randomQuote;
                 if (score % 2 === 0) {
                     message.innerHTML = `
                         ${colorNameBlock}
-                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                        <div style="font-style: italic; color: #666; border-left: 3px solid #202027; padding-left: 15px; margin-top: 10px;">${quoteText}</div>
-                    `;
+                        <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
+                            ${randomEncouragement}
+                        </div>
+                        <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                            ${quoteText}
+                        </div>`;
                 } else {
                     message.innerHTML = `
                         ${colorNameBlock}
-                        <div style="margin-bottom: 10px; color: #202027;">${randomEncouragement}</div>
-                    `;
+                        <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
+                            ${randomEncouragement}
+                        </div>`;
                 }
                 message.style.color = '#202027';
             } catch (error) {

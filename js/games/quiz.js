@@ -556,12 +556,17 @@ export function startQuizGame() {
                             const randomQuote = categoryQuotes && categoryQuotes.length
                                 ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
                                 : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
-                            const quoteText = randomQuote && typeof randomQuote === 'object' ? `${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}${randomQuote.author ? '<br><span style=\"font-size:0.9em;color:#888;\">— ' + randomQuote.author + '</span>' : ''}` : randomQuote;
+                            const quoteText = randomQuote && typeof randomQuote === 'object' 
+                                ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
+                                    ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
+                                    ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
+                                   </div>`
+                                : randomQuote;
                             reward = `
                                 <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
                                     ${randomEncouragement}
                                 </div>
-                                <div style="margin-top: 15px; font-size: 18px; color: #33d17a;">
+                                <div style="margin-top: 15px; font-size: 16px; color: #666;">
                                     ${quoteText}
                                 </div>`;
                         }
