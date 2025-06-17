@@ -100,7 +100,11 @@ export function startRockPaperScissorsGame() {
     messageDisplay.style.cssText = gameElementStyles.messageDisplay;
 
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.style.cssText = gameElementStyles.buttonsContainer;
+    buttonsContainer.style.display = 'flex';
+    buttonsContainer.style.justifyContent = 'center';
+    buttonsContainer.style.gap = '20px';
+    buttonsContainer.style.marginTop = '20px';
+    buttonsContainer.style.flexWrap = 'wrap';
 
     /**
      * Определяет победителя раунда
@@ -211,54 +215,57 @@ export function startRockPaperScissorsGame() {
         }
     }
 
-    // Создаем кнопки выбора
-    const smallButtonStyleDesktop = modalStyles.button +
-      'width: 80px; min-width: 0; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); flex-shrink: 1; transition: background 0.2s, color 0.2s;';
-
-    const smallButtonStyleMobile = modalStyles.button +
-      'width: auto; min-width: 70px; flex: 1 1 0; padding: 10px 0; font-size: 13px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
-
-    const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
-
-    const buttonRow = document.createElement('div');
-    buttonRow.style.display = 'flex';
-    buttonRow.style.justifyContent = 'center';
-    buttonRow.style.gap = isMobile() ? '45px' : '80px';
-    buttonRow.style.margin = '0 auto 12px auto';
-    buttonRow.style.maxWidth = '100%';
-
-    buttonsContainer.innerHTML = '';
-    // Добавляю CSS для скрытия текста на мобильных, если ещё не добавлен
-    if (isMobile() && !document.getElementById('hide-btn-text-style')) {
-        const style = document.createElement('style');
-        style.id = 'hide-btn-text-style';
-        style.textContent = '.btn-text { display: none !important; }';
-        document.head.appendChild(style);
-    }
-    choices.forEach((choice) => {
+    // Используем существующие массивы choices и emojis
+    choices.forEach((choice, index) => {
         const button = document.createElement('button');
-        button.style.cssText = smallButtonStyle;
-        button.style.background = '#202027';
-        button.style.color = 'white';
-        if (isMobile()) {
-            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span>`;
-            button.style.fontSize = '2.1em';
-        } else {
-            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span> <span class="btn-text">${choice}</span>`;
-            button.style.fontSize = '';
-        }
-        button.addEventListener('mouseover', () => {
-            button.style.background = '#33d17a';
+        button.textContent = `${emojis[index]} ${choice}`;
+        button.style.padding = '15px 30px';
+        button.style.fontSize = '20px';
+        button.style.border = '2px solid #33d17a';
+        button.style.borderRadius = '10px';
+        button.style.backgroundColor = '#ffffff';
+        button.style.color = '#202027';
+        button.style.cursor = 'pointer';
+        button.style.transition = 'all 0.3s ease';
+        button.style.minWidth = '180px';
+        button.style.display = 'flex';
+        button.style.alignItems = 'center';
+        button.style.justifyContent = 'center';
+        button.style.gap = '10px';
+
+        // Добавляем эффект при наведении
+        button.onmouseover = () => {
+            button.style.backgroundColor = '#33d17a';
+            button.style.color = '#ffffff';
+        };
+        button.onmouseout = () => {
+            button.style.backgroundColor = '#ffffff';
             button.style.color = '#202027';
-        });
-        button.addEventListener('mouseout', () => {
-            button.style.background = '#202027';
-            button.style.color = 'white';
-        });
+        };
+
+        // Добавляем медиа-запрос для планшетов
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        const updateButtonStyle = (e) => {
+            if (e.matches) {
+                // Стили для планшетов
+                button.style.padding = '12px 24px';
+                button.style.fontSize = '18px';
+                button.style.minWidth = '150px';
+            } else {
+                // Стили для десктопа
+                button.style.padding = '15px 30px';
+                button.style.fontSize = '20px';
+                button.style.minWidth = '180px';
+            }
+        };
+
+        // Применяем стили сразу и добавляем слушатель
+        updateButtonStyle(mediaQuery);
+        mediaQuery.addListener(updateButtonStyle);
+
         button.addEventListener('click', () => handlePlayerChoice(choice));
-        buttonRow.appendChild(button);
+        buttonsContainer.appendChild(button);
     });
-    buttonsContainer.appendChild(buttonRow);
 
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Закрыть';
