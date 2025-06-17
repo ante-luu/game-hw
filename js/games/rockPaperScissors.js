@@ -314,6 +314,7 @@ export function startRockPaperScissorsGame() {
     gameContent.appendChild(buttonsContainer);
     gameContent.appendChild(messageDisplay);
     gameContent.appendChild(closeButton);
+    gameContent.appendChild(startScreen);
     modal.appendChild(gameContent);
     document.body.appendChild(modal);
 
@@ -329,6 +330,7 @@ export function startRockPaperScissorsGame() {
         showRound();
     }
     // --- Обработчик кнопки старта ---
-    document.getElementById('startRPSBtn').onclick = startGame;
+    const startBtn = gameContent.querySelector('#startRPSBtn');
+    if (startBtn) startBtn.onclick = startGame;
     logger.info('Rock Paper Scissors Game initialized successfully');
 }
