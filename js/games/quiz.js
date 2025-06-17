@@ -730,7 +730,10 @@ export function startQuizGame() {
     // --- Функция запуска игры после стартового экрана ---
     function startGame() {
         gameContent.innerHTML = '';
-        // ... (добавление элементов основного интерфейса)
+        
+        // Добавляем элементы в DOM
+        questionContainer.appendChild(questionText);
+        
         gameContent.appendChild(title);
         gameContent.appendChild(questionContainer);
         gameContent.appendChild(optionsContainer);
@@ -738,6 +741,8 @@ export function startQuizGame() {
         gameContent.appendChild(scoreDisplay);
         gameContent.appendChild(nextButton);
         gameContent.appendChild(closeButton);
+        
+        // Показываем первый вопрос
         showQuestion();
     }
     // --- Обработчик кнопки старта ---
@@ -749,39 +754,4 @@ export function startQuizGame() {
         logger.error('Error initializing Quiz Game:', error);
         throw error;
     }
-}
-
-function handleAnswer(selectedIndex) {
-    const isCorrect = selectedIndex === currentQuestionObj.correct;
-    
-    if (isCorrect) {
-        score++;
-        const randomCompliment = window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
-        messageElement.textContent = `Правильно! ${randomCompliment}`;
-        messageElement.style.color = '#4CAF50';
-        if (!(currentCategory === 'Советское кино' || currentCategory === 'Советские мультфильмы')) {
-            messageElement.innerHTML += window.getRandomQuote();
-        }
-    } else {
-        const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
-        messageElement.textContent = `Неправильно! Правильный ответ: ${currentQuestionObj.options[currentQuestionObj.correct]}. ${randomMotivation}`;
-        messageElement.style.color = '#f44336';
-    }
-    
-    // Отключаем все кнопки
-    const buttons = document.querySelectorAll('.quiz-option');
-    buttons.forEach(button => button.disabled = true);
-    
-    // Подсвечиваем правильный ответ
-    buttons[currentQuestionObj.correct].style.backgroundColor = '#4CAF50';
-    buttons[currentQuestionObj.correct].style.color = 'white';
-    
-    // Если ответ был неправильный, подсвечиваем выбранный ответ
-    if (!isCorrect) {
-        buttons[selectedIndex].style.backgroundColor = '#f44336';
-        buttons[selectedIndex].style.color = 'white';
-    }
-    
-    // Показываем кнопку "Следующий вопрос"
-    nextButton.style.display = 'block';
 }
