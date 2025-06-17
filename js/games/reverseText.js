@@ -38,7 +38,21 @@ export function startReverseTextGame() {
     const gameContent = document.createElement('div');
     gameContent.style.cssText = modalStyles.modalContent;
 
-    // Создаем элементы интерфейса
+    // --- СТАРТОВЫЙ ЭКРАН ---
+    const startScreen = document.createElement('div');
+    startScreen.style.cssText = 'padding: 32px 0; text-align: center;';
+    startScreen.innerHTML = `
+      <h2 style="font-size: 2em; margin-bottom: 16px;">Переверни текст</h2>
+      <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+        Тебе будет показано слово или фраза. Введи этот текст в обратном порядке и проверь себя!<br>
+        За каждый правильный ответ ты получаешь 1 очко. Удачи!
+      </p>
+      <button id="startReverseTextBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+    `;
+    gameContent.appendChild(startScreen);
+    modal.appendChild(gameContent);
+    document.body.appendChild(modal);
+    // --- Основной игровой интерфейс (скрыт до старта) ---
     const title = document.createElement('h2');
     title.style.cssText = modalStyles.title;
     title.textContent = 'Переверни текст';
@@ -223,6 +237,23 @@ export function startReverseTextGame() {
         input.focus();
         logger.info('Reverse Text Game initialized successfully');
     }
+
+    // --- Функция запуска игры после стартового экрана ---
+    function startGame() {
+        startScreen.remove();
+        gameContent.appendChild(title);
+        gameContent.appendChild(scoreDisplay);
+        gameContent.appendChild(questionDisplay);
+        gameContent.appendChild(input);
+        gameContent.appendChild(message);
+        gameContent.appendChild(button);
+        gameContent.appendChild(closeButton);
+        currentAnswer = generateQuestion();
+        input.focus();
+    }
+
+    // --- Обработчик кнопки старта ---
+    document.getElementById('startReverseTextBtn').onclick = startGame;
 
     showQuestion();
 }
