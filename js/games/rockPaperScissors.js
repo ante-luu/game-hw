@@ -232,14 +232,6 @@ export function startRockPaperScissorsGame() {
     }
 
     // Создаем кнопки выбора
-    const smallButtonStyleDesktop = modalStyles.button +
-      'width: 80px; min-width: 0; padding: 6px 0; font-size: 15px; margin: 0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); flex-shrink: 1; transition: background 0.2s, color 0.2s;';
-
-    const smallButtonStyleMobile = modalStyles.button +
-      'width: auto; min-width: 70px; flex: 1 1 0; padding: 10px 0; font-size: 13px; margin: 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); transition: background 0.2s, color 0.2s;';
-
-    const smallButtonStyle = isMobile() ? smallButtonStyleMobile : smallButtonStyleDesktop;
-
     const buttonRow = document.createElement('div');
     buttonRow.style.display = 'flex';
     buttonRow.style.justifyContent = 'center';
@@ -256,27 +248,46 @@ export function startRockPaperScissorsGame() {
         document.head.appendChild(style);
     }
     choices.forEach((choice) => {
-        const button = document.createElement('button');
-        button.style.cssText = smallButtonStyle;
-        button.style.background = '#202027';
-        button.style.color = 'white';
-        if (isMobile()) {
-            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span>`;
-            button.style.fontSize = '2.1em';
-        } else {
-            button.innerHTML = `<span class="emoji-only">${emojis[choice]}</span> <span class="btn-text">${choice}</span>`;
-            button.style.fontSize = '';
+        const btn = document.createElement('button');
+        btn.innerHTML = emojis[choice];
+        // Базовые стили для кнопки
+        btn.style.display = 'flex';
+        btn.style.alignItems = 'center';
+        btn.style.justifyContent = 'center';
+        btn.style.background = '#fff';
+        btn.style.border = '2px solid #33d17a';
+        btn.style.cursor = 'pointer';
+        btn.style.transition = 'transform 0.2s, background 0.2s';
+        btn.style.borderRadius = '50%';
+        // Функция для адаптивных размеров
+        function updateButtonSize() {
+            if (window.innerWidth <= 600) { // Мобильные
+                btn.style.width = '60px';
+                btn.style.height = '60px';
+                btn.style.fontSize = '2em';
+            } else if (window.innerWidth <= 1024) { // Планшеты
+                btn.style.width = '90px';
+                btn.style.height = '90px';
+                btn.style.fontSize = '2.5em';
+            } else { // ПК
+                btn.style.width = '110px';
+                btn.style.height = '110px';
+                btn.style.fontSize = '3.5em';
+            }
         }
-        button.addEventListener('mouseover', () => {
-            button.style.background = '#33d17a';
-            button.style.color = '#202027';
+        updateButtonSize();
+        window.addEventListener('resize', updateButtonSize);
+        btn.addEventListener('mouseover', () => {
+            btn.style.background = '#e8f5e9';
+            btn.style.transform = 'scale(1.08)';
         });
-        button.addEventListener('mouseout', () => {
-            button.style.background = '#202027';
-            button.style.color = 'white';
+        btn.addEventListener('mouseout', () => {
+            btn.style.background = '#fff';
+            btn.style.transform = 'scale(1)';
         });
-        button.addEventListener('click', () => handlePlayerChoice(choice));
-        buttonRow.appendChild(button);
+        btn.title = choice.charAt(0).toUpperCase() + choice.slice(1);
+        btn.onclick = () => handlePlayerChoice(choice);
+        buttonRow.appendChild(btn);
     });
     buttonsContainer.appendChild(buttonRow);
 
