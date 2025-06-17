@@ -40,7 +40,7 @@ export function startRockPaperScissorsGame() {
     if (window.innerWidth <= 768) {
         gameContent.style.width = '100vw';
         gameContent.style.maxWidth = '100vw';
-        gameContent.style.padding = '16px 0 16px 0';
+        gameContent.style.padding = '16px 16px 16px 16px';
         gameContent.style.borderRadius = '0';
     }
 
@@ -154,8 +154,8 @@ export function startRockPaperScissorsGame() {
             const emojiGap = isMobile() ? '2px' : '10px';
             const resultFontSize = isMobile() ? '0.9em' : '1.1em';
             const emojiResultStyle = isMobile()
-              ? 'display: flex; align-items: center; justify-content: center; font-size: 2em; gap: 80px; margin-bottom: 2px;'
-              : 'display: flex; align-items: center; justify-content: center; font-size: 3.4rem; gap: 97px; margin-bottom: 2px;';
+              ? 'display: flex; align-items: center; justify-content: center; font-size:4em; gap: 100px; margin-bottom: 2px;'
+              : 'display: flex; align-items: center; justify-content: center; font-size: 5rem; gap: 100px; margin-bottom: 2px;';
             resultDisplay.innerHTML = `
               <div style="${emojiResultStyle}">
                 <span>${emojis[choice]}</span>
@@ -235,12 +235,12 @@ export function startRockPaperScissorsGame() {
     const buttonRow = document.createElement('div');
     buttonRow.style.display = 'flex';
     buttonRow.style.justifyContent = 'center';
-    buttonRow.style.gap = isMobile() ? '45px' : '80px';
+    buttonRow.style.gap = isMobile() ? '60px' : '80px';
     buttonRow.style.margin = '0 auto 12px auto';
     buttonRow.style.maxWidth = '100%';
 
     buttonsContainer.innerHTML = '';
-    // Добавляю CSS для скрытия текста на мобильных, если ещё не добавлен
+    // Добавляю CSS для скрытия текста на мобильных, 
     if (isMobile() && !document.getElementById('hide-btn-text-style')) {
         const style = document.createElement('style');
         style.id = 'hide-btn-text-style';
@@ -258,20 +258,20 @@ export function startRockPaperScissorsGame() {
         btn.style.border = '2px solid #33d17a';
         btn.style.cursor = 'pointer';
         btn.style.transition = 'transform 0.2s, background 0.2s';
-        btn.style.borderRadius = '50%';
+        btn.style.borderRadius = '30%';
         // Функция для адаптивных размеров
         function updateButtonSize() {
             if (window.innerWidth <= 600) { // Мобильные
-                btn.style.width = '60px';
-                btn.style.height = '60px';
-                btn.style.fontSize = '2em';
+                btn.style.width = '90px';
+                btn.style.height = '90px';
+                btn.style.fontSize = '3em';
             } else if (window.innerWidth <= 1024) { // Планшеты
                 btn.style.width = '90px';
                 btn.style.height = '90px';
-                btn.style.fontSize = '2.5em';
+                btn.style.fontSize = '3em';
             } else { // ПК
-                btn.style.width = '110px';
-                btn.style.height = '110px';
+                btn.style.width = '130px';
+                btn.style.height = '130px';
                 btn.style.fontSize = '3.5em';
             }
         }
