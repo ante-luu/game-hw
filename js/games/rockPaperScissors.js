@@ -161,25 +161,73 @@ export function startRockPaperScissorsGame() {
                 <span>${emojis[choice]}</span>
                 <span>${emojis[computerChoice]}</span>
               </div>
-              <div style="text-align: center; font-size: ${resultFontSize}; margin: 0;">${result}</div>
             `;
             const category = 'Камень, ножницы, бумага';
             let message;
+            let bgColor = '#e8f5e9';
+            let resultColor = '#33d17a';
+            let resultEmoji = '🎉';
             if (result === 'Ты победил!') {
                 const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
-                message = encouragements && encouragements.length
+                const randomEncouragement = encouragements && encouragements.length
                     ? encouragements[Math.floor(Math.random() * encouragements.length)]
                     : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
+                const randomQuote = categoryQuotes && categoryQuotes.length
+                    ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
+                    : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
+                const quoteText = randomQuote && typeof randomQuote === 'object' 
+                    ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
+                        ${randomQuote.author ? '<br><span style=\"font-size: 0.9em; color: #888;\">— ' + randomQuote.author + '</span>' : ''}
+                       </div>`
+                    : randomQuote;
+                message = `
+                    <div style="margin-top: 15px; font-size: 18px; color: ${resultColor};">
+                        ${result} ${resultEmoji}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${randomEncouragement.text ? randomEncouragement.text : randomEncouragement}
+                        ${randomEncouragement.emoji ? ' ' + randomEncouragement.emoji : ''}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${quoteText}
+                    </div>`;
+                messageDisplay.style.background = bgColor;
             } else if (result === 'Ничья!') {
-                message = 'Ничья! Попробуй еще раз! 🤝';
+                resultColor = '#888';
+                resultEmoji = '🤝';
+                bgColor = '#f5f5f5';
+                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                message = `
+                    <div style="margin-top: 15px; font-size: 18px; color: ${resultColor};">
+                        ${result} ${resultEmoji}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${randomMotivation.text ? randomMotivation.text : randomMotivation}
+                        ${randomMotivation.emoji ? ' ' + randomMotivation.emoji : ''}
+                    </div>`;
+                messageDisplay.style.background = bgColor;
             } else {
-                message = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                resultColor = '#ff0000';
+                resultEmoji = '😢';
+                bgColor = '#ffebee';
+                const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
+                message = `
+                    <div style="margin-top: 15px; font-size: 18px; color: ${resultColor};">
+                        ${result} ${resultEmoji}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 16px; color: #666;">
+                        ${randomMotivation.text ? randomMotivation.text : randomMotivation}
+                        ${randomMotivation.emoji ? ' ' + randomMotivation.emoji : ''}
+                    </div>`;
+                messageDisplay.style.background = bgColor;
             }
-            messageDisplay.textContent = message;
-            logger.info('Round result', { result, message });
+            messageDisplay.innerHTML = message;
         } catch (error) {
-            logger.error('Error handling player choice', error);
-            messageDisplay.textContent = 'Произошла ошибка. Попробуй еще раз!';
+            logger.error('Error in handlePlayerChoice', error);
+            messageDisplay.innerHTML = `<div style="color: #ff4444;">Произошла ошибка. Попробуйте еще раз.</div>`;
+            messageDisplay.style.background = '#ffebee';
         }
     }
 
