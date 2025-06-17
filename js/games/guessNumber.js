@@ -31,63 +31,40 @@ export async function startGuessNumberGame() {
         const gameContent = document.createElement('div');
         gameContent.style.cssText = modalStyles.modalContent;
 
-        // Добавляем анимацию
-        const style = document.createElement('style');
-        style.textContent = modalStyles.modalAnimation;
-        document.head.appendChild(style);
-
-        // Создаем элементы интерфейса
-        const title = document.createElement('h2');
-        title.textContent = 'Угадайка';
-        title.style.cssText = modalStyles.title;
-
-        let description = gameContent.querySelector('.quiz-description');
-        if (!description) {
-            description = document.createElement('div');
-            description.className = 'quiz-description';
-            description.style.cssText = 'margin-bottom: 15px; color: #202027; font-size: 16px;';
-            gameContent.insertBefore(description, title.nextSibling);
-        }
-        description.textContent = 'Угадайте число от 1 до 100. После каждой попытки вы получите подсказку, больше или меньше загаданное число.';
-
+        // --- СТАРТОВЫЙ ЭКРАН ---
+        const startScreen = document.createElement('div');
+        startScreen.style.cssText = 'padding: 32px 0; text-align: center;';
+        startScreen.innerHTML = `
+          <h2 style="font-size: 2em; margin-bottom: 16px;">Угадай число</h2>
+          <p style="font-size: 1.1em; color: #202027; margin-bottom: 24px;">
+            Компьютер загадал число от 1 до 100. Твоя задача — угадать его за наименьшее количество попыток!<br>
+            После каждой попытки ты получишь подсказку: больше или меньше.<br>
+            Введи число и проверь свою интуицию!
+          </p>
+          <button id="startGuessNumberBtn" style="margin-top: 24px; font-size: 1.2em; padding: 10px 32px; background: #33d17a; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Начать игру</button>
+        `;
+        gameContent.appendChild(startScreen);
+        modal.appendChild(gameContent);
+        document.body.appendChild(modal);
+        // --- Основной игровой интерфейс (скрыт до старта) ---
         const attemptsDisplay = document.createElement('p');
-        attemptsDisplay.style.cssText = modalStyles.message;
+        attemptsDisplay.style.cssText = 'font-size: 1.1em; color: #202027; margin-bottom: 10px;';
         attemptsDisplay.textContent = 'Попыток: 0';
-
         const input = document.createElement('input');
         input.type = 'number';
-        input.min = '1';
-        input.max = '100';
         input.placeholder = 'Введите число от 1 до 100';
         input.style.cssText = modalStyles.input;
-
-        // Обработчики событий для поля ввода
-        input.addEventListener('focus', () => {
-            input.style.borderColor = '#33d17a';
-        });
-
-        input.addEventListener('blur', () => {
-            input.style.borderColor = '#202027';
-        });
-
         const message = document.createElement('p');
         message.style.cssText = modalStyles.message;
-
         const button = document.createElement('button');
         button.textContent = 'Проверить';
         button.style.cssText = modalStyles.button;
-
-        // Обработчики событий для кнопки
-        button.addEventListener('mouseover', () => {
-            button.style.background = '#33d17a';
-            button.style.color = '#202027';
-        });
-
-        button.addEventListener('mouseout', () => {
-            button.style.background = '#202027';
-            button.style.color = 'white';
-        });
-
+        button.onclick = checkNumber;
+        input.onkeypress = (e) => {
+            if (e.key === 'Enter') {
+                checkNumber();
+            }
+        };
         const closeButton = document.createElement('button');
         closeButton.textContent = 'Закрыть';
         closeButton.style.cssText = modalStyles.button;
@@ -95,16 +72,13 @@ export async function startGuessNumberGame() {
             logger.info('Игра "Угадай число" закрыта', { attempts, secretNumber });
             modal.remove();
         };
-
         // Функция проверки числа
         function checkNumber() {
             try {
                 const guess = parseInt(input.value);
                 attempts++;
                 attemptsDisplay.textContent = `Попыток: ${attempts}`;
-
                 logger.info('Попытка угадать число', { guess, attempts });
-
                 if (isNaN(guess) || guess < 1 || guess > 100) {
                     message.innerHTML = `
                         <div style="color: #202027;">
@@ -115,24 +89,13 @@ export async function startGuessNumberGame() {
                     logger.warning('Некорректный ввод', { guess });
                     return;
                 }
-
                 if (guess === secretNumber) {
-                    // Получаем похвалу для категории или общую похвалу
-                    const encouragements = window.gameMessages.encouragements && window.gameMessages.encouragements[category];
-                    const randomEncouragement = encouragements && encouragements.length
-                        ? encouragements[Math.floor(Math.random() * encouragements.length)]
-                        : window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
-                    
-                    // Получаем цитату для категории или общую цитату
-                    const categoryQuotes = window.gameMessages.quotesByCategory && window.gameMessages.quotesByCategory[category];
-                    const randomQuote = categoryQuotes && categoryQuotes.length
-                        ? categoryQuotes[Math.floor(Math.random() * categoryQuotes.length)]
-                        : window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
-
+                    const randomEncouragement = window.gameMessages.compliments[Math.floor(Math.random() * window.gameMessages.compliments.length)];
+                    const randomQuote = window.gameMessages.quotes[Math.floor(Math.random() * window.gameMessages.quotes.length)];
                     const quoteText = randomQuote && typeof randomQuote === 'object' 
                         ? `<div style="margin-top: 15px; font-size: 16px; color: #666;">
                             ${randomQuote.text}${randomQuote.emoji ? ' ' + randomQuote.emoji : ''}
-                            ${randomQuote.author ? '<br><span style="font-size: 0.9em; color: #888;">— ' + randomQuote.author + '</span>' : ''}
+                            ${randomQuote.author ? '<br><span style=\"font-size: 0.9em; color: #888;\">— ' + randomQuote.author + '</span>' : ''}
                            </div>`
                         : randomQuote;
                     message.innerHTML = `
@@ -140,7 +103,8 @@ export async function startGuessNumberGame() {
                             Поздравляем! Вы угадали число ${secretNumber} за ${attempts} попыток!
                         </div>
                         <div style="margin-top: 15px; font-size: 16px; color: #666;">
-                            ${randomEncouragement}
+                            ${randomEncouragement.text ? randomEncouragement.text : randomEncouragement}
+                            ${randomEncouragement.emoji ? ' ' + randomEncouragement.emoji : ''}
                         </div>
                         <div style="margin-top: 15px; font-size: 16px; color: #666;">
                             ${quoteText}
@@ -161,7 +125,10 @@ export async function startGuessNumberGame() {
                     const randomMotivation = window.gameMessages.motivation[Math.floor(Math.random() * window.gameMessages.motivation.length)];
                     message.innerHTML = `
                         <div style="color: #f44336; font-weight: bold;">${hint}</div>
-                        <div style="margin-top: 10px; color: #202027;">${randomMotivation}</div>
+                        <div style="margin-top: 10px; color: #202027;">
+                            ${randomMotivation.text ? randomMotivation.text : randomMotivation}
+                            ${randomMotivation.emoji ? ' ' + randomMotivation.emoji : ''}
+                        </div>
                     `;
                     message.style.background = '#ffebee';
                     logger.info('Подсказка: число не угадано', { guess, hint });
@@ -176,28 +143,18 @@ export async function startGuessNumberGame() {
                 message.style.background = '#ffebee';
             }
         }
-
-        // Добавляем обработчики событий
-        button.onclick = checkNumber;
-        input.onkeypress = (e) => {
-            if (e.key === 'Enter') {
-                checkNumber();
-            }
-        };
-
-        // Собираем интерфейс
-        gameContent.appendChild(title);
-        gameContent.appendChild(attemptsDisplay);
-        gameContent.appendChild(input);
-        gameContent.appendChild(message);
-        gameContent.appendChild(button);
-        gameContent.appendChild(closeButton);
-        modal.appendChild(gameContent);
-        document.body.appendChild(modal);
-
-        // Фокусируемся на поле ввода
-        input.focus();
-
+        // --- Функция запуска игры после стартового экрана ---
+        function startGame() {
+            startScreen.remove();
+            gameContent.appendChild(attemptsDisplay);
+            gameContent.appendChild(input);
+            gameContent.appendChild(message);
+            gameContent.appendChild(button);
+            gameContent.appendChild(closeButton);
+            input.focus();
+        }
+        // --- Обработчик кнопки старта ---
+        document.getElementById('startGuessNumberBtn').onclick = startGame;
     } catch (error) {
         logger.error('Критическая ошибка в игре "Угадай число"', error);
         throw error; // Пробрасываем ошибку для обработки в main.js
