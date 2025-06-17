@@ -88,6 +88,7 @@ const modalStyles = {
     // Стили для планшетной версии
     tablet: {
         modalContent: `
+            background: white;
             padding: 24px;
             max-width: 500px;
             border-radius: 20px;
