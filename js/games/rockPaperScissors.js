@@ -319,8 +319,7 @@ export function startRockPaperScissorsGame() {
 
     // --- Функция запуска игры после стартового экрана ---
     function startGame() {
-        startScreen.remove();
-        // Вставить сюда весь основной игровой интерфейс:
+        gameContent.innerHTML = '';
         gameContent.appendChild(title);
         gameContent.appendChild(statsContainer);
         gameContent.appendChild(resultDisplay);
