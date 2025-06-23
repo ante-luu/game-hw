@@ -105,6 +105,7 @@ const gameElementStyles = {
     question: `
       font-size: 20px;
       margin: 16px 0;
+      color: #202027;
     `,
     message: `
       margin: 16px 0;
